@@ -12,4 +12,25 @@
     <ion-icon name="arrow-back"></ion-icon>
   </button>
 
+  <h4>solicitud de tramite</h4>
+
+
+  <ion-grid text-center>
+    <ion-row>
+      <ion-col col-12 col-md-6 offset-md-3>
+        <ion-item>
+          <ion-label stacked>Tipo de trámite</ion-label>
+          <ion-select [(ngModel)]="tramite.tipo_tramite_id">
+            <ion-option value="nes">NES</ion-option>
+            <ion-option value="n64">Nintendo64</ion-option>
+            <ion-option value="ps">PlayStation</ion-option>
+            <ion-option value="genesis">Sega Genesis</ion-option>
+            <ion-option value="saturn">Sega Saturn</ion-option>
+            <ion-option value="snes">SNES</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

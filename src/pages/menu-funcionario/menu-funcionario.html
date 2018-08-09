@@ -2,18 +2,18 @@
 
   <ion-navbar color="primary">
     <ion-title>Menú de Administrador</ion-title>
-
-
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-
+    <ion-buttons end>
+      <ion-title>{{usuario.nombre}}</ion-title>
+    </ion-buttons>
 
   </ion-navbar>
 
 </ion-header>
 <ion-split-pane>
-  <ion-menu [content]="menuAdmin">
+  <ion-menu [content]="menuFuncionario">
 
     <ion-header>
       <ion-toolbar>
@@ -24,31 +24,35 @@
     <ion-content>
       <ion-list>
 
-        <button ion-item (click)="abrirPagina(configuracion)">
+        <button ion-item (click)="abrirPagina(configuracion)" menuClose>
           Configuración
         </button>
 
-        <button ion-item (click)="abrirPagina(usuarios)">
+        <button ion-item (click)="abrirPagina(usuarios)" menuClose>
           Usuarios
         </button>
 
-        <button ion-item (click)="abrirPagina(consultas)">
+        <button ion-item (click)="abrirPagina(consultas)" menuClose>
           Consultas
         </button>
 
-        <button ion-item (click)="abrirPagina(tramites)">
+        <button ion-item (click)="abrirPagina(tramites)" menuClose>
           Tramites
         </button>
 
-        <button ion-item (click)="abrirPagina(citas)">
+        <button ion-item (click)="abrirPagina(citas)" menuClose>
           Citas
+        </button>
+
+        <button ion-item navPop>
+          Cerrar sesión
         </button>
 
       </ion-list>
     </ion-content>
   </ion-menu>
 
-  <ion-nav #menuAdmin main swipeBackEnabled="false">
+  <ion-nav #menuFuncionario main swipeBackEnabled="false">
 
   </ion-nav>
 </ion-split-pane>

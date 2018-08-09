@@ -1,7 +1,6 @@
 import { RegistroTramitePage } from './../pages/registro-tramite/registro-tramite';
 import { ConfiguracionPage } from './../pages/configuracion/configuracion';
 import { MenuClientePage } from './../pages/menu-cliente/menu-cliente';
-import { MenuAdminPage } from './../pages/menu-admin/menu-admin';
 import { HomePage } from './../pages/home/home';
 import { UsuariosPage } from './../pages/usuarios/usuarios';
 import { ConsultasPage } from './../pages/consultas/consultas';
@@ -18,13 +17,14 @@ import { HttpProvider } from '../providers/http/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RegistroClientePage } from '../pages/registro-cliente/registro-cliente';
 import { UserProvider } from '../providers/user/user';
+import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario';
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    MenuAdminPage,
+    MenuFuncionarioPage,
     MenuClientePage,
     ConfiguracionPage,
     UsuariosPage,
@@ -43,7 +43,7 @@ import { UserProvider } from '../providers/user/user';
   entryComponents: [
     MyApp,
     HomePage,
-    MenuAdminPage,
+    MenuFuncionarioPage,
     MenuClientePage,
     ConfiguracionPage,
     UsuariosPage,

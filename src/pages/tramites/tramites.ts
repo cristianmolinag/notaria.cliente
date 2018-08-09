@@ -28,9 +28,4 @@ export class TramitesPage {
       this.isCliente = true;
     }
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TramitesPage');
-  }
-
 }
