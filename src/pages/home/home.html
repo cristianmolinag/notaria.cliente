@@ -1,14 +1,93 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content text-center>
+  <div padding>
+    <ion-segment [(ngModel)]="home">
+      <ion-segment-button value="intranet">
+        Intranet
+      </ion-segment-button>
+      <ion-segment-button value="cliente">
+        Cliente
+      </ion-segment-button>
+      <ion-segment-button value="consulta">
+        Consulta
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-img width="130" height="90" src="../../assets/imgs/N61.png"></ion-img>
+
+  <div [ngSwitch]="home">
+
+    <ion-list *ngSwitchCase="'intranet'">
+
+      <h4 text-center>Inicio de sesión de funcionarios</h4>
+
+      <div padding col-lg-6 offset-lg-3>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Correo</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Contraseña</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <br>
+        <button ion-button block (click)="abrirPagina(menuAdmin)">Iniciar Sesión</button>
+
+        <ion-item align-items-center no-lines>
+          <button ion-button outline color="danger">Recordar contraseña</button>
+        </ion-item>
+
+      </div>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'cliente'">
+
+      <h4 text-center>Inicio de sesión de clientes</h4>
+
+      <div padding col-lg-6 offset-lg-3>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Correo</ion-label>
+          <ion-input [(ngModel)]="cliente.correo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Contraseña</ion-label>
+          <ion-input [(ngModel)]="cliente.contrasena"></ion-input>
+        </ion-item>
+        <br>
+        <button ion-button block (click)="loginCliente()">Iniciar Sesión</button>
+
+        <ion-item align-items-center no-lines>
+          <button ion-button outline color="danger">Recordar contraseña</button>
+          <button ion-button outline color="primary" [navPush]="registroCliente">Registrarme</button>
+        </ion-item>
+
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'consulta'">
+      <h4 text-center>Consulta de documentos</h4>
+
+      <div padding col-lg-6 offset-lg-3>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Documento</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" floating color="dark">Código de autorización</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <br>
+        <button ion-button round>Consultar</button>
+      </div>
+
+
+    </ion-list>
+  </div>
+
+
 </ion-content>
+<ion-footer text-center>
+  <img class="img-footer" width="70px" src="../../assets/imgs/LogoSNR.png">
+  <img class="img-footer" width="70px" src="../../assets/imgs/9899.png">
+</ion-footer>

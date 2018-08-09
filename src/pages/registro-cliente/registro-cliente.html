@@ -1,0 +1,89 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Registro de clientes</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>1er. Nombre</ion-label>
+          <ion-input [(ngModel)]="persona.primer_nombre" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>2do. Nombre</ion-label>
+          <ion-input [(ngModel)]="persona.segundo_nombre" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>1er. Apellido</ion-label>
+          <ion-input [(ngModel)]="persona.primer_apellido" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>2do. Apellido</ion-label>
+          <ion-input [(ngModel)]="persona.segundo_apellido" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Nacionalidad</ion-label>
+          <ion-select [(ngModel)]="persona.nacionalidad_id">
+            <ion-option *ngFor="let item of nacionalidades" [value]="item.id">{{item.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Tipo Documento</ion-label>
+          <ion-select [(ngModel)]="persona.tipo_documento_id">
+            <ion-option *ngFor="let item of tiposDocumento" [value]="item.id">{{item.nombre}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Documento</ion-label>
+          <ion-input type="number" [(ngModel)]="persona.documento" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Correo</ion-label>
+          <ion-input type="email" [(ngModel)]="usuario.correo" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="usuario.contrasena" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 text-center>
+        <button ion-button block (click)="registro()"> Registrar cuenta </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

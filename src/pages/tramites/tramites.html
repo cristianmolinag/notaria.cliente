@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h4>Menú de trámites</h4>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 col-md-2 offset-md-10>
+        <button ion-button outline color="secondary" [navPush]="registroTramite">Nuevo</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p>{{ tituloTabla }}</p>
+
+  <ion-card *ngFor="let tramite of tramites">
+
+    <ion-card-header>
+      <h4>Tramite # {{ tramite.id }}</h4>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p>
+        <strong>Tipo: </strong>{{ tramite.tipo }}</p>
+      <p>
+        <strong>Fecha Solicitud: </strong>{{ tramite.created_at }}</p>
+      <p>
+        <strong>Fecha Actualización: </strong>{{ tramite.updated_at }}</p>
+      <p>
+        <strong>Estado: </strong>{{ tramite.estado }}</p>
+      <p>
+        <strong>Motivo: </strong>{{ tramite.observaciones }}</p>
+      <p>
+        <strong>Descarga: </strong>
+        <a [href]="tramite.descarga">{{ tramite.descarga }}</a>
+      </p>
+
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>

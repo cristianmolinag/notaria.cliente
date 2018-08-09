@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Menú de Administrador</ion-title>
+
+
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+
+  </ion-navbar>
+
+</ion-header>
+<ion-split-pane>
+  <ion-menu [content]="menuAdmin">
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Páginas</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+
+        <button ion-item (click)="abrirPagina(configuracion)">
+          Configuración
+        </button>
+
+        <button ion-item (click)="abrirPagina(usuarios)">
+          Usuarios
+        </button>
+
+        <button ion-item (click)="abrirPagina(consultas)">
+          Consultas
+        </button>
+
+        <button ion-item (click)="abrirPagina(tramites)">
+          Tramites
+        </button>
+
+        <button ion-item (click)="abrirPagina(citas)">
+          Citas
+        </button>
+
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-nav #menuAdmin main swipeBackEnabled="false">
+
+  </ion-nav>
+</ion-split-pane>
