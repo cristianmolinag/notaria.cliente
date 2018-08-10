@@ -1,3 +1,4 @@
+import { RegistroCivilNacimientoPage } from './../pages/registro-civil-nacimiento/registro-civil-nacimiento';
 import { RegistroTramitePage } from './../pages/registro-tramite/registro-tramite';
 import { ConfiguracionPage } from './../pages/configuracion/configuracion';
 import { MenuClientePage } from './../pages/menu-cliente/menu-cliente';
@@ -32,7 +33,8 @@ import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario'
     CitasPage,
     TramitesPage,
     RegistroClientePage,
-    RegistroTramitePage
+    RegistroTramitePage,
+    RegistroCivilNacimientoPage,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario'
     CitasPage,
     TramitesPage,
     RegistroClientePage,
-    RegistroTramitePage
+    RegistroTramitePage,
+    RegistroCivilNacimientoPage,
   ],
   providers: [
     StatusBar,

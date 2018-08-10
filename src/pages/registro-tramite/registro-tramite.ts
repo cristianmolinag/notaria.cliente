@@ -1,5 +1,7 @@
+import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TipoTramite, Tramite } from '../../models/global';
 
 @Component({
   selector: 'page-registro-tramite',
@@ -7,31 +9,33 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RegistroTramitePage {
 
-  tipoTramite: TipoTramite;
+  tiposTramite: TipoTramite[];
   tramite: Tramite;
 
+  busqueda: any;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
 
+
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private http: HttpProvider) {
+
+    this.busqueda = Array<{ tipo_tramite: string, filtro: string }>();
+
+
+
+  }
+
+  getTiposTramite() {
+    this.http.get('tipo_tramite').then((data: TipoTramite[]) => {
+      this.tiposTramite = data;
+    });
 
   }
 
 }
 
-export class TipoTramite {
-  id: number;
-  nombre: string;
-}
-
-export class Tramite {
-  id: number;
-  tipo_tramite_id: number;
-  estado_tramite_id: number;
-  forma_pago_id: number;
-  cliente_id: number;
-
-
-}
 
 

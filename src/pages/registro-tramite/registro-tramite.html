@@ -12,25 +12,43 @@
     <ion-icon name="arrow-back"></ion-icon>
   </button>
 
-  <h4>solicitud de tramite</h4>
-
+  <h4>Buscar Registro Civil</h4>
 
   <ion-grid text-center>
+    <ion-row col-12 col-md-6 offset-md-3>
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Seleccione una opción</ion-label>
+          <ion-select [(ngModel)]="busqueda.tipo_tramite">
+            <ion-option value="1">RC Nacimiento</ion-option>
+            <ion-option value="2">RC Matrimonio</ion-option>
+            <ion-option value="3">RC Defuncion</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item>
+          <ion-label stacked>Digite el filtro</ion-label>
+          <ion-input type="text" value=""></ion-input>
+        </ion-item>
+      </ion-col>
+      <!-- <ion-item no-lines> -->
+      <button ion-button full>Buscar</button>
+      <!-- </ion-item> -->
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-grid text-center>
     <ion-row>
       <ion-col col-12 col-md-6 offset-md-3>
         <ion-item>
           <ion-label stacked>Tipo de trámite</ion-label>
           <ion-select [(ngModel)]="tramite.tipo_tramite_id">
-            <ion-option value="nes">NES</ion-option>
-            <ion-option value="n64">Nintendo64</ion-option>
-            <ion-option value="ps">PlayStation</ion-option>
-            <ion-option value="genesis">Sega Genesis</ion-option>
-            <ion-option value="saturn">Sega Saturn</ion-option>
-            <ion-option value="snes">SNES</ion-option>
+            <ion-option *ngFor="let item of tiposTramite" [value]="item.id">{{item.nombre}}</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
 </ion-content>

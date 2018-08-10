@@ -6,6 +6,7 @@ import { UsuariosPage } from '../usuarios/usuarios';
 import { ConsultasPage } from '../consultas/consultas';
 import { TramitesPage } from '../tramites/tramites';
 import { CitasPage } from '../citas/citas';
+import { RegistroCivilNacimientoPage } from '../registro-civil-nacimiento/registro-civil-nacimiento';
 
 @Component({
   selector: 'page-menu-funcionario',
@@ -20,6 +21,7 @@ export class MenuFuncionarioPage {
   consultas: any = ConsultasPage;
   tramites: any = TramitesPage;
   citas: any = CitasPage;
+  rcNacimiento: any = RegistroCivilNacimientoPage;
   usuario: any;
 
 

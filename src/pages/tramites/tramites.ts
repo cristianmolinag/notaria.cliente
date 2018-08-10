@@ -23,9 +23,9 @@ export class TramitesPage {
     this.registroTramite = RegistroTramitePage
 
     const usuario = this.user.getUsuario()
-    if (usuario.perfil === 'cliente') {
-      this.tituloTabla = 'Histórico de sus trámites:'
-      this.isCliente = true;
-    }
+    // if (usuario.perfil === 'cliente') {
+    //   this.tituloTabla = 'Histórico de sus trámites:'
+    //   this.isCliente = true;
+    // }
   }
 }

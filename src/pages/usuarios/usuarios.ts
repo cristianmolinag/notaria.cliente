@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the UsuariosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DomSanitizer } from '../../../node_modules/@angular/platform-browser';
 
 @Component({
   selector: 'page-usuarios',
@@ -14,11 +8,14 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class UsuariosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  segmento: string;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private satin: DomSanitizer) {
+
+    this.segmento = 'funcionarios';
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UsuariosPage');
-  }
 
 }

@@ -27,6 +27,26 @@
   <ion-card>
     <ion-item>
       <ion-avatar item-end>
+        <button ion-button clear (click)="guardarRol()">
+          <ion-icon color="secondary" name="create"></ion-icon>
+        </button>
+      </ion-avatar>
+      <h2>Rol</h2>
+      <p>Listado de roles</p>
+    </ion-item>
+    <ion-item *ngFor="let item of roles">
+      <p>{{ item.nombre }}</p>
+      <ion-avatar item-end>
+        <button ion-button clear (click)="guardarRol(item)">
+          <ion-icon name="hammer"></ion-icon>
+        </button>
+      </ion-avatar>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-end>
         <button ion-button clear (click)="guardarTipoDocumento()">
           <ion-icon color="secondary" name="create"></ion-icon>
         </button>

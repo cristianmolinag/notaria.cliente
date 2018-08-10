@@ -5,6 +5,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 import { MenuClientePage } from '../menu-cliente/menu-cliente';
 import { MenuFuncionarioPage } from '../menu-funcionario/menu-funcionario';
+import { Usuario } from '../../models/global';
 
 
 @Component({
@@ -18,8 +19,8 @@ export class HomePage {
   menuCliente: any = MenuClientePage;
   rootPage: any;
   registroCliente: any;
-  cliente: Cliente;
-  funcionario: Funcionario;
+  cliente: Usuario;
+  funcionario: Usuario;
 
 
   constructor(public navCtrl: NavController,
@@ -27,8 +28,8 @@ export class HomePage {
     private http: HttpProvider,
     private user: UserProvider) {
 
-    this.cliente = new Cliente;
-    this.funcionario = new Funcionario;
+    this.cliente = new Usuario;
+    this.funcionario = new Usuario;
 
     this.home = 'consulta';
     this.registroCliente = RegistroClientePage;
@@ -43,7 +44,7 @@ export class HomePage {
       toast.present();
     }
     else {
-      this.http.post('cliente/login', this.cliente).then((data: any) => {
+      this.http.post('usuario/login', this.cliente).then((data: any) => {
 
         if (data.mensaje) {
           const toast = this.toastCtrl.create({
@@ -55,7 +56,7 @@ export class HomePage {
         else {
           this.user.setUsuario(data.data);
           const toast = this.toastCtrl.create({
-            message: "Bienvenido " + data.data.nombre,
+            message: "Bienvenido " + data.data.nombres,
             duration: 3000
           });
           toast.present();
@@ -74,7 +75,7 @@ export class HomePage {
       toast.present();
     }
     else {
-      this.http.post('funcionario/login', this.funcionario).then((data: any) => {
+      this.http.post('usuario/login', this.funcionario).then((data: any) => {
 
         if (data.mensaje) {
           const toast = this.toastCtrl.create({
@@ -86,7 +87,7 @@ export class HomePage {
         else {
           this.user.setUsuario(data.data);
           const toast = this.toastCtrl.create({
-            message: "Bienvenido " + data.data.nombre,
+            message: "Bienvenido " + data.data.nombres,
             duration: 3000
           });
           toast.present();
@@ -95,16 +96,4 @@ export class HomePage {
       });
     }
   }
-}
-
-export class Cliente {
-  correo: string;
-  contrasena: string;
-}
-
-export class Funcionario {
-  correo: string;
-  contrasena: string;
-  firma: string;
-  usuario_id;
 }

@@ -1,6 +1,8 @@
+import { Departamento } from './../../models/global';
 import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { FormaPago, TipoDocumento, Nacionalidad, EstadoTramite, Genero, TipoTramite, Rol } from '../../models/global';
 
 @Component({
   selector: 'page-configuracion',
@@ -14,6 +16,7 @@ export class ConfiguracionPage {
   estadosTramite: EstadoTramite[];
   generos: Genero[];
   tiposTramite: TipoTramite[];
+  roles: Rol[];
 
   tipoDocumento: TipoDocumento;
   formaPago: FormaPago;
@@ -21,6 +24,7 @@ export class ConfiguracionPage {
   estadoTramite: EstadoTramite;
   genero: Genero;
   tipoTramite: TipoTramite;
+  rol: Rol;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,6 +32,7 @@ export class ConfiguracionPage {
     private http: HttpProvider,
     private toastCtrl: ToastController) {
 
+    this.getRoles();
     this.getTiposDocumento();
     this.getFormasPago();
     this.getNacionalidades();
@@ -36,44 +41,100 @@ export class ConfiguracionPage {
     this.getTiposTramite();
   }
 
+  getRoles() {
+    this.http.get('rol').then((data: any) => {
+      this.roles = data.data
+    });
+  }
 
   getTiposDocumento() {
     this.http.get('tipo_documento').then((data: any) => {
-      this.tiposDocumento = data;
+      this.tiposDocumento = data.data;
     });
   }
 
 
   getFormasPago() {
     this.http.get('forma_pago').then((data: any) => {
-      this.formasPago = data;
+      this.formasPago = data.data;
     });
   }
 
   getNacionalidades() {
     this.http.get('nacionalidad').then((data: any) => {
-      this.nacionalidades = data;
+      this.nacionalidades = data.data;
     });
   }
 
   getEstadosTramite() {
     this.http.get('estado_tramite').then((data: any) => {
-      this.estadosTramite = data;
+      this.estadosTramite = data.data;
     });
   }
 
   getGeneros() {
     this.http.get('genero').then((data: any) => {
-      this.generos = data;
+      this.generos = data.data;
     });
   }
 
   getTiposTramite() {
     this.http.get('tipo_tramite').then((data: any) => {
-      this.tiposTramite = data;
+      this.tiposTramite = data.data;
     });
   }
 
+  guardarRol(item: any) {
+
+    if (!item)
+      this.rol = new Rol();
+    else
+      this.rol = item;
+
+    const prompt = this.alertCtrl.create({
+      title: 'Rol',
+      message: "Digite el nombre del rol",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+          value: this.rol.nombre
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Guardar',
+          handler: data => {
+            this.rol.nombre = data.nombre;
+            if (this.rol.id) {
+              this.actRol(this.rol);
+            }
+            else {
+              this.nuevoRol(this.rol);
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  actRol(data) {
+    this.http.put('rol/' + data.id, data).then((data: any) => {
+    });
+  }
+
+  nuevoRol(data) {
+    this.http.post('rol', data).then((data: any) => {
+      this.roles.push(data.data);
+    });
+  }
 
   guardarTipoDocumento(item: any) {
 
@@ -123,7 +184,7 @@ export class ConfiguracionPage {
 
   nuevoTipoDocumento(data) {
     this.http.post('tipo_documento', data).then((data: any) => {
-      this.tiposDocumento.push(data);
+      this.tiposDocumento.push(data.data);
     });
   }
 
@@ -176,7 +237,7 @@ export class ConfiguracionPage {
 
   nuevoFormaPago(data) {
     this.http.post('forma_pago', data).then((data: any) => {
-      this.formasPago.push(data);
+      this.formasPago.push(data.data);
     });
   }
 
@@ -228,7 +289,7 @@ export class ConfiguracionPage {
 
   nuevoNacionalidad(data) {
     this.http.post('nacionalidad', data).then((data: any) => {
-      this.nacionalidades.push(data);
+      this.nacionalidades.push(data.data);
     });
   }
 
@@ -397,32 +458,3 @@ export class ConfiguracionPage {
   }
 }
 
-export class TipoDocumento {
-  id: number;
-  nombre?: string;
-}
-export class FormaPago {
-  id: number;
-  nombre?: string;
-}
-
-export class Nacionalidad {
-  id: number;
-  nombre?: string;
-}
-
-export class EstadoTramite {
-  id: number;
-  nombre?: string;
-}
-
-export class Genero {
-  id: number;
-  nombre?: string;
-}
-
-export class TipoTramite {
-  id: number;
-  nombre?: string;
-  valor?: string;
-}

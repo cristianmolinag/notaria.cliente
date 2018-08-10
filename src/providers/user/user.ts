@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Usuario } from '../../models/global';
 
 /*
   Generated class for the UserProvider provider.
@@ -24,11 +25,5 @@ export class UserProvider {
     return this.usuario;
   }
 
-}
-
-export class Usuario {
-  nombre: string;
-  perfil: string;
-  remember_token: string;
 }
 

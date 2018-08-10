@@ -6,5 +6,28 @@
 
 
 <ion-content padding>
-  hola usuarios
+  <div padding>
+    <ion-segment [(ngModel)]="segmento">
+      <ion-segment-button value="funcionarios">
+        Funcionarios
+      </ion-segment-button>
+      <ion-segment-button value="clientes">
+        Clientes
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="segmento">
+    <ion-list *ngSwitchCase="'funcionarios'">
+      <ion-item>
+        <h2>Funcionarios</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'clientes'">
+      <ion-item>
+        <h2>Clientes</h2>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

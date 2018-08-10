@@ -1,6 +1,7 @@
 import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { Persona, Usuario, TipoDocumento, Nacionalidad } from '../../models/global';
 
 
 
@@ -84,33 +85,4 @@ export class RegistroClientePage {
       });
     }
   }
-
-
 }
-
-export class Persona {
-  primer_nombre: string;
-  segundo_nombre: string;
-  primer_apellido: string;
-  segundo_apellido: string;
-  documento: number;
-  tipo_documento_id: number;
-  nacionalidad_id: number;
-}
-
-export class Usuario {
-  correo: string;
-  contrasena: string;
-  estado: number;
-}
-
-export class TipoDocumento {
-  id: number;
-  nombre: string;
-}
-
-export class Nacionalidad {
-  id: number;
-  nombre: string;
-}
-
