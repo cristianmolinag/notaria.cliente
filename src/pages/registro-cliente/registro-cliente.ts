@@ -1,7 +1,7 @@
 import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { Persona, Usuario, TipoDocumento, Nacionalidad } from '../../models/global';
+import { Usuario } from '../../models/global';
 
 
 
@@ -13,46 +13,19 @@ import { Persona, Usuario, TipoDocumento, Nacionalidad } from '../../models/glob
 
 export class RegistroClientePage {
 
-  persona: Persona;
   usuario: Usuario;
-  tiposDocumento: TipoDocumento[];
-  nacionalidades: Nacionalidad[];
 
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, private toastCtrl: ToastController) {
 
-    this.persona = new Persona;
     this.usuario = new Usuario;
 
-    this.getTiposDocumento();
-    this.getNacionalidades();
-  }
-
-  getTiposDocumento() {
-    this.http.get('tipo_documento').then((data: any) => {
-      console.log(data);
-      this.tiposDocumento = data;
-    });
-
-
-  }
-
-  getNacionalidades() {
-    this.http.get('nacionalidad').then((data: any) => {
-      console.log(data);
-      this.nacionalidades = data;
-    });
   }
 
   registro() {
-    if (!this.persona.documento ||
-      !this.persona.nacionalidad_id ||
-      !this.persona.primer_apellido ||
-      !this.persona.primer_nombre ||
-      !this.persona.segundo_apellido ||
-      !this.persona.segundo_nombre ||
-      !this.persona.tipo_documento_id ||
+    if (!this.usuario.nombres ||
+      !this.usuario.apellidos ||
       !this.usuario.contrasena ||
       !this.usuario.correo) {
 
@@ -63,10 +36,8 @@ export class RegistroClientePage {
       toast.present();
     }
     else {
-      const data: any = { persona: this.persona, usuario: this.usuario };
 
-      JSON.stringify(data);
-      this.http.post('cliente', data).then((data: any) => {
+      this.http.post('usuario/registro/cliente', this.usuario).then((data: any) => {
         if (data.mensaje) {
           const toast = this.toastCtrl.create({
             message: data.mensaje,

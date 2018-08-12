@@ -1,8 +1,10 @@
-import { Departamento } from './../../models/global';
+import { RegistroCorregimientoPage } from './../registro-corregimiento/registro-corregimiento';
+import { RegistroDepartamentoPage } from './../registro-departamento/registro-departamento';
 import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
-import { FormaPago, TipoDocumento, Nacionalidad, EstadoTramite, Genero, TipoTramite, Rol } from '../../models/global';
+import { NavController, NavParams, AlertController, ToastController, ModalController } from 'ionic-angular';
+import { FormaPago, TipoDocumento, Nacionalidad, EstadoTramite, Genero, TipoTramite, GrupoSangre, RH, Antecedente, Pais, Departamento, Municipio, Corregimiento } from '../../models/global';
+import { RegistroMunicipioPage } from '../registro-municipio/registro-municipio';
 
 @Component({
   selector: 'page-configuracion',
@@ -10,95 +12,86 @@ import { FormaPago, TipoDocumento, Nacionalidad, EstadoTramite, Genero, TipoTram
 })
 export class ConfiguracionPage {
 
+  gruposSangre: GrupoSangre[];
+  factoresRH: RH[];
   tiposDocumento: TipoDocumento[];
   formasPago: FormaPago[];
   nacionalidades: Nacionalidad[];
   estadosTramite: EstadoTramite[];
   generos: Genero[];
   tiposTramite: TipoTramite[];
-  roles: Rol[];
+  antecedentes: Antecedente[];
+  paises: Pais[];
+  departamentos: Departamento[];
+  municipios: Municipio[];
+  corregimientos: Corregimiento[];
 
+  grupoSangre: GrupoSangre;
+  factorRH: RH;
   tipoDocumento: TipoDocumento;
   formaPago: FormaPago;
   nacionalidad: Nacionalidad;
   estadoTramite: EstadoTramite;
   genero: Genero;
   tipoTramite: TipoTramite;
-  rol: Rol;
+  antecedente: Antecedente;
+  pais: Pais;
+  departamento: Departamento;
+  municipio: Municipio;
+  corregimiento: Corregimiento;
+
+  registroDepartamento: any;
+  registroMunicipio: any;
+  registroCorregimiento: any;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private http: HttpProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController) {
 
-    this.getRoles();
-    this.getTiposDocumento();
-    this.getFormasPago();
-    this.getNacionalidades();
-    this.getEstadosTramite();
-    this.getGeneros();
-    this.getTiposTramite();
+    this.getData();
+
+    this.registroDepartamento = RegistroDepartamentoPage;
+    this.registroMunicipio = RegistroMunicipioPage;
+    this.registroCorregimiento = RegistroCorregimientoPage;
   }
 
-  getRoles() {
-    this.http.get('rol').then((data: any) => {
-      this.roles = data.data
-    });
+  getData() {
+
+    this.http.get('grupo_sanguineo').then((data: any) => this.gruposSangre = data.data);
+    this.http.get('factor_rh').then((data: any) => this.factoresRH = data.data);
+    this.http.get('tipo_documento').then((data: any) => this.tiposDocumento = data.data);
+    this.http.get('forma_pago').then((data: any) => this.formasPago = data.data);
+    this.http.get('estado_tramite').then((data: any) => this.estadosTramite = data.data);
+    this.http.get('genero').then((data: any) => this.generos = data.data);
+    this.http.get('tipo_tramite').then((data: any) => this.tiposTramite = data.data);
+    this.http.get('antecedente').then((data: any) => this.antecedentes = data.data);
+    this.http.get('pais').then((data: any) => this.paises = data.data);
+    this.http.get('departamento').then((data: any) => this.departamentos = data.data);
+    this.http.get('municipio').then((data: any) => this.municipios = data.data);
+    this.http.get('corregimiento').then((data: any) => this.corregimiento = data.data);
+
   }
 
-  getTiposDocumento() {
-    this.http.get('tipo_documento').then((data: any) => {
-      this.tiposDocumento = data.data;
-    });
-  }
 
-
-  getFormasPago() {
-    this.http.get('forma_pago').then((data: any) => {
-      this.formasPago = data.data;
-    });
-  }
-
-  getNacionalidades() {
-    this.http.get('nacionalidad').then((data: any) => {
-      this.nacionalidades = data.data;
-    });
-  }
-
-  getEstadosTramite() {
-    this.http.get('estado_tramite').then((data: any) => {
-      this.estadosTramite = data.data;
-    });
-  }
-
-  getGeneros() {
-    this.http.get('genero').then((data: any) => {
-      this.generos = data.data;
-    });
-  }
-
-  getTiposTramite() {
-    this.http.get('tipo_tramite').then((data: any) => {
-      this.tiposTramite = data.data;
-    });
-  }
-
-  guardarRol(item: any) {
+  guardarGrupoSangre(item: any) {
 
     if (!item)
-      this.rol = new Rol();
+      this.grupoSangre = new GrupoSangre();
     else
-      this.rol = item;
+      this.grupoSangre = item;
 
     const prompt = this.alertCtrl.create({
-      title: 'Rol',
-      message: "Digite el nombre del rol",
+      title: 'Tipo de sangre',
+      message: "Digite el nombre del grupo sanguineo",
       inputs: [
         {
           name: 'nombre',
           placeholder: 'Nombre',
-          value: this.rol.nombre
+          value: this.grupoSangre.nombre
         },
       ],
       buttons: [
@@ -111,12 +104,12 @@ export class ConfiguracionPage {
         {
           text: 'Guardar',
           handler: data => {
-            this.rol.nombre = data.nombre;
-            if (this.rol.id) {
-              this.actRol(this.rol);
+            this.grupoSangre.nombre = data.nombre;
+            if (this.grupoSangre.id) {
+              this.actGrupoSangre(this.grupoSangre);
             }
             else {
-              this.nuevoRol(this.rol);
+              this.nuevoGrupoSangre(this.grupoSangre);
             }
           }
         }
@@ -125,14 +118,66 @@ export class ConfiguracionPage {
     prompt.present();
   }
 
-  actRol(data) {
-    this.http.put('rol/' + data.id, data).then((data: any) => {
+  actGrupoSangre(data) {
+    this.http.put('grupo_sanguineo/' + data.id, data).then((data: any) => {
     });
   }
 
-  nuevoRol(data) {
-    this.http.post('rol', data).then((data: any) => {
-      this.roles.push(data.data);
+  nuevoGrupoSangre(data) {
+    this.http.post('grupo_sanguineo', data).then((data: any) => {
+      this.gruposSangre.push(data.data);
+    });
+  }
+
+  guardarFactorRH(item: any) {
+
+    if (!item)
+      this.factorRH = new RH();
+    else
+      this.factorRH = item;
+
+    const prompt = this.alertCtrl.create({
+      title: 'Factor RH',
+      message: "Digite el nombre del factor RH",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+          value: this.factorRH.nombre
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Guardar',
+          handler: data => {
+            this.factorRH.nombre = data.nombre;
+            if (this.factorRH.id) {
+              this.actFactorRH(this.factorRH);
+            }
+            else {
+              this.nuevoFactorRH(this.factorRH);
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  actFactorRH(data) {
+    this.http.put('factor_rh/' + data.id, data).then((data: any) => {
+    });
+  }
+
+  nuevoFactorRH(data) {
+    this.http.post('factor_rh', data).then((data: any) => {
+      this.factoresRH.push(data.data);
     });
   }
 
@@ -187,7 +232,6 @@ export class ConfiguracionPage {
       this.tiposDocumento.push(data.data);
     });
   }
-
 
   guardarFormaPago(item: any) {
 
@@ -341,7 +385,7 @@ export class ConfiguracionPage {
 
   nuevoEstTramite(data) {
     this.http.post('estado_tramite', data).then((data: any) => {
-      this.estadosTramite.push(data);
+      this.estadosTramite.push(data.data);
     });
   }
 
@@ -393,7 +437,7 @@ export class ConfiguracionPage {
 
   nuevoGenero(data) {
     this.http.post('genero', data).then((data: any) => {
-      this.generos.push(data);
+      this.generos.push(data.data);
     });
   }
 
@@ -405,7 +449,7 @@ export class ConfiguracionPage {
       this.tipoTramite = item;
 
     const prompt = this.alertCtrl.create({
-      title: 'Genero',
+      title: 'Tipo de trámite',
       message: "Digite el tipo de trámite",
       inputs: [
         {
@@ -453,8 +497,133 @@ export class ConfiguracionPage {
 
   nuevoTipoTramite(data) {
     this.http.post('tipo_tramite', data).then((data: any) => {
-      this.tiposTramite.push(data);
+      this.tiposTramite.push(data.data);
     });
   }
+
+  guardarAntecedente(item: any) {
+
+    if (!item)
+      this.antecedente = new Antecedente();
+    else
+      this.antecedente = item;
+
+    const prompt = this.alertCtrl.create({
+      title: 'Antecedente',
+      message: "Digite el Antecedente",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+          value: this.antecedente.nombre
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Guardar',
+          handler: data => {
+            this.antecedente.nombre = data.nombre;
+
+            if (this.antecedente.id) {
+              this.actAntecedente(this.antecedente);
+            }
+            else {
+              this.nuevoAntecedente(this.antecedente);
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  actAntecedente(data) {
+    this.http.put('antecedente/' + data.id, data).then();
+  }
+
+  nuevoAntecedente(data) {
+    this.http.post('antecedente', data).then((data: any) => this.antecedentes.push(data.data));
+  }
+
+  guardarPais(item: any) {
+
+    if (!item)
+      this.pais = new Pais();
+    else
+      this.pais = item;
+
+    const prompt = this.alertCtrl.create({
+      title: 'Pais',
+      message: "Digite el pais",
+      inputs: [
+        {
+          name: 'nombre',
+          placeholder: 'Nombre',
+          value: this.pais.nombre
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Guardar',
+          handler: data => {
+            this.pais.nombre = data.nombre;
+
+            if (this.pais.id) {
+              this.actPais(this.pais);
+            }
+            else {
+              this.nuevoPais(this.pais);
+            }
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+
+  actPais(data) {
+    this.http.put('pais/' + data.id, data).then();
+  }
+
+  nuevoPais(data) {
+    this.http.post('pais', data).then((data: any) => this.paises.push(data.data));
+  }
+
+  guardarDepartamento(item) {
+    let modal = this.modalCtrl.create(this.registroDepartamento, { data: item });
+    modal.onDidDismiss(data => {
+      this.http.get('departamento').then((data: any) => this.departamentos = data.data);
+    });
+    modal.present();
+  }
+
+  guardarMunicipio(item) {
+    let modal = this.modalCtrl.create(this.registroMunicipio, { data: item });
+    modal.onDidDismiss(data => {
+      this.http.get('municipio').then((data: any) => this.municipios = data.data);
+    });
+    modal.present();
+  }
+
+  guardarCorregimiento(item) {
+    let modal = this.modalCtrl.create(this.registroCorregimiento, { data: item });
+    modal.onDidDismiss(data => {
+      this.http.get('corregimiento').then((data: any) => this.corregimientos = data.data);
+    });
+    modal.present();
+  }
+
 }
 

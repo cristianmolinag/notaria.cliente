@@ -1,3 +1,4 @@
+import { RegistroCorregimientoPage } from './../pages/registro-corregimiento/registro-corregimiento';
 import { RegistroCivilNacimientoPage } from './../pages/registro-civil-nacimiento/registro-civil-nacimiento';
 import { RegistroTramitePage } from './../pages/registro-tramite/registro-tramite';
 import { ConfiguracionPage } from './../pages/configuracion/configuracion';
@@ -19,6 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegistroClientePage } from '../pages/registro-cliente/registro-cliente';
 import { UserProvider } from '../providers/user/user';
 import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario';
+import { RegistroDepartamentoPage } from '../pages/registro-departamento/registro-departamento';
+import { RegistroMunicipioPage } from '../pages/registro-municipio/registro-municipio';
+import { RegistroFuncionarioPage } from '../pages/registro-funcionario/registro-funcionario';
 
 
 @NgModule({
@@ -35,6 +39,10 @@ import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario'
     RegistroClientePage,
     RegistroTramitePage,
     RegistroCivilNacimientoPage,
+    RegistroDepartamentoPage,
+    RegistroMunicipioPage,
+    RegistroCorregimientoPage,
+    RegistroFuncionarioPage,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +63,10 @@ import { MenuFuncionarioPage } from '../pages/menu-funcionario/menu-funcionario'
     RegistroClientePage,
     RegistroTramitePage,
     RegistroCivilNacimientoPage,
+    RegistroDepartamentoPage,
+    RegistroMunicipioPage,
+    RegistroCorregimientoPage,
+    RegistroFuncionarioPage,
   ],
   providers: [
     StatusBar,

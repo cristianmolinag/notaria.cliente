@@ -28,7 +28,7 @@
         </ion-item>
         <ion-item>
           <ion-label color="primary" floating color="dark">Contraseña</ion-label>
-          <ion-input [(ngModel)]="funcionario.contrasena"></ion-input>
+          <ion-input type="password" [(ngModel)]="funcionario.contrasena"></ion-input>
         </ion-item>
         <br>
         <button ion-button block (click)="loginFuncionario()">Iniciar Sesión</button>
@@ -52,7 +52,7 @@
         </ion-item>
         <ion-item>
           <ion-label color="primary" floating color="dark">Contraseña</ion-label>
-          <ion-input [(ngModel)]="cliente.contrasena"></ion-input>
+          <ion-input type="password" [(ngModel)]="cliente.contrasena"></ion-input>
         </ion-item>
         <br>
         <button ion-button block (click)="loginCliente()">Iniciar Sesión</button>

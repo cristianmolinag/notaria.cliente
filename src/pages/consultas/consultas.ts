@@ -1,12 +1,7 @@
+import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the ConsultasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { RCNacimiento } from '../../models/global';
 
 @Component({
   selector: 'page-consultas',
@@ -14,11 +9,35 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ConsultasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  segmento: string;
+  registrosNacimiento: RCNacimiento[];
+
+  registroNacimiento: RCNacimiento;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private http: HttpProvider) {
+
+    this.segmento = 'nacimiento';
+
+    this.poblarData();
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ConsultasPage');
+  poblarData() {
+    this.http.get('rc_nacimiento').then((data: any) => this.registrosNacimiento = data.data);
+  }
+
+  busquedaNacimiento($event) {
+
+  }
+
+  busquedaMatrimonio($event) {
+
+  }
+
+  busquedaDefuncion($event) {
+
   }
 
 }

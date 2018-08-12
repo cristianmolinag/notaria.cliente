@@ -36,6 +36,7 @@ export class HomePage {
   }
 
   loginCliente() {
+
     if (!this.cliente.correo || !this.cliente.contrasena) {
       const toast = this.toastCtrl.create({
         message: "Hay campos vacíos",
@@ -44,7 +45,7 @@ export class HomePage {
       toast.present();
     }
     else {
-      this.http.post('usuario/login', this.cliente).then((data: any) => {
+      this.http.post('usuario/login/cliente', this.cliente).then((data: any) => {
 
         if (data.mensaje) {
           const toast = this.toastCtrl.create({
@@ -75,7 +76,7 @@ export class HomePage {
       toast.present();
     }
     else {
-      this.http.post('usuario/login', this.funcionario).then((data: any) => {
+      this.http.post('usuario/login/funcionario', this.funcionario).then((data: any) => {
 
         if (data.mensaje) {
           const toast = this.toastCtrl.create({

@@ -8,10 +8,12 @@
 
 
 <ion-content padding>
-
-  <!-- <ion-item no-lines text-center>
-      <img src="../../assets/imgs/logo_rnec-3.png" width="10%" alt="logo registraduría">
-    </ion-item> -->
+  <div text-center>
+    <img src="../../assets/imgs/logo_rnec-3.png" alt="" style="width:150px;">
+    <p>
+      <strong>Registro civil de nacimiento</strong>
+    </p>
+  </div>
   <ion-list>
 
     <ion-card>
@@ -62,13 +64,13 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Fecha de nacimiento</ion-label>
                 <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registro.fecha_nacimiento"></ion-datetime>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Sexo(en letras)</ion-label>
                 <ion-select [(ngModel)]="registro.genero_id">
@@ -76,7 +78,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Grupo sanguineo</ion-label>
                 <ion-select [(ngModel)]="registro.grupo_sanguineo_id">
@@ -84,7 +86,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Factor RH</ion-label>
                 <ion-select [(ngModel)]="registro.factor_rh_id">
@@ -93,11 +95,9 @@
               </ion-item>
             </ion-col>
           </ion-row>
-          <ion-row col-9 offset-3>
-            <h4>Lugar de nacimiento (Pais - Departamento - Municipio - Corregimiento)</h4>
-          </ion-row>
+          <h4 text-center>Lugar de nacimiento (Pais - Departamento - Municipio - Corregimiento)</h4>
           <ion-row>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Pais</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.pais">
@@ -105,7 +105,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Departamento</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.departamento">
@@ -113,7 +113,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Municipio</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.municipio">
@@ -121,7 +121,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Corregimiento</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.corregimiento">
@@ -139,7 +139,7 @@
       <ion-card-content>
         <ion-grid>
           <ion-row>
-            <ion-col col-9>
+            <ion-col col-6 col-md-9>
               <ion-item>
                 <ion-label stacked>Tipo de documento antecedente o Declaración de testigos</ion-label>
                 <ion-select [(ngModel)]="registro.antecedente_id">
@@ -147,7 +147,7 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-3>
+            <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked># Certificado Nacido vivo</ion-label>
                 <ion-input [(ngModel)]="registro.num_nacido_vivo" type="text"></ion-input>
@@ -177,7 +177,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
                 <ion-select [(ngModel)]="registro.tipo_documento_madre_id">
@@ -185,13 +185,13 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
                 <ion-input [(ngModel)]="registro.documento_madre" type="number"></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Nacionalidad</ion-label>
                 <ion-select [(ngModel)]="registro.pais_madre_id">
@@ -217,7 +217,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
                 <ion-select [(ngModel)]="registro.tipo_documento_padre_id">
@@ -225,13 +225,13 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
                 <ion-input [(ngModel)]="registro.documento_padre" type="number"></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Nacionalidad</ion-label>
                 <ion-select [(ngModel)]="registro.pais_padre_id">
@@ -257,7 +257,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
                 <ion-select [(ngModel)]="registro.tipo_documento_declarante_id">
@@ -265,13 +265,13 @@
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
                 <ion-input [(ngModel)]="registro.documento_declarante" type="number"></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label id="firma_declarante" stacked>Firma</ion-label>
                 <ion-input type="file" accept="image/*" (change)="guardarFirmaDeclarante($event)"></ion-input>
@@ -295,21 +295,21 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_testigo_uno">
+                <ion-select [(ngModel)]="registro.tipo_documento_testigo_uno_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
                 <ion-input [(ngModel)]="registro.documento_testigo_uno" type="number"></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label id="firma_testigo_uno" stacked>Firma</ion-label>
                 <ion-input type="file" accept="image/*" (change)="guardarFirmaTestigoUno($event)"></ion-input>
@@ -333,21 +333,21 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_testigo_dos">
+                <ion-select [(ngModel)]="registro.tipo_documento_testigo_dos_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
                 <ion-input [(ngModel)]="registro.documento_testigo_dos" type="number"></ion-input>
               </ion-item>
             </ion-col>
-            <ion-col col-4>
+            <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label id="firma_testigo_dos" stacked>Firma</ion-label>
                 <ion-input type="file" accept="image/*" (change)="guardarFirmaTestigoDos($event)"></ion-input>
@@ -362,9 +362,9 @@
       <ion-card-content>
 
         <ion-grid>
-          <ion-row col-3 offset-4>
+          <h4 text-center>
             ESPACIO PARA NOTAS
-          </ion-row>
+          </h4>
           <ion-row>
             <ion-textarea [(ngModel)]="registro.notas_marginales"></ion-textarea>
           </ion-row>
@@ -374,5 +374,5 @@
 
   </ion-list>
 
-  <button ion-button full>Guardar</button>
+  <button ion-button full (click)="guardarRegistroCivil()">Guardar</button>
 </ion-content>

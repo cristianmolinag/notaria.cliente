@@ -4,6 +4,11 @@ export class Rol {
     nombre: string;
 }
 
+export class GrupoSangre {
+    id: number;
+    nombre: string;
+}
+
 export class TipoDocumento {
     id: number;
     nombre?: string;
@@ -28,29 +33,34 @@ export class Genero {
     nombre?: string;
 }
 
+export class Perfil {
+    id: number;
+    nombre?: string;
+}
+
 export class TipoTramite {
     id: number;
     nombre?: string;
     valor?: string;
 }
 
-export class Persona {
-    primer_nombre: string;
-    segundo_nombre: string;
-    primer_apellido: string;
-    segundo_apellido: string;
-    documento: number;
-    tipo_documento_id: number;
-    nacionalidad_id: number;
-}
 
 export class Usuario {
+    id: number;
     correo: string;
     nombres: string;
     apellidos: string;
     contrasena: string;
     remember_token: string;
     estado: number;
+    perfil_id: number;
+    rol_id: number;
+    firma: Firma;
+}
+
+export class Firma {
+    id: number;
+    firma: string;
 }
 
 export class Tramite {
@@ -59,14 +69,6 @@ export class Tramite {
     estado_tramite_id: number;
     forma_pago_id: number;
     cliente_id: number;
-}
-
-export class Funcionario {
-    persona_id: number;
-    firma: Blob;
-    usuario_id: number;
-    persona: Persona;
-    usuario: Usuario;
 }
 
 export class RCNacimiento {
@@ -94,17 +96,18 @@ export class RCNacimiento {
     nombres_declarante: string;
     tipo_documento_declarante_id: number;
     documento_declarante: number;
-    firma_declarante: Blob;
+    firma_declarante: string;
     nombres_testigo_uno: string;
     tipo_documento_testigo_uno_id: number;
     documento_testigo_uno: number;
-    firma_testigo_uno: Blob;
+    firma_testigo_uno: string;
     nombres_testigo_dos: string;
     tipo_documento_testigo_dos_id: number;
     documento_testigo_dos: number;
-    firma_testigo_dos: Blob;
+    firma_testigo_dos: string;
     firma_id: number;
     notas_marginales: string;
+    created_at: Date;
 }
 
 export class GrupoSanguineo {

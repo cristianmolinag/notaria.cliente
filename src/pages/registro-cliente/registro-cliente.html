@@ -10,58 +10,19 @@
 <ion-content padding>
 
   <ion-grid>
-    <ion-row>
+    <ion-row col-12 col-md-10 offset-md-1>
 
       <ion-col col-12 col-md-6>
         <ion-item>
-          <ion-label stacked>1er. Nombre</ion-label>
-          <ion-input [(ngModel)]="persona.primer_nombre" clearInput></ion-input>
+          <ion-label stacked>Nombres</ion-label>
+          <ion-input [(ngModel)]="usuario.nombres" clearInput></ion-input>
         </ion-item>
       </ion-col>
 
       <ion-col col-12 col-md-6>
         <ion-item>
-          <ion-label stacked>2do. Nombre</ion-label>
-          <ion-input [(ngModel)]="persona.segundo_nombre" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>1er. Apellido</ion-label>
-          <ion-input [(ngModel)]="persona.primer_apellido" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>2do. Apellido</ion-label>
-          <ion-input [(ngModel)]="persona.segundo_apellido" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Nacionalidad</ion-label>
-          <ion-select [(ngModel)]="persona.nacionalidad_id">
-            <ion-option *ngFor="let item of nacionalidades" [value]="item.id">{{item.nombre}}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Tipo Documento</ion-label>
-          <ion-select [(ngModel)]="persona.tipo_documento_id">
-            <ion-option *ngFor="let item of tiposDocumento" [value]="item.id">{{item.nombre}}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
-
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Documento</ion-label>
-          <ion-input type="number" [(ngModel)]="persona.documento" clearInput></ion-input>
+          <ion-label stacked>Apellidos</ion-label>
+          <ion-input [(ngModel)]="usuario.apellidos" clearInput></ion-input>
         </ion-item>
       </ion-col>
 
