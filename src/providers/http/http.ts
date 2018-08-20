@@ -7,7 +7,7 @@ export class HttpProvider {
   httpOptions: any;
 
   constructor(public http: HttpClient) {
-    this.apiUrl = 'http://192.168.0.17:8000/api/';
+    this.apiUrl = 'http://192.168.0.12:8000/api/';
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

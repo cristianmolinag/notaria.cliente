@@ -1,11 +1,3 @@
-<ion-header>
-
-  <ion-navbar>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
 
   <button ion-button outline navPop>
@@ -15,40 +7,44 @@
   <h4>Buscar Registro Civil</h4>
 
   <ion-grid text-center>
-    <ion-row col-12 col-md-6 offset-md-3>
+    <ion-row col-12 col-md-10 offset-md-1>
       <ion-col>
         <ion-item>
           <ion-label stacked>Seleccione una opción</ion-label>
           <ion-select [(ngModel)]="busqueda.tipo_tramite">
-            <ion-option value="1">RC Nacimiento</ion-option>
-            <ion-option value="2">RC Matrimonio</ion-option>
-            <ion-option value="3">RC Defuncion</ion-option>
+            <ion-option *ngFor="let item of tiposTramite" [value]="item.id">{{ item.nombre }}</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-label stacked>Digite el filtro</ion-label>
-          <ion-input type="text" value=""></ion-input>
+          <ion-input placeholder="documento inscrito o nuip" type="text" [(ngModel)]="busqueda.filtro"></ion-input>
         </ion-item>
       </ion-col>
-      <!-- <ion-item no-lines> -->
-      <button ion-button full>Buscar</button>
-      <!-- </ion-item> -->
+      <button ion-button full (click)="buscar(busqueda.filtro)">Buscar</button>
     </ion-row>
   </ion-grid>
 
-  <!-- <ion-grid text-center>
+  <ion-grid text-center *ngIf="registro.id">
     <ion-row>
-      <ion-col col-12 col-md-6 offset-md-3>
+      <ion-col col-12 col-md-10 offset-md-1>
         <ion-item>
-          <ion-label stacked>Tipo de trámite</ion-label>
-          <ion-select [(ngModel)]="tramite.tipo_tramite_id">
-            <ion-option *ngFor="let item of tiposTramite" [value]="item.id">{{item.nombre}}</ion-option>
-          </ion-select>
+          <p>
+            <strong>Nombres: </strong>{{ registro.nombres }}</p>
         </ion-item>
+        <ion-item>
+          <p>
+            <strong>Apellidos: </strong>{{ registro.primer_apellido }} {{ registro.segundo_apellido }}</p>
+        </ion-item>
+        <ion-item>
+          <p>
+            <strong>Fecha nacimiento: </strong>{{ registro.fecha_nacimiento }}</p>
+        </ion-item>
+        <button ion-button (click)="solicitar()">Solicitar duplicado</button>
+
       </ion-col>
     </ion-row>
-  </ion-grid> -->
+  </ion-grid>
 
 </ion-content>

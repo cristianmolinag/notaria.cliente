@@ -4,6 +4,13 @@ export class Rol {
     nombre: string;
 }
 
+
+export class Permiso {
+    id: number;
+    titulo: string;
+    componente: string;
+}
+
 export class GrupoSangre {
     id: number;
     nombre: string;
@@ -54,13 +61,14 @@ export class Usuario {
     remember_token: string;
     estado: number;
     perfil_id: number;
+    perfil: Perfil;
     rol_id: number;
     firma: Firma;
 }
 
 export class Firma {
     id: number;
-    firma: string;
+    firma?: string;
 }
 
 export class Tramite {
@@ -155,5 +163,9 @@ export class Antecedente {
     nombre: string;
 }
 
+export class Busqueda {
+    tipo_tramite: number;
+    filtro: string;
+}
 
 

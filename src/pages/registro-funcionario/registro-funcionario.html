@@ -6,7 +6,51 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  hello registro!!!
+
+  <ion-grid>
+    <ion-row col-12 col-md-10 offset-md-1>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Nombres</ion-label>
+          <ion-input [(ngModel)]="usuario.nombres" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Apellidos</ion-label>
+          <ion-input [(ngModel)]="usuario.apellidos" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Correo</ion-label>
+          <ion-input type="email" [(ngModel)]="usuario.correo" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-label stacked>Contraseña</ion-label>
+          <ion-input type="password" [(ngModel)]="usuario.contrasena" clearInput></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 text-center>
+        <ion-item>
+          <ion-label id="firma_funcionario" stacked>Firma</ion-label>
+          <ion-input type="file" accept="image/*" (change)="guardarFirmaFuncionario($event)"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 text-center>
+        <button ion-button block (click)="registro()"> Registrar cuenta </button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
