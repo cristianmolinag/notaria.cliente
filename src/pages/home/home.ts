@@ -73,6 +73,7 @@ export class HomePage {
             duration: 3000
           });
           toast.present();
+          this.storage.remove('usuario');
           this.storage.set('usuario', data.data);
           this.navCtrl.setRoot(MenuPage);
         }
@@ -105,6 +106,7 @@ export class HomePage {
             duration: 3000
           });
           toast.present();
+          this.storage.remove('usuario');
           this.storage.set('usuario', data.data);
           this.navCtrl.setRoot(MenuPage);
         }

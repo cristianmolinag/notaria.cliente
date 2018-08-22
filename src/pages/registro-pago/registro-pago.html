@@ -19,7 +19,7 @@
     </p>
   </ion-item>
   <ion-item>
-    <ion-textarea placeholder="Digite una observacion"></ion-textarea>
+    <ion-textarea [(ngModel)]="observacion" placeholder="Digite una observacion"></ion-textarea>
   </ion-item>
   <button ion-button block (click)="pagar()">Pagar</button>
 

@@ -24,8 +24,8 @@ export class TramitesPage {
     private user: UserProvider,
     private http: HttpProvider) {
 
-    this.registroTramite = RegistroTramitePage
     this.validaUsuario();
+    this.registroTramite = RegistroTramitePage
 
   }
 
@@ -35,7 +35,6 @@ export class TramitesPage {
 
   validaUsuario() {
     const usuario = this.user.getUsuario();
-    console.log(usuario);
     if (usuario.perfil.nombre === 'Cliente') {
       this.tituloTabla = 'Historial de trámites:'
       this.isCliente = true;

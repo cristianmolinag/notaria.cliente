@@ -36,9 +36,19 @@ export class RegistroTramitePage {
   buscar(filtro: any) {
     if (this.busqueda.tipo_tramite && this.busqueda.filtro) {
       this.http.get('rc_nacimiento/' + filtro).then((data: any) => {
-        if (!data.mensaje) {
-          this.registro = data.data;
+        if (!!data.data) {
+          if (!data.mensaje) {
+            this.registro = data.data;
+          }
         }
+        else {
+          const toast = this.toastCtrl.create({
+            message: 'No se encontraron registros',
+            duration: 3000
+          });
+          toast.present();
+        }
+
       });
     }
     else {

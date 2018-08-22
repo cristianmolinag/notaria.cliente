@@ -29,6 +29,7 @@ export class MenuPage {
     private user: UserProvider,
     private storage: Storage,
     private toastCtrl: ToastController) {
+    this.menu = null;
     this.getPermisos();
 
   }

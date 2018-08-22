@@ -39,10 +39,18 @@
         </ion-item>
       </ion-col>
 
-      <ion-col col-12 text-center>
+      <ion-col col-12 col-md-6>
         <ion-item>
           <ion-label id="firma_funcionario" stacked>Firma</ion-label>
           <ion-input type="file" accept="image/*" (change)="guardarFirmaFuncionario($event)"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col col-12 col-md-6>
+        <ion-item>
+          <ion-select [(ngModel)]="usuario.rol_id">
+            <ion-option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</ion-option>
+          </ion-select>
         </ion-item>
       </ion-col>
 

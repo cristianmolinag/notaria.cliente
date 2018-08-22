@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
-import { Usuario, Firma } from '../../models/global';
+import { Usuario, Firma, Rol } from '../../models/global';
 import { HttpProvider } from '../../providers/http/http';
 
 @Component({
@@ -11,6 +11,7 @@ export class RegistroFuncionarioPage {
 
   usuario: Usuario;
   firma: Firma;
+  roles: Rol[];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,6 +26,8 @@ export class RegistroFuncionarioPage {
       this.usuario = new Usuario();
       this.firma = new Firma();
     }
+
+    this.http.get('rol').then((data: any) => this.roles = data.data);
   }
 
   guardarFirmaFuncionario($event) {

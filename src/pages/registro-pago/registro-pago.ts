@@ -14,6 +14,7 @@ export class RegistroPagoPage {
   busqueda: Busqueda;
   usuario: Usuario;
   tipo_tramite: TipoTramite;
+  observacion: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,7 +32,7 @@ export class RegistroPagoPage {
   }
 
   pagar() {
-    console.log(this.registro);
+    console.log(this.registro, this.observacion);
   }
 
 }
