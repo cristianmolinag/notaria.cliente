@@ -19,6 +19,14 @@
     </p>
   </ion-item>
   <ion-item>
+    <ion-label stacked>Cod Autorización</ion-label>
+    <ion-input type="number" [(ngModel)]="pago.cod_autorizacion" clearInput></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Cod Transacción</ion-label>
+    <ion-input type="number" [(ngModel)]="pago.cod_transaccion" clearInput></ion-input>
+  </ion-item>
+  <ion-item>
     <ion-textarea [(ngModel)]="observacion" placeholder="Digite una observacion"></ion-textarea>
   </ion-item>
   <button ion-button block (click)="pagar()">Pagar</button>

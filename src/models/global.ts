@@ -74,9 +74,9 @@ export class Firma {
 export class Tramite {
     id: number;
     tipo_tramite_id: number;
-    estado_tramite_id: number;
-    forma_pago_id: number;
     cliente_id: number;
+    estado_tramite_id: number;
+    funcionario_id: number;
 }
 
 export class RCNacimiento {
@@ -166,6 +166,14 @@ export class Antecedente {
 export class Busqueda {
     tipo_tramite: number;
     filtro: string;
+}
+
+export class Pago {
+    id: number;
+    cod_autorizacion: number;
+    cod_transaccion: number;
+    valor: number;
+    forma_pago_id: number;
 }
 
 

@@ -1,6 +1,6 @@
 import { HttpProvider } from './../../providers/http/http';
 import { UserProvider } from './../../providers/user/user';
-import { RCNacimiento, Usuario, Busqueda, TipoTramite } from './../../models/global';
+import { RCNacimiento, Usuario, Busqueda, TipoTramite, Pago, Tramite } from './../../models/global';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -15,6 +15,8 @@ export class RegistroPagoPage {
   usuario: Usuario;
   tipo_tramite: TipoTramite;
   observacion: string;
+  pago: Pago;
+  tramite: Tramite;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -25,14 +27,14 @@ export class RegistroPagoPage {
     this.registro = this.navParams.get('registro');
     this.busqueda = this.navParams.get('busqueda');
     this.tipo_tramite = new TipoTramite();
-
-    console.log(this.busqueda.tipo_tramite);
+    this.pago = new Pago();
+    this.tramite = new Tramite();
 
     this.http.get('tipo_tramite/' + this.busqueda.tipo_tramite).then((data: any) => this.tipo_tramite = data.data);
   }
 
   pagar() {
-    console.log(this.registro, this.observacion);
+
   }
 
 }
