@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Registro de pago</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <p>
+      <strong>Tipo de tramite</strong>
+      {{ tipo_tramite.nombre }}
+    </p>
+  </ion-item>
+  <ion-item>
+    <p>
+      <strong>Precio</strong>
+      {{ tipo_tramite.valor }}
+    </p>
+  </ion-item>
+  <ion-item>
+    <ion-textarea [(ngModel)]="observacion" placeholder="Digite una observacion"></ion-textarea>
+  </ion-item>
+  <button ion-button block (click)="pagar()">Pagar</button>
+
+</ion-content>

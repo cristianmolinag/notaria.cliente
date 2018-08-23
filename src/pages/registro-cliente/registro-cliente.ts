@@ -1,6 +1,6 @@
 import { HttpProvider } from './../../providers/http/http';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { Usuario } from '../../models/global';
 
 
@@ -15,18 +15,22 @@ export class RegistroClientePage {
 
   usuario: Usuario;
 
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private http: HttpProvider,
+    public viewCtrl: ViewController,
+    private toastCtrl: ToastController) {
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private http: HttpProvider, private toastCtrl: ToastController) {
-
-    this.usuario = new Usuario;
-
+    if (this.navParams.get('data')) {
+      this.usuario = this.navParams.get('data');
+    } else {
+      this.usuario = new Usuario();
+    }
   }
 
   registro() {
     if (!this.usuario.nombres ||
       !this.usuario.apellidos ||
-      !this.usuario.contrasena ||
       !this.usuario.correo) {
 
       const toast = this.toastCtrl.create({
@@ -36,24 +40,53 @@ export class RegistroClientePage {
       toast.present();
     }
     else {
-
-      this.http.post('usuario/registro/cliente', this.usuario).then((data: any) => {
-        if (data.mensaje) {
-          const toast = this.toastCtrl.create({
-            message: data.mensaje,
-            duration: 3000
+      if (this.usuario.id) {
+        this.http.put('usuario/update/cliente/' + this.usuario.id, this.usuario).then((data: any) => {
+          if (data.mensaje) {
+            const toast = this.toastCtrl.create({
+              message: data.mensaje,
+              duration: 3000
+            });
+            toast.present();
+          }
+          else {
+            const toast = this.toastCtrl.create({
+              message: "Cliente actualizado con éxito",
+              duration: 3000
+            });
+            toast.present();
+            this.viewCtrl.dismiss();
+          }
+        });
+      } else {
+        if (this.usuario.contrasena) {
+          this.http.post('usuario/registro/cliente', this.usuario).then((data: any) => {
+            if (data.mensaje) {
+              const toast = this.toastCtrl.create({
+                message: data.mensaje,
+                duration: 3000
+              });
+              toast.present();
+            }
+            else {
+              const toast = this.toastCtrl.create({
+                message: "Usuario creado con éxito",
+                duration: 3000
+              });
+              toast.present();
+              this.navCtrl.pop();
+            }
           });
-          toast.present();
         }
         else {
           const toast = this.toastCtrl.create({
-            message: "Usuario creado con éxito",
+            message: 'Ingrese una contraseña válida',
             duration: 3000
           });
           toast.present();
-          this.navCtrl.pop();
         }
-      });
+
+      }
     }
   }
 }

@@ -3,9 +3,9 @@ import { HttpProvider } from './../../providers/http/http';
 import { RegistroClientePage } from './../registro-cliente/registro-cliente';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { MenuClientePage } from '../menu-cliente/menu-cliente';
-import { MenuFuncionarioPage } from '../menu-funcionario/menu-funcionario';
 import { Usuario } from '../../models/global';
+import { MenuPage } from '../menu/menu';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -15,8 +15,6 @@ import { Usuario } from '../../models/global';
 export class HomePage {
   @ViewChild('home') nav: NavController;
   home: string;
-  menuFuncionario: any = MenuFuncionarioPage;
-  menuCliente: any = MenuClientePage;
   rootPage: any;
   registroCliente: any;
   cliente: Usuario;
@@ -26,13 +24,27 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
     private http: HttpProvider,
-    private user: UserProvider) {
+    private user: UserProvider,
+    private storage: Storage) {
 
     this.cliente = new Usuario;
     this.funcionario = new Usuario;
-
     this.home = 'consulta';
     this.registroCliente = RegistroClientePage;
+  }
+
+  ionViewDidEnter() {
+    this.validarLogin();
+  }
+
+  validarLogin() {
+    let usuario: any;
+    this.storage.get('usuario').then((val) => {
+      if (val) {
+        this.user.setUsuario(val);
+        this.navCtrl.setRoot(MenuPage);
+      }
+    });
   }
 
   loginCliente() {
@@ -61,7 +73,9 @@ export class HomePage {
             duration: 3000
           });
           toast.present();
-          this.navCtrl.setRoot(this.menuCliente);
+          this.storage.remove('usuario');
+          this.storage.set('usuario', data.data);
+          this.navCtrl.setRoot(MenuPage);
         }
       });
     }
@@ -92,7 +106,9 @@ export class HomePage {
             duration: 3000
           });
           toast.present();
-          this.navCtrl.setRoot(this.menuFuncionario);
+          this.storage.remove('usuario');
+          this.storage.set('usuario', data.data);
+          this.navCtrl.setRoot(MenuPage);
         }
       });
     }
