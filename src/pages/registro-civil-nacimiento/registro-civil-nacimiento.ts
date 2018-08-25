@@ -36,7 +36,10 @@ export class RegistroCivilNacimientoPage {
     this.registro = new RCNacimiento;
     this.lugar_nacimiento = new LugarNacimiento;
 
-
+    this.lugar_nacimiento.pais = new Pais;
+    this.lugar_nacimiento.departamento = new Departamento;
+    this.lugar_nacimiento.municipio = new Municipio;
+    this.lugar_nacimiento.corregimiento = new Corregimiento;
 
     this.poblarCombos();
 
@@ -57,7 +60,7 @@ export class RegistroCivilNacimientoPage {
 
   guardarRegistroCivil() {
 
-    this.registro.lugar_nacimiento = this.lugar_nacimiento.pais + ' ' + this.lugar_nacimiento.departamento + ' ' + this.lugar_nacimiento.municipio + ' ' + this.lugar_nacimiento.corregimiento;
+    this.registro.lugar_nacimiento = this.lugar_nacimiento.pais.nombre + ' ' + this.lugar_nacimiento.departamento.nombre + ' ' + this.lugar_nacimiento.municipio.nombre + ' ' + this.lugar_nacimiento.corregimiento.nombre;
 
     if (
       !this.registro.nuip ||

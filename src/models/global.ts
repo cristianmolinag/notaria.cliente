@@ -1,4 +1,3 @@
-
 export class Rol {
     id: number;
     nombre: string;
@@ -153,10 +152,10 @@ export class Corregimiento {
 }
 
 export class LugarNacimiento {
-    pais: string;
-    departamento: string;
-    municipio: string;
-    corregimiento: string;
+    pais: Pais;
+    departamento: Departamento;
+    municipio: Municipio;
+    corregimiento: Corregimiento;
 }
 export class Antecedente {
     id: number;

@@ -92,7 +92,9 @@
               <ion-item>
                 <ion-label stacked>Pais</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.pais">
-                  <ion-option *ngFor="let item of paises" [value]="item.nombre">{{item.nombre}}</ion-option>
+                  <template *ngFor="let item of paises">
+                    <ion-option [value]="item">{{item.nombre}}</ion-option>
+                  </template>
                 </ion-select>
               </ion-item>
             </ion-col>
@@ -100,7 +102,9 @@
               <ion-item>
                 <ion-label stacked>Departamento</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.departamento">
-                  <ion-option *ngFor="let item of departamentos" [value]="item.nombre">{{item.nombre}}</ion-option>
+                  <template *ngFor="let item of departamentos">
+                    <ion-option *ngIf="item.pais.id === lugar_nacimiento.pais.id" [value]="item">{{item.nombre}}</ion-option>
+                  </template>
                 </ion-select>
               </ion-item>
             </ion-col>
@@ -108,7 +112,9 @@
               <ion-item>
                 <ion-label stacked>Municipio</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.municipio">
-                  <ion-option *ngFor="let item of municipios" [value]="item.nombre">{{item.nombre}}</ion-option>
+                  <template *ngFor="let item of municipios">
+                    <ion-option *ngIf="item.departamento.id == lugar_nacimiento.departamento.id " [value]="item">{{item.nombre}}</ion-option>
+                  </template>
                 </ion-select>
               </ion-item>
             </ion-col>
@@ -116,7 +122,9 @@
               <ion-item>
                 <ion-label stacked>Corregimiento</ion-label>
                 <ion-select [(ngModel)]="lugar_nacimiento.corregimiento">
-                  <ion-option *ngFor="let item of corregimientos" [value]="item.nombre">{{item.nombre}}</ion-option>
+                  <template *ngFor="let item of corregimientos">
+                    <ion-option *ngIf="item.municipio.id == lugar_nacimiento.corregimiento.id" [value]="item">{{item.nombre}}</ion-option>
+                  </template>
                 </ion-select>
               </ion-item>
             </ion-col>
