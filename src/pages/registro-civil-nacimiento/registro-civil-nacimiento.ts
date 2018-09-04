@@ -64,9 +64,9 @@ export class RegistroCivilNacimientoPage {
       madre_pais_id: ['', Validators.compose([Validators.required])],
 
       padre_id: ['', { value: null, disabled: false }],
-      padre_nombres: ['', { value: null, disabled: false }, Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
+      padre_nombres: ['', Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
       padre_tipo_documento_id: ['', { value: null, disabled: false }],
-      padre_documento: ['', { value: null, disabled: false }, Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
+      padre_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
       padre_pais_id: ['', { value: null, disabled: false }],
 
       declarante_id: ['', { value: null, disabled: false }],
@@ -76,15 +76,15 @@ export class RegistroCivilNacimientoPage {
       declarante_firma: ['', { value: null, disabled: false }, Validators.compose([Validators.required])],
 
       testigo_uno_id: ['', { value: null, disabled: false }],
-      testigo_uno_nombres: ['', { value: null, disabled: false }, Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
+      testigo_uno_nombres: ['', Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
       testigo_uno_tipo_documento_id: ['', { value: null, disabled: false }],
-      testigo_uno_documento: ['', { value: null, disabled: false }, Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
+      testigo_uno_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
       testigo_uno_firma: ['', { value: null, disabled: false }],
 
       testigo_dos_id: ['', { value: null, disabled: false }],
-      testigo_dos_nombres: ['', { value: null, disabled: false }, Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
+      testigo_dos_nombres: ['', Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
       testigo_dos_tipo_documento_id: ['', { value: null, disabled: false }],
-      testigo_dos_documento: ['', { value: null, disabled: false }, Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
+      testigo_dos_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
       testigo_dos_firma: ['', { value: null, disabled: false }],
 
       notas_marginales: ['', { value: null, disabled: false }],
