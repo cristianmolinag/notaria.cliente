@@ -12,6 +12,8 @@ import { RegistroMunicipioPage } from '../registro-municipio/registro-municipio'
 })
 export class ConfiguracionPage {
 
+  segmento: string;
+
   gruposSangre: GrupoSangre[];
   factoresRH: RH[];
   tiposDocumento: TipoDocumento[];
@@ -22,9 +24,13 @@ export class ConfiguracionPage {
   tiposTramite: TipoTramite[];
   antecedentes: Antecedente[];
   paises: Pais[];
+  paisesInit: Pais[];
   departamentos: Departamento[];
+  departamentosInit: Departamento[];
   municipios: Municipio[];
+  municipiosInit: Municipio[];
   corregimientos: Corregimiento[];
+  corregimientosInit: Corregimiento[];
 
   grupoSangre: GrupoSangre;
   factorRH: RH;
@@ -53,6 +59,7 @@ export class ConfiguracionPage {
     private modalCtrl: ModalController) {
 
     this.getData();
+    this.segmento = 'grupoSanguneo';
 
     this.registroDepartamento = RegistroDepartamentoPage;
     this.registroMunicipio = RegistroMunicipioPage;
@@ -69,10 +76,10 @@ export class ConfiguracionPage {
     this.http.get('genero').then((data: any) => this.generos = data.data);
     this.http.get('tipo_tramite').then((data: any) => this.tiposTramite = data.data);
     this.http.get('antecedente').then((data: any) => this.antecedentes = data.data);
-    this.http.get('pais').then((data: any) => this.paises = data.data);
-    this.http.get('departamento').then((data: any) => this.departamentos = data.data);
-    this.http.get('municipio').then((data: any) => this.municipios = data.data);
-    this.http.get('corregimiento').then((data: any) => this.corregimiento = data.data);
+    this.http.get('pais').then((data: any) => this.paises = this.paisesInit = data.data);
+    this.http.get('departamento').then((data: any) => this.departamentos = this.departamentosInit = data.data);
+    this.http.get('municipio').then((data: any) => this.municipios = this.municipiosInit = data.data);
+    this.http.get('corregimiento').then((data: any) => this.corregimientos = this.corregimientosInit = data.data);
 
   }
 
@@ -623,6 +630,65 @@ export class ConfiguracionPage {
       this.http.get('corregimiento').then((data: any) => this.corregimientos = data.data);
     });
     modal.present();
+  }
+
+  inicializarPaises() {
+    this.paises = this.paisesInit;
+  }
+
+  inicializarDepartamentos() {
+    this.departamentos = this.departamentosInit;
+  }
+
+  inicializarMunicipios() {
+    this.municipios = this.municipiosInit;
+  }
+
+  inicializarCorregimientos() {
+    this.corregimientos = this.corregimientosInit;
+  }
+
+  filtrarPaises(ev: any) {
+    this.inicializarPaises();
+    const val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.paises = this.paises.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  filtrarDepartamentos(ev: any) {
+    this.inicializarDepartamentos();
+    const val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.departamentos = this.departamentos.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.pais.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  filtrarMunicipios(ev: any) {
+    this.inicializarMunicipios();
+    const val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.municipios = this.municipios.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.departamento.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    }
+  }
+
+  filtrarCorregimientos(ev: any) {
+    this.inicializarCorregimientos();
+    const val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.corregimientos = this.corregimientos.filter((item) => {
+        return (item.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+          item.municipio.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    }
   }
 
 }

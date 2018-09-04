@@ -2,8 +2,9 @@ import { RegistroFuncionarioPage } from './../registro-funcionario/registro-func
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { HttpProvider } from '../../providers/http/http';
-import { Rol, Perfil, Usuario, Permiso } from '../../models/global';
+import { Rol, Perfil, Usuario, Permiso, rolesPorPermiso } from '../../models/global';
 import { RegistroClientePage } from '../registro-cliente/registro-cliente';
+import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'page-usuarios',
@@ -12,12 +13,13 @@ import { RegistroClientePage } from '../registro-cliente/registro-cliente';
 export class UsuariosPage {
 
   segmento: string;
-
+  frmPermiso: FormGroup;
   roles: Rol[];
   permisos: Permiso[];
   perfiles: Perfil[];
   funcionarios: Usuario[];
   clientes: Usuario[];
+  rolesPorPermiso: rolesPorPermiso;
 
   rol: Rol;
   perfil: Perfil;
@@ -27,7 +29,13 @@ export class UsuariosPage {
     private alertCtrl: AlertController,
     private http: HttpProvider,
     private toastCtrl: ToastController,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    private frmBuilder: FormBuilder) {
+
+    this.frmPermiso = this.frmBuilder.group({
+      rol_id: ['', Validators.required],
+      permiso_id: ['', Validators.required]
+    });
 
     this.segmento = 'funcionarios';
 
@@ -36,8 +44,12 @@ export class UsuariosPage {
     this.getFuncionarios();
     this.getClientes();
     this.getPermisos();
+    this.getRolesPorPermiso();
   }
 
+  getRolesPorPermiso() {
+    this.http.get('permiso/porRol/').then((data: any) => this.rolesPorPermiso = data.data);
+  }
   getFuncionarios() {
     this.http.get('usuario/funcionario').then((data: any) => this.funcionarios = data.data);
   }
@@ -52,10 +64,6 @@ export class UsuariosPage {
 
   getPermisos() {
     this.http.get('permiso').then((data: any) => this.permisos = data.data);
-  }
-
-  getPermisosPorRol() {
-    this.http.get('permiso/porRol/').then((data: any) => this.permisos = data.data);
   }
 
   getPerfiles() {
@@ -81,10 +89,10 @@ export class UsuariosPage {
   updateItem($event, rol: Rol, permiso: Permiso) {
 
     if ($event.checked) {
-      console.log("asignado", rol.nombre, permiso.titulo);
+
     }
     else {
-      console.log("no asignado", rol.nombre, permiso.titulo);
+
     }
   }
 }

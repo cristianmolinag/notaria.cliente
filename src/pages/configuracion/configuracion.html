@@ -1,244 +1,320 @@
 <ion-content padding>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarGrupoSangre()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Grupo sanguíneo</h2>
-      <p>Listado de grupos sanguíneos</p>
-    </ion-item>
-    <ion-item *ngFor="let item of gruposSangre">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarGrupoSangre(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarFactorRH()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Factor RH</h2>
-      <p>Listado de tipos de RH</p>
-    </ion-item>
-    <ion-item *ngFor="let item of factoresRH">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarFactorRH(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
-
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarAntecedente()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Antecedente</h2>
-      <p>Listado de antecedentes</p>
-    </ion-item>
-    <ion-item *ngFor="let item of antecedentes">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarAntecedente(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+  <div padding>
+    <ion-segment [(ngModel)]="segmento">
+      <ion-segment-button value="grupoSanguneo">
+        Grupo Sanguineo
+      </ion-segment-button>
+      <ion-segment-button value="factorRH">
+        Factor RH
+      </ion-segment-button>
+      <ion-segment-button value="antecedente">
+        Antecedente
+      </ion-segment-button>
+      <ion-segment-button value="pais">
+        Pais
+      </ion-segment-button>
+      <ion-segment-button value="departamento">
+        Departamento
+      </ion-segment-button>
+      <ion-segment-button value="municipio">
+        Municipio
+      </ion-segment-button>
+      <ion-segment-button value="corregimiento">
+        Corregimiento
+      </ion-segment-button>
+      <ion-segment-button value="tipoDocumento">
+        Tipo documento
+      </ion-segment-button>
+      <ion-segment-button value="formaPago">
+        Forma pago
+      </ion-segment-button>
+      <ion-segment-button value="estadoTramite">
+        Estado tramite
+      </ion-segment-button>
+      <ion-segment-button value="genero">
+        Genero
+      </ion-segment-button>
+      <ion-segment-button value="tipoTramite">
+        Tipo tramite
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarPais()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Pais</h2>
-      <p>Listado de paises</p>
-    </ion-item>
-    <ion-item *ngFor="let item of paises">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarPais(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarDepartamento()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Departamento</h2>
-      <p>Listado de departamentos</p>
-    </ion-item>
-    <ion-item *ngFor="let item of departamentos">
-      <p>{{ item.nombre }} | {{ item.pais.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarDepartamento(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+  <div [ngSwitch]="segmento">
+    <ion-list *ngSwitchCase="'grupoSanguneo'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarGrupoSangre()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Grupo sanguíneo</h2>
+          <p>Listado de grupos sanguíneos</p>
+        </ion-item>
+        <ion-item *ngFor="let item of gruposSangre">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarGrupoSangre(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarMunicipio()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Municipio</h2>
-      <p>Listado de Municipios</p>
-    </ion-item>
-    <ion-item *ngFor="let item of municipios">
-      <p>{{ item.nombre }} | {{ item.departamento.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarMunicipio(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'factorRH'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarFactorRH()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Factor RH</h2>
+          <p>Listado de tipos de RH</p>
+        </ion-item>
+        <ion-item *ngFor="let item of factoresRH">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarFactorRH(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarCorregimiento()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Corregimiento</h2>
-      <p>Listado de corregimientos</p>
-    </ion-item>
-    <ion-item *ngFor="let item of corregimientos">
-      <p>{{ item.nombre }} | {{ item.municipio.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarCorregimiento(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'antecedente'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarAntecedente()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Antecedente</h2>
+          <p>Listado de antecedentes</p>
+        </ion-item>
+        <ion-item *ngFor="let item of antecedentes">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarAntecedente(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarTipoDocumento()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Tipo de documento</h2>
-      <p>Listado de tipos de documento</p>
-    </ion-item>
-    <ion-item *ngFor="let item of tiposDocumento">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarTipoDocumento(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'pais'">
+      <ion-searchbar (ionInput)="filtrarPaises($event)"></ion-searchbar>
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarPais()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Pais</h2>
+          <p>Listado de paises</p>
+        </ion-item>
+        <ion-item *ngFor="let item of paises">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarPais(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarFormaPago()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Forma de pago</h2>
-      <p>Listado de formas de pago</p>
-    </ion-item>
-    <ion-item *ngFor="let item of formasPago">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarFormaPago(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarEstTramite()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Estado de tramite</h2>
-      <p>Listado de estados de tramite</p>
-    </ion-item>
-    <ion-item *ngFor="let item of estadosTramite">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarEstTramite(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'departamento'">
+      <ion-searchbar (ionInput)="filtrarDepartamentos($event)"></ion-searchbar>
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarDepartamento()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Departamento</h2>
+          <p>Listado de departamentos</p>
+        </ion-item>
+        <ion-item *ngFor="let item of departamentos">
+          <p>{{ item.nombre }} | {{ item.pais.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarDepartamento(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarGenero()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Genero</h2>
-      <p>Listado de generos</p>
-    </ion-item>
-    <ion-item *ngFor="let item of generos">
-      <p>{{ item.nombre }}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarGenero(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'municipio'">
+      <ion-searchbar (ionInput)="filtrarMunicipios($event)"></ion-searchbar>
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarMunicipio()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Municipio</h2>
+          <p>Listado de Municipios</p>
+        </ion-item>
+        <ion-item *ngFor="let item of municipios">
+          <p>{{ item.nombre }} | {{ item.departamento.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarMunicipio(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
 
-  <ion-card>
-    <ion-item>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarTipoTramite()">
-          <ion-icon color="secondary" name="create"></ion-icon>
-        </button>
-      </ion-avatar>
-      <h2>Tipo de trámite</h2>
-      <p>Listado de tipos de trámite</p>
-    </ion-item>
-    <ion-item *ngFor="let item of tiposTramite">
-      <p>{{ item.nombre }} - ${{item.valor}}</p>
-      <ion-avatar item-end>
-        <button ion-button clear (click)="guardarTipoTramite(item)">
-          <ion-icon name="hammer"></ion-icon>
-        </button>
-      </ion-avatar>
-    </ion-item>
-  </ion-card>
+    <ion-list *ngSwitchCase="'corregimiento'">
+      <ion-searchbar (ionInput)="filtrarCorregimientos($event)"></ion-searchbar>
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarCorregimiento()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Corregimiento</h2>
+          <p>Listado de corregimientos</p>
+        </ion-item>
+        <ion-item *ngFor="let item of corregimientos">
+          <p>{{ item.nombre }} | {{ item.municipio.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarCorregimiento(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'tipoDocumento'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarTipoDocumento()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Tipo de documento</h2>
+          <p>Listado de tipos de documento</p>
+        </ion-item>
+        <ion-item *ngFor="let item of tiposDocumento">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarTipoDocumento(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'formaPago'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarFormaPago()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Forma de pago</h2>
+          <p>Listado de formas de pago</p>
+        </ion-item>
+        <ion-item *ngFor="let item of formasPago">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarFormaPago(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'estadoTramite'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarEstTramite()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Estado de tramite</h2>
+          <p>Listado de estados de tramite</p>
+        </ion-item>
+        <ion-item *ngFor="let item of estadosTramite">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarEstTramite(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'genero'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarGenero()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Genero</h2>
+          <p>Listado de generos</p>
+        </ion-item>
+        <ion-item *ngFor="let item of generos">
+          <p>{{ item.nombre }}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarGenero(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'tipoTramite'">
+      <ion-card>
+        <ion-item>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarTipoTramite()">
+              <ion-icon color="secondary" name="create"></ion-icon>
+            </button>
+          </ion-avatar>
+          <h2>Tipo de trámite</h2>
+          <p>Listado de tipos de trámite</p>
+        </ion-item>
+        <ion-item *ngFor="let item of tiposTramite">
+          <p>{{ item.nombre }} - ${{item.valor}}</p>
+          <ion-avatar item-end>
+            <button ion-button clear (click)="guardarTipoTramite(item)">
+              <ion-icon name="hammer"></ion-icon>
+            </button>
+          </ion-avatar>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+  </div>
 
 </ion-content>

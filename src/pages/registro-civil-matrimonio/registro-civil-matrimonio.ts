@@ -9,9 +9,4 @@ export class RegistroCivilMatrimonioPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroCivilMatrimonioPage');
-  }
-
 }

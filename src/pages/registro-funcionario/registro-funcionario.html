@@ -1,64 +1,104 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Registro-Funcionario</ion-title>
+    <ion-title>Registro de funcionarios</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
 
-  <ion-grid>
-    <ion-row col-12 col-md-10 offset-md-1>
+  <form [formGroup]="frmFuncionario" (ngSubmit)="registro()">
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Nombres</ion-label>
-          <ion-input [(ngModel)]="usuario.nombres" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+    <ion-grid>
+      <ion-row col-12 col-md-10 offset-md-1>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Apellidos</ion-label>
-          <ion-input [(ngModel)]="usuario.apellidos" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Nombres</ion-label>
+            <ion-input formControlName="nombres" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Correo</ion-label>
-          <ion-input type="email" [(ngModel)]="usuario.correo" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Apellidos</ion-label>
+            <ion-input formControlName="apellidos" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="usuario.contrasena" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Correo</ion-label>
+            <ion-input type="email" formControlName="correo" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label id="firma_funcionario" stacked>Firma</ion-label>
-          <ion-input type="file" accept="image/*" (change)="guardarFirmaFuncionario($event)"></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Contraseña</ion-label>
+            <ion-input type="password" formControlName="contrasena" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-select [(ngModel)]="usuario.rol_id">
-            <ion-option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</ion-option>
-          </ion-select>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label id="firma_funcionario" stacked>Firma</ion-label>
+            <ion-input type="file" accept="image/*" (change)="guardarFirmaFuncionario($event)"></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 text-center>
-        <button ion-button block (click)="registro()"> Registrar cuenta </button>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Rol</ion-label>
+            <ion-select formControlName="rol_id">
+              <ng-container *ngFor="let rol of roles">
+                <ion-option *ngIf="rol.nombre !== 'Cliente'" [value]="rol.id">{{ rol.nombre }}</ion-option>
+              </ng-container>
+            </ion-select>
+          </ion-item>
+        </ion-col>
 
-    </ion-row>
-  </ion-grid>
+        <ion-col col-12 text-center>
+          <button ion-button block type="submit" [disabled]="!frmFuncionario.valid"> {{ nombreBoton }} </button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </form>
+
+  <!-- Validacion de campos del formulario de registro de funcionarios-->
+  <div *ngIf="frmFuncionario.controls['nombres'].touched && !frmFuncionario.controls['nombres'].valid">
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['nombres'].hasError('required') ">
+      El nombre es requerido
+    </small>
+  </div>
+  <div *ngIf="frmFuncionario.controls['apellidos'].touched && !frmFuncionario.controls['apellidos'].valid">
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['apellidos'].hasError('required') ">
+      Los apellidos son requeridos
+    </small>
+  </div>
+  <div *ngIf="frmFuncionario.controls['correo'].touched && !frmFuncionario.controls['correo'].valid">
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['correo'].hasError('required')">
+      El correo es requerido
+    </small>
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['correo'].hasError('email')">
+      No es un correo válido
+    </small>
+  </div>
+  <div *ngIf="frmFuncionario.controls['contrasena'].touched && !frmFuncionario.controls['contrasena'].valid">
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['contrasena'].hasError('required') ">
+      La contraseña es requerida
+    </small>
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['contrasena'].hasError('minLength') ">
+      La contraseña no cumple con el mínimo requerido
+    </small>
+  </div>
+  <div *ngIf="frmFuncionario.controls['rol_id'].touched && !frmFuncionario.controls['rol_id'].valid">
+    <small color="danger" ion-text *ngIf="frmFuncionario.controls['rol_id'].hasError('required') ">
+      El rol es necesario
+    </small>
+  </div>
 
 </ion-content>

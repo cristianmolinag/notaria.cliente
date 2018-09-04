@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
-import { Usuario, Firma, Rol } from '../../models/global';
+import { Firma, Rol } from '../../models/global';
 import { HttpProvider } from '../../providers/http/http';
+import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'page-registro-funcionario',
@@ -9,7 +10,10 @@ import { HttpProvider } from '../../providers/http/http';
 })
 export class RegistroFuncionarioPage {
 
-  usuario: Usuario;
+  frmFuncionario: FormGroup;
+  nombreBoton: string;
+
+  // usuario: Usuario;
   firma: Firma;
   roles: Rol[];
 
@@ -17,14 +21,34 @@ export class RegistroFuncionarioPage {
     public navParams: NavParams,
     private http: HttpProvider,
     public viewCtrl: ViewController,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private frmBuilder: FormBuilder) {
 
-    if (this.navParams.get('data')) {
-      this.usuario = this.navParams.get('data');
-      this.firma = this.usuario.firma;
+    this.frmFuncionario = this.frmBuilder.group({
+      id: [{ value: null, disabled: false }],
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      correo: ['', Validators.compose([Validators.required, Validators.email])],
+      contrasena: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      rol_id: ['', Validators.required]
+    });
+
+    this.firma = new Firma();
+
+    var usuario = this.navParams.get('data');
+
+    if (usuario) {
+      this.nombreBoton = "Actualizar funcionario"
+      this.frmFuncionario.setValue({
+        id: usuario.id,
+        nombres: usuario.nombres,
+        apellidos: usuario.apellidos,
+        correo: usuario.correo,
+        contrasena: usuario.contrasena,
+        rol_id: usuario.usuario_rol[0].rol_id
+      });
     } else {
-      this.usuario = new Usuario();
-      this.firma = new Firma();
+      this.nombreBoton = "Nuevo funcionario"
     }
 
     this.http.get('rol').then((data: any) => this.roles = data.data);
@@ -41,24 +65,42 @@ export class RegistroFuncionarioPage {
   }
 
   registro() {
-    this.usuario.firma = this.firma;
+    var funcionario: any = this.frmFuncionario.value;
 
-    if (!this.usuario.nombres ||
-      !this.usuario.apellidos ||
-      !this.usuario.correo ||
-      !this.usuario.firma.firma) {
-
-      const toast = this.toastCtrl.create({
-        message: 'Hay campos vacíos',
-        duration: 3000
+    if (funcionario.id) {
+      if (this.firma.firma) {
+        funcionario.firma = this.firma;
+      }
+      this.http.put('usuario/update/funcionario/' + funcionario.id, funcionario).then((data: any) => {
+        if (data.mensaje) {
+          const toast = this.toastCtrl.create({
+            message: data.mensaje,
+            duration: 3000
+          });
+          toast.present();
+        }
+        else {
+          const toast = this.toastCtrl.create({
+            message: "Funcionario actualizado con éxito",
+            duration: 3000
+          });
+          toast.present();
+          this.viewCtrl.dismiss();
+        }
       });
-      toast.present();
-    }
-    else {
-      if (this.usuario.id) {
-        this.http.put('usuario/update/funcionario/' + this.usuario.id, this.usuario).then((data: any) => {
+
+    } else {
+
+      if (!this.firma.firma) {
+        const toast = this.toastCtrl.create({
+          message: "Debe insertar una firma",
+          duration: 3000
+        });
+        toast.present();
+      } else {
+        funcionario.firma = this.firma;
+        this.http.post('usuario/registro/funcionario', funcionario).then((data: any) => {
           if (data.mensaje) {
-            console.log(data);
             const toast = this.toastCtrl.create({
               message: data.mensaje,
               duration: 3000
@@ -67,44 +109,19 @@ export class RegistroFuncionarioPage {
           }
           else {
             const toast = this.toastCtrl.create({
-              message: "Funcionario actualizado con éxito",
+              message: "Funcionario creado con éxito",
               duration: 3000
             });
             toast.present();
-            this.viewCtrl.dismiss();
+            this.navCtrl.pop();
           }
         });
-      } else {
-        if (this.usuario.contrasena) {
-          this.http.post('usuario/registro/funcionario', this.usuario).then((data: any) => {
-            if (data.mensaje) {
-              console.log(data);
-              const toast = this.toastCtrl.create({
-                message: data.mensaje,
-                duration: 3000
-              });
-              toast.present();
-            }
-            else {
-              const toast = this.toastCtrl.create({
-                message: "Funcionario creado con éxito",
-                duration: 3000
-              });
-              toast.present();
-              this.navCtrl.pop();
-            }
-          });
-        }
-        else {
-          const toast = this.toastCtrl.create({
-            message: 'Ingrese una contraseña válida',
-            duration: 3000
-          });
-          toast.present();
-        }
 
       }
     }
-  }
 
+
+
+    // }
+  }
 }

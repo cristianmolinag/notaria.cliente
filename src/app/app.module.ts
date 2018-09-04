@@ -24,6 +24,8 @@ import { UserProvider } from '../providers/user/user';
 import { RegistroDepartamentoPage } from '../pages/registro-departamento/registro-departamento';
 import { RegistroMunicipioPage } from '../pages/registro-municipio/registro-municipio';
 import { RegistroFuncionarioPage } from '../pages/registro-funcionario/registro-funcionario';
+import { RegistroCivilMatrimonioPage } from '../pages/registro-civil-matrimonio/registro-civil-matrimonio';
+import { RegistroCivilDefuncionPage } from '../pages/registro-civil-defuncion/registro-civil-defuncion';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { RegistroFuncionarioPage } from '../pages/registro-funcionario/registro-
     RegistroClientePage,
     RegistroTramitePage,
     RegistroCivilNacimientoPage,
+    RegistroCivilMatrimonioPage,
+    RegistroCivilDefuncionPage,
     RegistroDepartamentoPage,
     RegistroMunicipioPage,
     RegistroCorregimientoPage,
@@ -64,6 +68,8 @@ import { RegistroFuncionarioPage } from '../pages/registro-funcionario/registro-
     RegistroClientePage,
     RegistroTramitePage,
     RegistroCivilNacimientoPage,
+    RegistroCivilMatrimonioPage,
+    RegistroCivilDefuncionPage,
     RegistroDepartamentoPage,
     RegistroMunicipioPage,
     RegistroCorregimientoPage,

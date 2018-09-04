@@ -5,28 +5,7 @@
       <strong>Registro civil de nacimiento</strong>
     </p>
   </div>
-  <ion-list>
-
-    <ion-card>
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6 col-md-3>
-              <ion-item no-lines>
-                <ion-label stacked>NUIP</ion-label>
-                <ion-input [(ngModel)]="registro.nuip" type="text"></ion-input>
-              </ion-item>
-            </ion-col>
-            <ion-col col-6 offset-md-6 col-md-3>
-              <ion-item no-lines>
-                <ion-label stacked>Indicativo serial</ion-label>
-                <ion-input [(ngModel)]="registro.indicativo_serial" type="text"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
+  <form [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
 
     <ion-card>
       <ion-card-content>
@@ -36,54 +15,98 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Primer Apellido</ion-label>
-                <ion-input [(ngModel)]="registro.primer_apellido" type="text"></ion-input>
+                <ion-input formControlName="inscrito_primer_apellido" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_primer_apellido'].touched && !frmRegistro.controls['inscrito_primer_apellido'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_primer_apellido'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_primer_apellido'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col>
               <ion-item>
                 <ion-label stacked>Segundo Apellido</ion-label>
-                <ion-input [(ngModel)]="registro.segundo_apellido" type="text"></ion-input>
+                <ion-input formControlName="inscrito_segundo_apellido" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_segundo_apellido'].touched && !frmRegistro.controls['inscrito_segundo_apellido'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_segundo_apellido'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_segundo_apellido'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
               <ion-item>
                 <ion-label stacked>Nombres</ion-label>
-                <ion-input [(ngModel)]="registro.nombres" type="text"></ion-input>
+                <ion-input formControlName="inscrito_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_nombres'].touched && !frmRegistro.controls['inscrito_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Fecha de nacimiento</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="registro.fecha_nacimiento"></ion-datetime>
+                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="inscrito_fecha_nacimiento"></ion-datetime>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_fecha_nacimiento'].touched && !frmRegistro.controls['inscrito_fecha_nacimiento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_fecha_nacimiento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Sexo(en letras)</ion-label>
-                <ion-select [(ngModel)]="registro.genero_id">
+                <ion-select formControlName="inscrito_genero_id">
                   <ion-option *ngFor="let genero of generos" [value]="genero.id">{{genero.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_genero_id'].touched && !frmRegistro.controls['inscrito_genero_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_genero_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Grupo sanguineo</ion-label>
-                <ion-select [(ngModel)]="registro.grupo_sanguineo_id">
+                <ion-select formControlName="inscrito_grupo_sanguineo_id">
                   <ion-option *ngFor="let item of grupos_sanguineos" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_grupo_sanguineo_id'].touched && !frmRegistro.controls['inscrito_grupo_sanguineo_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_grupo_sanguineo_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Factor RH</ion-label>
-                <ion-select [(ngModel)]="registro.factor_rh_id">
+                <ion-select formControlName="inscrito_factor_rh_id">
                   <ion-option *ngFor="let item of rh" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['inscrito_factor_rh_id'].touched && !frmRegistro.controls['inscrito_factor_rh_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_factor_rh_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <h4 text-center>Lugar de nacimiento (Pais - Departamento - Municipio - Corregimiento)</h4>
@@ -91,39 +114,54 @@
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Pais</ion-label>
-                <ion-select [(ngModel)]="lugar_nacimiento.pais">
+                <ion-select formControlName="lugar_nacimiento_pais">
                   <template *ngFor="let item of paises">
                     <ion-option [value]="item">{{item.nombre}}</ion-option>
                   </template>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['lugar_nacimiento_pais'].touched && !frmRegistro.controls['lugar_nacimiento_pais'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_nacimiento_pais'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Departamento</ion-label>
-                <ion-select [(ngModel)]="lugar_nacimiento.departamento">
+                <ion-select formControlName="lugar_nacimiento_departamento">
                   <template *ngFor="let item of departamentos">
-                    <ion-option *ngIf="item.pais.id === lugar_nacimiento.pais.id" [value]="item">{{item.nombre}}</ion-option>
+                    <ion-option *ngIf="item.pais.id === frmRegistro.value.lugar_nacimiento_pais.id" [value]="item">{{item.nombre}}</ion-option>
                   </template>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['lugar_nacimiento_departamento'].touched && !frmRegistro.controls['lugar_nacimiento_departamento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_nacimiento_departamento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Municipio</ion-label>
-                <ion-select [(ngModel)]="lugar_nacimiento.municipio">
+                <ion-select formControlName="lugar_nacimiento_municipio">
                   <template *ngFor="let item of municipios">
-                    <ion-option *ngIf="item.departamento.id == lugar_nacimiento.departamento.id " [value]="item">{{item.nombre}}</ion-option>
+                    <ion-option *ngIf="item.departamento.id == frmRegistro.value.lugar_nacimiento_departamento.id " [value]="item">{{item.nombre}}</ion-option>
                   </template>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['lugar_nacimiento_municipio'].touched && !frmRegistro.controls['lugar_nacimiento_municipio'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_nacimiento_municipio'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked>Corregimiento</ion-label>
-                <ion-select [(ngModel)]="lugar_nacimiento.corregimiento">
+                <ion-select formControlName="lugar_nacimiento_corregimiento">
                   <template *ngFor="let item of corregimientos">
-                    <ion-option *ngIf="item.municipio.id == lugar_nacimiento.corregimiento.id" [value]="item">{{item.nombre}}</ion-option>
+                    <ion-option *ngIf="item.municipio.id == frmRegistro.value.lugar_nacimiento_departamento.id" [value]="item">{{item.nombre}}</ion-option>
                   </template>
                 </ion-select>
               </ion-item>
@@ -133,7 +171,6 @@
       </ion-card-content>
     </ion-card>
 
-
     <ion-card>
       <ion-card-content>
         <ion-grid>
@@ -141,22 +178,26 @@
             <ion-col col-6 col-md-9>
               <ion-item>
                 <ion-label stacked>Tipo de documento antecedente o Declaración de testigos</ion-label>
-                <ion-select [(ngModel)]="registro.antecedente_id">
+                <ion-select formControlName="antecedente_id">
                   <ion-option *ngFor="let item of antecedentes" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['antecedente_id'].touched && !frmRegistro.controls['antecedente_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['antecedente_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-6 col-md-3>
               <ion-item>
                 <ion-label stacked># Certificado Nacido vivo</ion-label>
-                <ion-input [(ngModel)]="registro.num_nacido_vivo" type="text"></ion-input>
+                <ion-input formControlName="num_nacido_vivo" type="text"></ion-input>
               </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-            </ion-col>
-            <ion-col>
+              <div *ngIf="frmRegistro.controls['num_nacido_vivo'].touched && !frmRegistro.controls['num_nacido_vivo'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['num_nacido_vivo'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -171,32 +212,58 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Apellidos y nombres completos</ion-label>
-                <ion-input [(ngModel)]="registro.nombres_madre" type="text"></ion-input>
+                <ion-input formControlName="madre_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['madre_nombres'].touched && !frmRegistro.controls['madre_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_madre_id">
+                <ion-select formControlName="madre_tipo_documento_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
+                <div *ngIf="frmRegistro.controls['madre_tipo_documento_id'].touched && !frmRegistro.controls['madre_tipo_documento_id'].valid">
+                  <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_tipo_documento_id'].hasError('required') ">
+                    El campo es requerido
+                  </small>
+                </div>
               </ion-item>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
-                <ion-label stacked>Documento de indentificación</ion-label>
-                <ion-input [(ngModel)]="registro.documento_madre" type="number"></ion-input>
+                <ion-label stacked>Documento de identificación</ion-label>
+                <ion-input formControlName="madre_documento" (input)="validarMadre($event.target.value)"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['madre_documento'].touched && !frmRegistro.controls['madre_documento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_documento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_documento'].hasError('maxlength') || frmRegistro.controls['madre_documento'].hasError('minlength')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Nacionalidad</ion-label>
-                <ion-select [(ngModel)]="registro.pais_madre_id">
+                <ion-select formControlName="madre_pais_id">
                   <ion-option *ngFor="let item of paises" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['madre_pais_id'].touched && !frmRegistro.controls['madre_pais_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['madre_pais_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -211,32 +278,59 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Apellidos y nombres completos</ion-label>
-                <ion-input [(ngModel)]="registro.nombres_padre" type="text"></ion-input>
+                <ion-input formControlName="padre_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['padre_nombres'].touched && !frmRegistro.controls['padre_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_padre_id">
+                <ion-select formControlName="padre_tipo_documento_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
+                <div *ngIf="frmRegistro.controls['padre_tipo_documento_id'].touched && !frmRegistro.controls['padre_tipo_documento_id'].valid">
+                  <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_tipo_documento_id'].hasError('required') ">
+                    El campo es requerido
+                  </small>
+                </div>
               </ion-item>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
-                <ion-input [(ngModel)]="registro.documento_padre" type="number"></ion-input>
+                <ion-input formControlName="padre_documento" (input)="validarPadre($event.target.value)"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['padre_documento'].touched && !frmRegistro.controls['padre_documento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_documento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_documento'].hasError('maxlength') 
+                || frmRegistro.controls['padre_documento'].hasError('minlength') || frmRegistro.controls['padre_documento'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Nacionalidad</ion-label>
-                <ion-select [(ngModel)]="registro.pais_padre_id">
+                <ion-select formControlName="padre_pais_id">
                   <ion-option *ngFor="let item of paises" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['padre_pais_id'].touched && !frmRegistro.controls['padre_pais_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['padre_pais_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -251,24 +345,46 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Apellidos y nombres completos</ion-label>
-                <ion-input [(ngModel)]="registro.nombres_declarante" type="text"></ion-input>
+                <ion-input formControlName="declarante_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['declarante_nombres'].touched && !frmRegistro.controls['declarante_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['declarante_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['declarante_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_declarante_id">
+                <ion-select formControlName="declarante_tipo_documento_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['declarante_tipo_documento_id'].touched && !frmRegistro.controls['declarante_tipo_documento_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['declarante_tipo_documento_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
-                <ion-input [(ngModel)]="registro.documento_declarante" type="number"></ion-input>
+                <ion-input formControlName="declarante_documento" (input)="validarDeclarante($event.target.value)"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['declarante_documento'].touched && !frmRegistro.controls['declarante_documento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['declarante_documento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['declarante_documento'].hasError('maxlength') 
+                || frmRegistro.controls['declarante_documento'].hasError('minlength') || frmRegistro.controls['declarante_documento'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
@@ -289,24 +405,46 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Apellidos y nombres completos</ion-label>
-                <ion-input [(ngModel)]="registro.nombres_testigo_uno" type="text"></ion-input>
+                <ion-input formControlName="testigo_uno_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_uno_nombres'].touched && !frmRegistro.controls['testigo_uno_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_testigo_uno_id">
+                <ion-select formControlName="testigo_uno_tipo_documento_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_uno_tipo_documento_id'].touched && !frmRegistro.controls['testigo_uno_tipo_documento_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_tipo_documento_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
-                <ion-input [(ngModel)]="registro.documento_testigo_uno" type="number"></ion-input>
+                <ion-input formControlName="testigo_uno_documento" (input)="validarTestigoUno($event.target.value)"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_uno_documento'].touched && !frmRegistro.controls['testigo_uno_documento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_documento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_documento'].hasError('maxlength') 
+                  || frmRegistro.controls['testigo_uno_documento'].hasError('minlength') || frmRegistro.controls['testigo_uno_documento'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
@@ -327,24 +465,46 @@
             <ion-col>
               <ion-item>
                 <ion-label stacked>Apellidos y nombres completos</ion-label>
-                <ion-input [(ngModel)]="registro.nombres_testigo_dos" type="text"></ion-input>
+                <ion-input formControlName="testigo_dos_nombres" type="text"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_dos_nombres'].touched && !frmRegistro.controls['testigo_dos_nombres'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_nombres'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_nombres'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Tipo de documento</ion-label>
-                <ion-select [(ngModel)]="registro.tipo_documento_testigo_dos_id">
+                <ion-select formControlName="testigo_dos_tipo_documento_id">
                   <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
                 </ion-select>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_dos_tipo_documento_id'].touched && !frmRegistro.controls['testigo_dos_tipo_documento_id'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_tipo_documento_id'].hasError('required') ">
+                  El campo es requerido
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
                 <ion-label stacked>Documento de indentificación</ion-label>
-                <ion-input [(ngModel)]="registro.documento_testigo_dos" type="number"></ion-input>
+                <ion-input formControlName="testigo_dos_documento" (input)="validarTestigoDos($event.target.value)"></ion-input>
               </ion-item>
+              <div *ngIf="frmRegistro.controls['testigo_dos_documento'].touched && !frmRegistro.controls['testigo_dos_documento'].valid">
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_documento'].hasError('required') ">
+                  El campo es requerido
+                </small>
+                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_documento'].hasError('maxlength') 
+                    || frmRegistro.controls['testigo_dos_documento'].hasError('minlength') || frmRegistro.controls['testigo_dos_documento'].hasError('pattern')">
+                  Valores no válidos
+                </small>
+              </div>
             </ion-col>
             <ion-col col-12 col-md-4>
               <ion-item>
@@ -357,6 +517,8 @@
       </ion-card-content>
     </ion-card>
 
+
+
     <ion-card>
       <ion-card-content>
 
@@ -365,13 +527,34 @@
             ESPACIO PARA NOTAS
           </h4>
           <ion-row>
-            <ion-textarea [(ngModel)]="registro.notas_marginales"></ion-textarea>
+            <ion-textarea formControlName="notas_marginales"></ion-textarea>
           </ion-row>
         </ion-grid>
       </ion-card-content>
     </ion-card>
 
-  </ion-list>
 
-  <button ion-button full (click)="guardarRegistroCivil()">Guardar</button>
+    <button ion-button full type="submit" [disabled]="!frmRegistro.valid">Guardar</button>
+
+  </form>
 </ion-content>
+<!-- <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 col-md-3>
+              <ion-item no-lines>
+                <ion-label stacked>NUIP</ion-label>
+                <ion-input [(ngModel)]="registro.nuip" type="text"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6 offset-md-6 col-md-3>
+              <ion-item no-lines>
+                <ion-label stacked>Indicativo serial</ion-label>
+                <ion-input [(ngModel)]="registro.indicativo_serial" type="text"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card> -->

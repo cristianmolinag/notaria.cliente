@@ -1,11 +1,8 @@
 <ion-content text-center>
   <div padding>
     <ion-segment [(ngModel)]="home">
-      <ion-segment-button value="intranet">
-        Intranet
-      </ion-segment-button>
-      <ion-segment-button value="cliente">
-        Cliente
+      <ion-segment-button value="login">
+        Login
       </ion-segment-button>
       <ion-segment-button value="consulta">
         Consulta
@@ -17,51 +14,45 @@
 
   <div [ngSwitch]="home">
 
-    <ion-list *ngSwitchCase="'intranet'">
+    <ion-list *ngSwitchCase="'login'">
 
-      <h4 text-center>Inicio de sesión de funcionarios</h4>
+      <h4 text-center>Inicio de sesión</h4>
 
       <div padding col-lg-6 offset-lg-3>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Correo</ion-label>
-          <ion-input type="email" [(ngModel)]="funcionario.correo"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="funcionario.contrasena"></ion-input>
-        </ion-item>
-        <br>
-        <button ion-button block (click)="loginFuncionario()">Iniciar Sesión</button>
+        <form [formGroup]="frmLogin" (ngSubmit)="login()">
+          <ion-item>
+            <ion-label color="primary" floating color="dark">Correo</ion-label>
+            <ion-input type="email" formControlName="correo"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" floating color="dark">Contraseña</ion-label>
+            <ion-input type="password" formControlName="contrasena"></ion-input>
+          </ion-item>
+          <ion-item align-items-center no-lines>
+            <button ion-button block type="submit" [disabled]="!frmLogin.valid">Iniciar Sesión</button>
+          </ion-item>
+        </form>
 
-        <ion-item align-items-center no-lines>
-          <button ion-button outline color="danger">Recordar contraseña</button>
-        </ion-item>
-
+        <!-- Validacion de campos del formulario de login-->
+        <div *ngIf="frmLogin.controls['correo'].touched && !frmLogin.controls['correo'].valid">
+          <small color="danger" ion-text *ngIf="frmLogin.controls['correo'].hasError('required')">
+            El correo es requerido
+          </small>
+          <small color="danger" ion-text *ngIf="frmLogin.controls['correo'].hasError('email')">
+            No es un correo válido
+          </small>
+        </div>
+        <div *ngIf="frmLogin.controls['contrasena'].touched && !frmLogin.controls['contrasena'].valid">
+          <small color="danger" ion-text *ngIf="frmLogin.controls['contrasena'].hasError('required') ">
+            La contraseña es requerida
+          </small>
+        </div>
       </div>
-
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'cliente'">
-
-      <h4 text-center>Inicio de sesión de clientes</h4>
-
-      <div padding col-lg-6 offset-lg-3>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Correo</ion-label>
-          <ion-input type="email" [(ngModel)]="cliente.correo"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="cliente.contrasena"></ion-input>
-        </ion-item>
-        <br>
-        <button ion-button block (click)="loginCliente()">Iniciar Sesión</button>
-
+      <div col-lg-6 offset-lg-3>
         <ion-item align-items-center no-lines>
           <button ion-button outline color="danger">Recordar contraseña</button>
           <button ion-button outline color="primary" [navPush]="registroCliente">Registrarme</button>
         </ion-item>
-
       </div>
     </ion-list>
 
@@ -69,19 +60,30 @@
       <h4 text-center>Consulta de documentos</h4>
 
       <div padding col-lg-6 offset-lg-3>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Documento</ion-label>
-          <ion-input type="number"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label color="primary" floating color="dark">Código de autorización</ion-label>
-          <ion-input></ion-input>
-        </ion-item>
-        <br>
-        <button ion-button round>Consultar</button>
+        <form [formGroup]="frmConsulta" (ngSubmit)="consulta()">
+          <ion-item>
+            <ion-label color="primary" floating color="dark">Documento</ion-label>
+            <ion-input type="number" formControlName="documento"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" floating color="dark">Código de autorización</ion-label>
+            <ion-input type="text" formControlName="codigo"></ion-input>
+          </ion-item>
+          <button ion-button round type="submit" [disabled]="!frmConsulta.valid">Consultar</button>
+        </form>
       </div>
 
-
+      <!-- Validacion de campos del formulario de consulta-->
+      <div *ngIf="frmConsulta.controls['documento'].touched && !frmConsulta.controls['documento'].valid">
+        <small color="danger" ion-text *ngIf="frmConsulta.controls['documento'].hasError('required')">
+          El documento es requerido
+        </small>
+      </div>
+      <div *ngIf="frmConsulta.controls['codigo'].touched && !frmConsulta.controls['codigo'].valid">
+        <small color="danger" ion-text *ngIf="frmConsulta.controls['codigo'].hasError('required') ">
+          el código de atorización es requerido
+        </small>
+      </div>
     </ion-list>
   </div>
 

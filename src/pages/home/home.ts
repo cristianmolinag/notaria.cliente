@@ -3,9 +3,9 @@ import { HttpProvider } from './../../providers/http/http';
 import { RegistroClientePage } from './../registro-cliente/registro-cliente';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { Usuario } from '../../models/global';
 import { MenuPage } from '../menu/menu';
 import { Storage } from '@ionic/storage';
+import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 
 @Component({
@@ -13,22 +13,32 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  frmLogin: FormGroup;
+  frmConsulta: FormGroup;
   @ViewChild('home') nav: NavController;
   home: string;
   rootPage: any;
   registroCliente: any;
-  cliente: Usuario;
-  funcionario: Usuario;
 
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
     private http: HttpProvider,
     private user: UserProvider,
-    private storage: Storage) {
+    private storage: Storage,
+    private frmBuilder: FormBuilder) {
 
-    this.cliente = new Usuario;
-    this.funcionario = new Usuario;
+    this.frmLogin = this.frmBuilder.group({
+      correo: ['', Validators.compose([Validators.required, Validators.email])],
+      contrasena: ['', Validators.required],
+    });
+
+    this.frmConsulta = this.frmBuilder.group({
+      documento: ['', Validators.required],
+      codigo: ['', Validators.required],
+    })
+
     this.home = 'consulta';
     this.registroCliente = RegistroClientePage;
   }
@@ -47,70 +57,31 @@ export class HomePage {
     });
   }
 
-  loginCliente() {
+  login() {
+    this.http.post('usuario/login', this.frmLogin.value).then((data: any) => {
 
-    if (!this.cliente.correo || !this.cliente.contrasena) {
-      const toast = this.toastCtrl.create({
-        message: "Hay campos vacíos",
-        duration: 3000
-      });
-      toast.present();
-    }
-    else {
-      this.http.post('usuario/login/cliente', this.cliente).then((data: any) => {
-
-        if (data.mensaje) {
-          const toast = this.toastCtrl.create({
-            message: data.mensaje,
-            duration: 3000
-          });
-          toast.present();
-        }
-        else {
-          this.user.setUsuario(data.data);
-          const toast = this.toastCtrl.create({
-            message: "Bienvenido " + data.data.nombres,
-            duration: 3000
-          });
-          toast.present();
-          this.storage.remove('usuario');
-          this.storage.set('usuario', data.data);
-          this.navCtrl.setRoot(MenuPage);
-        }
-      });
-    }
+      if (data.mensaje) {
+        const toast = this.toastCtrl.create({
+          message: data.mensaje,
+          duration: 3000
+        });
+        toast.present();
+      }
+      else {
+        this.user.setUsuario(data.data);
+        const toast = this.toastCtrl.create({
+          message: "Bienvenido " + data.data.nombres,
+          duration: 3000
+        });
+        toast.present();
+        this.storage.set('usuario', data.data);
+        this.navCtrl.setRoot(MenuPage);
+      }
+    });
   }
 
-  loginFuncionario() {
-    if (!this.funcionario.correo || !this.funcionario.contrasena) {
-      const toast = this.toastCtrl.create({
-        message: "Hay campos vacíos",
-        duration: 3000
-      });
-      toast.present();
-    }
-    else {
-      this.http.post('usuario/login/funcionario', this.funcionario).then((data: any) => {
-
-        if (data.mensaje) {
-          const toast = this.toastCtrl.create({
-            message: data.mensaje,
-            duration: 3000
-          });
-          toast.present();
-        }
-        else {
-          this.user.setUsuario(data.data);
-          const toast = this.toastCtrl.create({
-            message: "Bienvenido " + data.data.nombres,
-            duration: 3000
-          });
-          toast.present();
-          this.storage.remove('usuario');
-          this.storage.set('usuario', data.data);
-          this.navCtrl.setRoot(MenuPage);
-        }
-      });
-    }
+  consulta() {
+    console.log(this.frmConsulta.value);
   }
+
 }

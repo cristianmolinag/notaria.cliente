@@ -16,9 +16,4 @@ export class RegistroCivilDefuncionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegistroCivilDefuncionPage');
-  }
-
 }

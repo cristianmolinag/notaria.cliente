@@ -175,4 +175,11 @@ export class Pago {
     forma_pago_id: number;
 }
 
+export class rolesPorPermiso {
+    id: number;
+    titulo: string;
+    componente: string;
+    roles: Rol[];
+}
+
 

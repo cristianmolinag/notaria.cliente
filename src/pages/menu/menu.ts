@@ -45,7 +45,6 @@ export class MenuPage {
   }
 
   abrirPagina(item: any) {
-
     switch (item.componente) {
       case 'ConfiguracionPage':
         item.componente = ConfiguracionPage;

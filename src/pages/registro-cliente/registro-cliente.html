@@ -9,42 +9,76 @@
 
 <ion-content padding>
 
-  <ion-grid>
-    <ion-row col-12 col-md-10 offset-md-1>
+  <form [formGroup]="frmCliente" (ngSubmit)="registro()">
+    <ion-grid>
+      <ion-row col-12 col-md-10 offset-md-1>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Nombres</ion-label>
+            <ion-input formControlName="nombres" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Nombres</ion-label>
-          <ion-input [(ngModel)]="usuario.nombres" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Apellidos</ion-label>
+            <ion-input formControlName="apellidos" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Apellidos</ion-label>
-          <ion-input [(ngModel)]="usuario.apellidos" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Correo</ion-label>
+            <ion-input type="email" formControlName="correo" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Correo</ion-label>
-          <ion-input type="email" [(ngModel)]="usuario.correo" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Contraseña</ion-label>
+            <ion-input type="password" formControlName="contrasena" clearInput></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col col-12 col-md-6>
-        <ion-item>
-          <ion-label stacked>Contraseña</ion-label>
-          <ion-input type="password" [(ngModel)]="usuario.contrasena" clearInput></ion-input>
-        </ion-item>
-      </ion-col>
+        <ion-col col-12 text-center>
+          <button ion-button block type="submit" [disabled]="!frmCliente.valid">{{ nombreBoton }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 
-      <ion-col col-12 text-center>
-        <button ion-button block (click)="registro()"> Registrar cuenta </button>
-      </ion-col>
-
-    </ion-row>
-  </ion-grid>
+  <!-- Validacion de campos del formulario de registro de clientes-->
+  <div *ngIf="frmCliente.controls['nombres'].touched && !frmCliente.controls['nombres'].valid">
+    <small color="danger" ion-text *ngIf="frmCliente.controls['nombres'].hasError('required') ">
+      El nombre es requerido
+    </small>
+    <small color="danger" ion-text *ngIf="frmCliente.controls['nombres'].hasError('pattern')">
+      El nombre no tiene un formato válido
+    </small>
+  </div>
+  <div *ngIf="frmCliente.controls['apellidos'].touched && !frmCliente.controls['apellidos'].valid">
+    <small color="danger" ion-text *ngIf="frmCliente.controls['apellidos'].hasError('required') ">
+      Los apellidos son requeridos
+    </small>
+    <small color="danger" ion-text *ngIf="frmCliente.controls['apellidos'].hasError('pattern')">
+      Los apellidos no tienen un formato válido
+    </small>
+  </div>
+  <div *ngIf="frmCliente.controls['correo'].touched && !frmCliente.controls['correo'].valid">
+    <small color="danger" ion-text *ngIf="frmCliente.controls['correo'].hasError('required')">
+      El correo es requerido
+    </small>
+    <small color="danger" ion-text *ngIf="frmCliente.controls['correo'].hasError('email')">
+      No es un correo válido
+    </small>
+  </div>
+  <div *ngIf="frmCliente.controls['contrasena'].touched && !frmCliente.controls['contrasena'].valid">
+    <small color="danger" ion-text *ngIf="frmCliente.controls['contrasena'].hasError('required') ">
+      La contraseña es requerida
+    </small>
+    <small color="danger" ion-text *ngIf="frmCliente.controls['contrasena'].hasError('minLength') ">
+      La contraseña no cumple con el mínimo requerido
+    </small>
+  </div>
 
 </ion-content>
