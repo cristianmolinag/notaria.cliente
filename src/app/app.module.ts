@@ -26,6 +26,9 @@ import { RegistroMunicipioPage } from '../pages/registro-municipio/registro-muni
 import { RegistroFuncionarioPage } from '../pages/registro-funcionario/registro-funcionario';
 import { RegistroCivilMatrimonioPage } from '../pages/registro-civil-matrimonio/registro-civil-matrimonio';
 import { RegistroCivilDefuncionPage } from '../pages/registro-civil-defuncion/registro-civil-defuncion';
+import { IndexRegistroCivilNacimientoPage } from '../pages/index-registro-civil-nacimiento/index-registro-civil-nacimiento';
+import { File } from '@ionic-native/file';
+
 
 
 @NgModule({
@@ -48,6 +51,7 @@ import { RegistroCivilDefuncionPage } from '../pages/registro-civil-defuncion/re
     RegistroCorregimientoPage,
     RegistroFuncionarioPage,
     RegistroPagoPage,
+    IndexRegistroCivilNacimientoPage,
   ],
   imports: [
     BrowserModule,
@@ -75,13 +79,16 @@ import { RegistroCivilDefuncionPage } from '../pages/registro-civil-defuncion/re
     RegistroCorregimientoPage,
     RegistroFuncionarioPage,
     RegistroPagoPage,
+    IndexRegistroCivilNacimientoPage,
+
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HttpProvider,
-    UserProvider
+    UserProvider,
+    File,
   ]
 })
 export class AppModule { }

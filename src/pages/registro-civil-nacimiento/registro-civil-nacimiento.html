@@ -5,7 +5,7 @@
       <strong>Registro civil de nacimiento</strong>
     </p>
   </div>
-  <form [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
+  <form *ngIf="activo" [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
 
     <ion-card>
       <ion-card-content>

@@ -4,6 +4,7 @@ import { RCNacimiento, Genero, RH, GrupoSanguineo, Pais, Departamento, Municipio
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
+import { IndexRegistroCivilNacimientoPage } from '../index-registro-civil-nacimiento/index-registro-civil-nacimiento';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class RegistroCivilNacimientoPage {
 
   frmRegistro: FormGroup;
   registro: RCNacimiento;
+  activo: boolean;
 
   file: File;
   generos: Genero[];
@@ -36,6 +38,7 @@ export class RegistroCivilNacimientoPage {
     private user: UserProvider,
     private frmBuilder: FormBuilder) {
 
+    this.activo = true;
 
     this.frmRegistro = this.frmBuilder.group({
 
@@ -99,7 +102,52 @@ export class RegistroCivilNacimientoPage {
     this.lugar_nacimiento.corregimiento = new Corregimiento;
 
     this.poblarCombos();
+  }
 
+  inicializar() {
+
+    this.frmRegistro.reset({
+      inscrito_primer_apellido: [],
+      inscrito_segundo_apellido: [],
+      inscrito_nombres: [],
+      inscrito_fecha_nacimiento: [],
+      inscrito_genero_id: [],
+      inscrito_grupo_sanguineo_id: [],
+      inscrito_factor_rh_id: [],
+      lugar_nacimiento_pais: [],
+      lugar_nacimiento_departamento: [],
+      lugar_nacimiento_municipio: [],
+      lugar_nacimiento_corregimiento: [],
+      lugar_nacimiento: [],
+      antecedente_id: [],
+      num_nacido_vivo: [],
+      madre_id: [],
+      madre_nombres: [],
+      madre_tipo_documento_id: [],
+      madre_documento: [],
+      madre_pais_id: [],
+      padre_id: [],
+      padre_nombres: [],
+      padre_tipo_documento_id: [],
+      padre_documento: [],
+      padre_pais_id: [],
+      declarante_id: [],
+      declarante_nombres: [],
+      declarante_tipo_documento_id: [],
+      declarante_documento: [],
+      declarante_firma: [],
+      testigo_uno_id: [],
+      testigo_uno_nombres: [],
+      testigo_uno_tipo_documento_id: [],
+      testigo_uno_documento: [],
+      testigo_uno_firma: [],
+      testigo_dos_id: [],
+      testigo_dos_nombres: [],
+      testigo_dos_tipo_documento_id: [],
+      testigo_dos_documento: [],
+      testigo_dos_firma: [],
+      notas_marginales: []
+    });
   }
 
   poblarCombos() {
@@ -121,8 +169,6 @@ export class RegistroCivilNacimientoPage {
     this.frmRegistro.patchValue({
       lugar_nacimiento: this.frmRegistro.value.lugar_nacimiento_pais.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_departamento.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_municipio.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_corregimiento.nombre
     });
-    console.log(this.frmRegistro.value);
-
 
     this.http.post('rc_nacimiento', this.frmRegistro.value).then((data: any) => {
 
@@ -139,6 +185,8 @@ export class RegistroCivilNacimientoPage {
           duration: 3000
         });
         toast.present();
+        this.inicializar();
+        this.navCtrl.push(IndexRegistroCivilNacimientoPage, { data: data.data.indicativo_serial });
       }
     });
 
@@ -252,7 +300,6 @@ export class RegistroCivilNacimientoPage {
       this.frmRegistro.patchValue({
         testigo_dos_firma: myReader.result
       });
-      //this.registro.firma_testigo_dos = myReader.result;
     }
     myReader.readAsDataURL(file);
   }

@@ -1,0 +1,338 @@
+<ion-content padding>
+  <!-- <div id="content" #content> -->
+  <div id="content">
+    <div text-center>
+      <img src="../../assets/imgs/logo_rnec-3.png" alt="" style="width:150px;">
+      <p>
+        <strong>Registro civil de nacimiento</strong>
+      </p>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 col-md-3>
+              <p>
+                <strong>NUIP</strong>
+              </p>
+              <p>{{ registro.inscrito.nuip }}</p>
+            </ion-col>
+            <ion-col col-6 offset-md-6 col-md-3 text-right>
+              <p>
+                <strong>Indicativo serial</strong>
+              </p>
+              <p>{{ registro.indicativo_serial }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del inscrito</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 col-md-6>
+              <p>
+                <strong>Primer apellido</strong>
+              </p>
+              <p>{{ registro.inscrito.primer_apellido }}</p>
+            </ion-col>
+            <ion-col col-6 col-md-6>
+              <p>
+                <strong>Segundo apellido</strong>
+              </p>
+              <p>{{ registro.inscrito.segundo_apellido }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Nombres</strong>
+              </p>
+              <p>{{ registro.inscrito.nombres }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 col-md-3>
+              <p>
+                <strong>Fecha nacimiento</strong>
+              </p>
+              <p>{{ registro.inscrito.fecha_nacimiento }}</p>
+            </ion-col>
+            <ion-col col-6 col-md-3 text-center>
+              <p>
+                <strong>Sexo (En letras)</strong>
+              </p>
+              <p>{{ registro.inscrito.genero.nombre }}</p>
+            </ion-col>
+            <ion-col col-6 col-md-3 text-center>
+              <p>
+                <strong>Grupo sanguineo</strong>
+              </p>
+              <p>{{ registro.inscrito.grupo_sanguineo.nombre }}</p>
+            </ion-col>
+            <ion-col col-6 col-md-3 text-right>
+              <p>
+                <strong>Factor RH</strong>
+              </p>
+              <p>{{ registro.inscrito.factor_rh.nombre }}</p>
+            </ion-col>
+          </ion-row>
+          <h4 text-center>
+            <strong> Lugar de nacimiento (Pais - Departamento - Municipio - Corregimiento)</strong>
+          </h4>
+          <br>
+          <ion-row>
+            <p>{{ registro.inscrito.lugar_nacimiento }}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-6 col-md-8>
+              <p>
+                <strong>Tipo de documento antecedente o Declaración de testigos</strong>
+              </p>
+              <p>{{ registro.antecedente.nombre }}</p>
+            </ion-col>
+            <ion-col col-6 col-md-4 text-right>
+              <p>
+                <strong># Certificado Nacido vivo</strong>
+              </p>
+              <p>{{ registro.num_nacido_vivo }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos de la madre</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Apellidos y nombres completos</strong>
+              </p>
+              <p>{{ registro.madre.nombres }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <p>
+                <strong>Tipo de documento</strong>
+              </p>
+              <p>{{ registro.madre.tipo_documento.nombre }}</p>
+            </ion-col>
+            <ion-col col-12 col-md-4 text-center>
+              <p>
+                <strong>Documento de identificación</strong>
+              </p>
+              <p>{{ registro.madre.documento }}</p>
+            </ion-col>
+            <ion-col col-12 col-md-4 text-right>
+              <p>
+                <strong>Nacionalidad</strong>
+              </p>
+              <p>{{ registro.madre.pais.nombre }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del padre</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Apellidos y nombres completos</strong>
+              </p>
+              <p *ngIf="registro.padre">{{ registro.padre.nombres }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <p>
+                <strong>Tipo de documento</strong>
+              </p>
+              <p *ngIf="registro.padre">{{ registro.padre.tipo_documento.nombre }}</p>
+            </ion-col>
+            <ion-col col-12 col-md-4 text-center>
+              <p>
+                <strong>Documento de identificación</strong>
+              </p>
+              <p *ngIf="registro.padre">{{ registro.padre.documento }}</p>
+            </ion-col>
+            <ion-col col-12 col-md-4 text-right>
+              <p>
+                <strong>Nacionalidad</strong>
+              </p>
+              <p *ngIf="registro.padre">{{ registro.padre.pais.nombre }}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del declarante</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Apellidos y nombres completos</strong>
+              </p>
+              <p>{{ registro.declarante.nombres }}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <p>
+                <strong>Tipo de documento</strong>
+              </p>
+              <p>{{ registro.declarante.tipo_documento.nombre }}</p>
+            </ion-col>
+            <ion-col col-12 col-md-4 text-center>
+              <p>
+                <strong>Documento de indentificación</strong>
+              </p>
+              <p>{{ registro.declarante.documento }}</p>
+
+            </ion-col>
+            <ion-col col-12 col-md-4 text-right>
+              <p>
+                <strong>Firma</strong>
+              </p>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="registro.declarante.firma_declarante" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del primer testigo</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+
+              <p>
+                <strong>Apellidos y nombres completos</strong>
+              </p>
+              <p *ngIf="registro.testigo_uno">{{ registro.testigo_uno.nombres }}</p>
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+
+              <p>
+                <strong>Tipo de documento</strong>
+              </p>
+              <p *ngIf="registro.testigo_uno">{{ registro.testigo_uno.tipo_documento.nombre }}</p>
+
+            </ion-col>
+            <ion-col col-12 col-md-4 text-center>
+
+              <p>
+                <strong>Documento de indentificación</strong>
+              </p>
+              <p *ngIf="registro.testigo_uno">{{ registro.testigo_uno.documento }}</p>
+
+            </ion-col>
+            <ion-col col-12 col-md-4 text-right>
+              <p>
+                <strong>Firma</strong>
+              </p>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img *ngIf="registro.testigo_uno" [src]="registro.testigo_uno.firma_testigo" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del segundo testigo</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <p>
+                <strong>Apellidos y nombres completos</strong>
+              </p>
+              <p *ngIf="registro.testigo_dos">{{ registro.testigo_dos.nombres }}</p>
+
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <p>
+                <strong>Tipo de documento</strong>
+              </p>
+              <p *ngIf="registro.testigo_dos">{{ registro.testigo_dos.tipo_documento.nombre }}</p>
+
+            </ion-col>
+            <ion-col col-12 col-md-4 text-center>
+              <p>
+                <strong>Documento de indentificación</strong>
+              </p>
+              <p *ngIf="registro.testigo_dos">{{ registro.testigo_dos.documento }}</p>
+
+            </ion-col>
+            <ion-col col-12 col-md-4 text-right>
+              <p>
+                <strong>Firma</strong>
+              </p>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img *ngIf="registro.testigo_dos" [src]="registro.testigo_dos.firma_testigo" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+
+        <ion-grid>
+          <h4 text-center>
+            ESPACIO PARA NOTAS
+          </h4>
+          <ion-row>
+
+            <p *ngIf="registro.notas_marginales">{{ registro.notas_marginales }}</p>
+
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <button ion-button block (click)="guardar()">Guardar PDF</button>
+
+</ion-content>

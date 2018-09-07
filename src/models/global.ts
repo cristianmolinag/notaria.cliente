@@ -78,44 +78,7 @@ export class Tramite {
     funcionario_id: number;
 }
 
-export class RCNacimiento {
-    id: number
-    nuip: string;
-    indicativo_serial: string;
-    primer_apellido: string;
-    segundo_apellido: string;
-    nombres: string;
-    fecha_nacimiento: Date;
-    genero_id: number;
-    grupo_sanguineo_id: number;
-    factor_rh_id: number;
-    lugar_nacimiento: string;
-    antecedente_id: number;
-    num_nacido_vivo: string;
-    nombres_madre: string;
-    tipo_documento_madre_id: number;
-    documento_madre: number;
-    pais_madre_id: number;
-    nombres_padre: string;
-    tipo_documento_padre_id: number;
-    documento_padre: number;
-    pais_padre_id: number;
-    nombres_declarante: string;
-    tipo_documento_declarante_id: number;
-    documento_declarante: number;
-    firma_declarante: string;
-    nombres_testigo_uno: string;
-    tipo_documento_testigo_uno_id: number;
-    documento_testigo_uno: number;
-    firma_testigo_uno: string;
-    nombres_testigo_dos: string;
-    tipo_documento_testigo_dos_id: number;
-    documento_testigo_dos: number;
-    firma_testigo_dos: string;
-    firma_id: number;
-    notas_marginales: string;
-    created_at: Date;
-}
+
 
 export class GrupoSanguineo {
     id: number;
@@ -157,10 +120,6 @@ export class LugarNacimiento {
     municipio: Municipio;
     corregimiento: Corregimiento;
 }
-export class Antecedente {
-    id: number;
-    nombre: string;
-}
 
 export class Busqueda {
     tipo_tramite: number;
@@ -182,4 +141,66 @@ export class rolesPorPermiso {
     roles: Rol[];
 }
 
+export class RCNacimiento {
+    inscrito: Inscrito;
+    indicativo_serial: number;
+    antecedente: Antecedente;
+    num_nacido_vivo: string;
+    madre: Madre;
+    padre: Padre;
+    declarante: Declarante;
+    testigo_uno: Testigo;
+    testigo_dos: Testigo;
+    notas_marginales: string;
+    created_at: Date;
+}
+
+export class Inscrito {
+    nuip: number;
+    primer_apellido: string;
+    segundo_apellido: string;
+    nombres: string;
+    fecha_nacimiento: Date;
+    genero: Genero;
+    grupo_sanguineo: GrupoSanguineo;
+    factor_rh: RH;
+    lugar_nacimiento: string;
+}
+
+export class Antecedente {
+    id: number;
+    nombre: string;
+}
+
+export class Madre {
+    id: number;
+    nombres: string;
+    tipo_documento: TipoDocumento;
+    documento: number;
+    pais: Pais;
+}
+
+export class Padre {
+    id?: number;
+    nombres?: string;
+    tipo_documento?: TipoDocumento;
+    documento?: number;
+    pais?: Pais;
+}
+
+export class Declarante {
+    id: number;
+    nombres: string;
+    tipo_documento: TipoDocumento;
+    documento: number;
+    firma_declarante: string;
+}
+
+export class Testigo {
+    id?: number;
+    nombres?: string;
+    tipo_documento?: TipoDocumento;
+    documento?: number;
+    firma_testigo?: string;
+}
 
