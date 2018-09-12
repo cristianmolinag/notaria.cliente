@@ -121,6 +121,13 @@ export class LugarNacimiento {
     corregimiento: Corregimiento;
 }
 
+export class LugarCelebracion {
+    pais: Pais;
+    departamento: Departamento;
+    municipio: Municipio;
+    corregimiento: Corregimiento;
+}
+
 export class Busqueda {
     tipo_tramite: number;
     filtro: string;
@@ -204,3 +211,44 @@ export class Testigo {
     firma_testigo?: string;
 }
 
+export class RCMatrimonio {
+    capitulacion_id: number;
+    contrayente_uno_id: number;
+    contrayente_uno: Contrayente;
+    contrayente_dos_id: number;
+    contrayente_dos: Contrayente;
+    denunciante_id: number;
+    denunciante: Denunciante;
+    fecha_celebracion: Date;
+    firma: Firma;
+    firma_id: number;
+    lugar_celebracion: string;
+    notas_marginales: string;
+    tipo_documento: string;
+    tipo_matrimonio: string;
+    indicativo_serial: number;
+    created_at: Date;
+}
+
+export class Contrayente {
+    id: number;
+    documento: number;
+    nombres: string;
+    tipo_documento_id: number;
+    tipo_documento: TipoDocumento;
+}
+
+
+export class Denunciante {
+    id: number;
+    documento: number;
+    nombres: string;
+    tipo_documento_id: number;
+    tipo_documento: TipoDocumento;
+    firma_denunciante: string;
+}
+
+export class RCDefuncion {
+
+    indicativo_serial: number;
+}

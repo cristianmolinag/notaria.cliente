@@ -15,7 +15,6 @@ export class RegistroCivilNacimientoPage {
 
   frmRegistro: FormGroup;
   registro: RCNacimiento;
-  activo: boolean;
 
   file: File;
   generos: Genero[];
@@ -27,9 +26,7 @@ export class RegistroCivilNacimientoPage {
   corregimientos: Corregimiento[];
   antecedentes: Antecedente[];
   tipos_documento: TipoDocumento[];
-
   lugar_nacimiento: LugarNacimiento;
-  base64textString: string;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -37,8 +34,6 @@ export class RegistroCivilNacimientoPage {
     private toastCtrl: ToastController,
     private user: UserProvider,
     private frmBuilder: FormBuilder) {
-
-    this.activo = true;
 
     this.frmRegistro = this.frmBuilder.group({
 

@@ -65,8 +65,36 @@
     <ion-list *ngSwitchCase="'matrimonio'">
 
       <ion-item>
-        <ion-searchbar (ionInput)="busquedaMatrimonio($event)"></ion-searchbar>
-        <h2>Matrimonio</h2>
+        <br>
+        <h2 text-center>Listado de registros civiles de matrimonio</h2>
+        <ion-searchbar (ionInput)="busquedaNacimiento($event)" placeholder="Buscar por Indicativo serial"></ion-searchbar>
+
+        <ion-card *ngFor="let item of registrosMatrimonio">
+          <ion-card-content>
+
+            <h2>
+              <strong>{{item.contrayente_uno.nombres}} y {{item.contrayente_dos.nombres}}</strong>
+            </h2>
+            <p>
+              <strong>Tipo de matrimonio: </strong>{{item.tipo_matrimonio}}</p>
+
+            <ion-item>
+
+              <p>
+                <strong>Indicativo serial: </strong>{{item.indicativo_serial}}</p>
+              <p>
+                <strong>Fecha celebracion: </strong>{{item.fecha_celebracion}}
+              </p>
+              <p>
+                <strong>Fecha registro: </strong>{{item.created_at}}
+              </p>
+            </ion-item>
+
+            <button ion-button block outline [navPush]="indexRCMatrimonio" [navParams]="{data: item.indicativo_serial}"> Detalle</button>
+
+          </ion-card-content>
+        </ion-card>
+
       </ion-item>
 
     </ion-list>

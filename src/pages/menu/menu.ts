@@ -22,6 +22,7 @@ export class MenuPage {
   @ViewChild('nav') nav: Nav;
   rootPage: any;
   titulo: string;
+  usuario: any;
   menu: Array<{ titulo: string, componente: any }>;
   test: any;
 
@@ -34,6 +35,7 @@ export class MenuPage {
     this.menu = null;
     this.getPermisos();
 
+    this.usuario = this.user.getUsuario().nombres;
     this.test = IndexRegistroCivilNacimientoPage;
 
   }

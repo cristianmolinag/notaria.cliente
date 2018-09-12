@@ -5,7 +5,7 @@
       <strong>Registro civil de nacimiento</strong>
     </p>
   </div>
-  <form *ngIf="activo" [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
+  <form [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
 
     <ion-card>
       <ion-card-content>
@@ -161,7 +161,7 @@
                 <ion-label stacked>Corregimiento</ion-label>
                 <ion-select formControlName="lugar_nacimiento_corregimiento">
                   <template *ngFor="let item of corregimientos">
-                    <ion-option *ngIf="item.municipio.id == frmRegistro.value.lugar_nacimiento_departamento.id" [value]="item">{{item.nombre}}</ion-option>
+                    <ion-option *ngIf="item.municipio.id == frmRegistro.value.lugar_nacimiento_municipio.id" [value]="item">{{item.nombre}}</ion-option>
                   </template>
                 </ion-select>
               </ion-item>

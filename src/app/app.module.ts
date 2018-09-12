@@ -1,3 +1,4 @@
+import { IndexRegistroCivilMatrimonioPage } from './../pages/index-registro-civil-matrimonio/index-registro-civil-matrimonio';
 import { RegistroPagoPage } from './../pages/registro-pago/registro-pago';
 import { MenuPage } from './../pages/menu/menu';
 import { RegistroCorregimientoPage } from './../pages/registro-corregimiento/registro-corregimiento';
@@ -28,6 +29,7 @@ import { RegistroCivilMatrimonioPage } from '../pages/registro-civil-matrimonio/
 import { RegistroCivilDefuncionPage } from '../pages/registro-civil-defuncion/registro-civil-defuncion';
 import { IndexRegistroCivilNacimientoPage } from '../pages/index-registro-civil-nacimiento/index-registro-civil-nacimiento';
 import { File } from '@ionic-native/file';
+import { IndexRegistroCivilDefuncionPage } from '../pages/index-registro-civil-defuncion/index-registro-civil-defuncion';
 
 
 
@@ -52,6 +54,8 @@ import { File } from '@ionic-native/file';
     RegistroFuncionarioPage,
     RegistroPagoPage,
     IndexRegistroCivilNacimientoPage,
+    IndexRegistroCivilMatrimonioPage,
+    IndexRegistroCivilDefuncionPage,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +84,8 @@ import { File } from '@ionic-native/file';
     RegistroFuncionarioPage,
     RegistroPagoPage,
     IndexRegistroCivilNacimientoPage,
-
+    IndexRegistroCivilMatrimonioPage,
+    IndexRegistroCivilDefuncionPage,
   ],
   providers: [
     StatusBar,
