@@ -1,12 +1,336 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>index-registro-civil-matrimonio</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
+  <div id="content">
 
+    <div text-center>
+      <img src="../../assets/imgs/logo_rnec-3.png" alt="" style="width:150px;">
+      <p>
+        <strong>Registro civil de matrimonio</strong>
+      </p>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <p>
+          <strong>Indicativo serial</strong>
+        </p>
+        <p>{{ registro.indicativo_serial }}</p>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del matrimonio</h2>
+        <ion-grid>
+
+          <h4 text-center>Lugar de la celebración (Pais - Departamento - Municipio - Corregimiento)</h4>
+          <ion-row>
+            <ion-item>
+              <p>
+                <strong>Indicativo serial</strong>
+              </p>
+              <p>{{ registro.lugar_celebracion }}</p>
+            </ion-item>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Fecha de la celebración</strong>
+                </p>
+                <p>{{ registro.fecha_celebracion }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de matrimonio</strong>
+                </p>
+                <p>{{ registro.tipo_matrimonio }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento que se aporta</strong>
+                </p>
+                <p>{{ registro.tipo_documento }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del contrayente</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.contrayente_uno.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.contrayente_uno.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <p>
+                  <strong>Documento de identificación</strong>
+                </p>
+                <p>{{ registro.contrayente_uno.documento }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos de la contrayente</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.contrayente_dos.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.contrayente_dos.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <p>
+                  <strong>Documento de identificación</strong>
+                </p>
+                <p>{{ registro.contrayente_dos.documento }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del denunciante</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.denunciante.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.denunciante.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Documento de indentificación</strong>
+                </p>
+                <p>{{ registro.denunciante.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Firma</strong>
+                </p>
+              </ion-item>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="registro.denunciante.firma_denunciante" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Capitulaciones</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12 col-md-6>
+              <ion-item>
+                <p>
+                  <strong>Lugar otorgamiento de la escritura</strong>
+                </p>
+                <p>{{ capitulacion.lugar_escritura }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>No. Notaria</strong>
+                </p>
+                <p>{{ capitulacion.num_notaria }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>No. Escritura</strong>
+                </p>
+                <p>{{ capitulacion.num_escritura }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-item>
+              <p>
+                <strong>Fecha de la escritura</strong>
+              </p>
+              <p>{{ capitulacion.fecha_escritura }}</p>
+            </ion-item>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Hijos legitimados por el matrimonio</h2>
+        <ion-grid>
+          <ion-row *ngFor="let item of hijoMatrimonio">
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres</strong>
+                </p>
+                <p>{{ item.hijo.nombres }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ item.hijo.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Documento de indentificación</strong>
+                </p>
+                <p>{{ item.hijo.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Indicativo serial de nacimiento</strong>
+                </p>
+                <p>{{ item.hijo.indicativo_serial }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Providencias</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Tipo de providencia</strong>
+                </p>
+                <p>{{ providenciaMatrimonio.providencia.tipo_providencia }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-2>
+              <ion-item>
+                <p>
+                  <strong>No. Escritura</strong>
+                </p>
+                <p>{{ providenciaMatrimonio.providencia.num_escritura }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-2>
+              <ion-item>
+                <p>
+                  <strong>No. Notaria</strong>
+                </p>
+                <p>{{ providenciaMatrimonio.providencia.num_notaria }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-2>
+              <ion-item>
+                <p>
+                  <strong>Fecha</strong>
+                </p>
+                <p>{{ providenciaMatrimonio.providencia.fecha_providencia }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-3>
+              <ion-item>
+                <p>
+                  <strong>Firma</strong>
+                </p>
+              </ion-item>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="providenciaMatrimonio.providencia.firma_providencia" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+
+        <ion-grid>
+          <h4 text-center>
+            ESPACIO PARA NOTAS
+          </h4>
+          <ion-row>
+            <p>{{ registro.notas_marginales }}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <button ion-button block (click)="guardar()">Guardar PDF</button>
 </ion-content>

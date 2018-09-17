@@ -1,0 +1,437 @@
+<ion-content padding>
+    <div text-center>
+        <img src="../../assets/imgs/logo_rnec-3.png" alt="" style="width:150px;">
+        <p>
+            <strong>Registro civil de defunción</strong>
+        </p>
+    </div>
+    <form [formGroup]="frmRegistro" (ngSubmit)="guardarRegistro()">
+
+        <ion-card>
+            <ion-card-content>
+                <h2>Datos del inscrito</h2>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label stacked>Nombres y apellidos completos</ion-label>
+                                <ion-input formControlName="inscrito_nombres" type="text"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['inscrito_nombres'].touched && !frmRegistro.controls['inscrito_nombres'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_nombres'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_nombres'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Tipo de documento</ion-label>
+                                <ion-select formControlName="inscrito_tipo_documento_id">
+                                    <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
+                                </ion-select>
+                                <div *ngIf="frmRegistro.controls['inscrito_tipo_documento_id'].touched && !frmRegistro.controls['inscrito_tipo_documento_id'].valid">
+                                    <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_tipo_documento_id'].hasError('required') ">
+                                        El campo es requerido
+                                    </small>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Documento de identificación</ion-label>
+                                <ion-input formControlName="inscrito_documento" (input)="validarInscrito($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['inscrito_documento'].touched && !frmRegistro.controls['inscrito_documento'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_documento'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_documento'].hasError('maxlength') || 
+                                    frmRegistro.controls['inscrito_documento'].hasError('minlength')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Sexo (en letras)</ion-label>
+                                <ion-select formControlName="inscrito_genero_id">
+                                    <ion-option *ngFor="let item of generos" [value]="item.id">{{item.nombre}}</ion-option>
+                                </ion-select>
+                                <div *ngIf="frmRegistro.controls['inscrito_genero_id'].touched && !frmRegistro.controls['inscrito_genero_id'].valid">
+                                    <small color="danger" ion-text *ngIf="frmRegistro.controls['inscrito_genero_id'].hasError('required') ">
+                                        El campo es requerido
+                                    </small>
+                                </div>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+
+        <ion-card>
+            <ion-card-content>
+                <h2>Datos de la defunción</h2>
+                <ion-grid>
+
+                    <h4 text-center>Lugar de la defunción (Pais - Departamento - Municipio - Corregimiento)</h4>
+                    <ion-row>
+                        <ion-col col-6 col-md-3>
+                            <ion-item>
+                                <ion-label stacked>Pais</ion-label>
+                                <ion-select formControlName="lugar_defuncion_pais">
+                                    <template *ngFor="let item of paises">
+                                        <ion-option [value]="item">{{item.nombre}}</ion-option>
+                                    </template>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['lugar_defuncion_pais'].touched && !frmRegistro.controls['lugar_defuncion_pais'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_defuncion_pais'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6 col-md-3>
+                            <ion-item>
+                                <ion-label stacked>Departamento</ion-label>
+                                <ion-select formControlName="lugar_defuncion_departamento">
+                                    <template *ngFor="let item of departamentos">
+                                        <ion-option *ngIf="item.pais.id === frmRegistro.value.lugar_defuncion_pais.id" [value]="item">{{item.nombre}}</ion-option>
+                                    </template>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['lugar_defuncion_departamento'].touched && !frmRegistro.controls['lugar_defuncion_departamento'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_defuncion_departamento'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6 col-md-3>
+                            <ion-item>
+                                <ion-label stacked>Municipio</ion-label>
+                                <ion-select formControlName="lugar_defuncion_municipio">
+                                    <template *ngFor="let item of municipios">
+                                        <ion-option *ngIf="item.departamento.id == frmRegistro.value.lugar_defuncion_departamento.id " [value]="item">{{item.nombre}}</ion-option>
+                                    </template>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['lugar_defuncion_municipio'].touched && !frmRegistro.controls['lugar_defuncion_municipio'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['lugar_defuncion_municipio'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6 col-md-3>
+                            <ion-item>
+                                <ion-label stacked>Corregimiento</ion-label>
+                                <ion-select formControlName="lugar_defuncion_corregimiento">
+                                    <template *ngFor="let item of corregimientos">
+                                        <ion-option *ngIf="item.municipio.id == frmRegistro.value.lugar_defuncion_municipio.id" [value]="item">{{item.nombre}}</ion-option>
+                                    </template>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-6 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Fecha de la defunción</ion-label>
+                                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fecha_defuncion"></ion-datetime>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['fecha_defuncion'].touched && !frmRegistro.controls['fecha_defuncion'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['fecha_defuncion'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Hora</ion-label>
+                                <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" formControlName="hora_defuncion"></ion-datetime>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['hora_defuncion'].touched && !frmRegistro.controls['hora_defuncion'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['hora_defuncion'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Número de certificado de defunción</ion-label>
+                                <ion-input formControlName="certificado_defuncion"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['certificado_defuncion'].touched && !frmRegistro.controls['certificado_defuncion'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['certificado_defuncion'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['certificado_defuncion'].hasError('maxlength') || 
+                                            frmRegistro.controls['certificado_defuncion'].hasError('minlength')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <h4 text-center>Presunción de muerte</h4>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Juzgado que profiere la sentencia</ion-label>
+                                <ion-input formControlName="juzgado_defuncion"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['juzgado_defuncion'].touched && !frmRegistro.controls['juzgado_defuncion'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['juzgado_defuncion'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['juzgado_defuncion'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Fecha de la sentencia</ion-label>
+                                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fecha_sentencia"></ion-datetime>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['hora_defuncion'].touched && !frmRegistro.controls['hora_defuncion'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['hora_defuncion'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Documento presentado</ion-label>
+                                <ion-select formControlName="tipo_certificado">
+                                    <ion-option value="judicial">Judicial</ion-option>
+                                    <ion-option value="medico">Médico</ion-option>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['tipo_certificado'].touched && !frmRegistro.controls['tipo_certificado'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['tipo_certificado'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-item>
+                                <ion-label stacked>Nombre y cargo del funcionario</ion-label>
+                                <ion-input formControlName="nombre_funcionario"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['nombre_funcionario'].touched && !frmRegistro.controls['nombre_funcionario'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['nombre_funcionario'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['nombre_funcionario'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-content>
+                <h2>Datos del denunciante</h2>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label stacked>Apellidos y nombres completos</ion-label>
+                                <ion-input formControlName="denunciante_nombres" type="text"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['denunciante_nombres'].touched && !frmRegistro.controls['denunciante_nombres'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['denunciante_nombres'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['denunciante_nombres'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Tipo de documento</ion-label>
+                                <ion-select formControlName="denunciante_tipo_documento_id">
+                                    <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['denunciante_tipo_documento_id'].touched && !frmRegistro.controls['denunciante_tipo_documento_id'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['denunciante_tipo_documento_id'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Documento de indentificación</ion-label>
+                                <ion-input formControlName="denunciante_documento" (input)="validarDenunciante($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['denunciante_documento'].touched && !frmRegistro.controls['denunciante_documento'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['denunciante_documento'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['denunciante_documento'].hasError('maxlength') || 
+                                    frmRegistro.controls['denunciante_documento'].hasError('minlength') || 
+                                    frmRegistro.controls['denunciante_documento'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label id="firma_denunciante" stacked>Firma</ion-label>
+                                <ion-input type="file" accept="image/*" (change)="guardarFirmaDenunciante($event)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-content>
+                <h2>Datos del primer testigo</h2>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label stacked>Apellidos y nombres completos</ion-label>
+                                <ion-input formControlName="testigo_uno_nombres" type="text"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_uno_nombres'].touched && !frmRegistro.controls['testigo_uno_nombres'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_nombres'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_nombres'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Tipo de documento</ion-label>
+                                <ion-select formControlName="testigo_uno_tipo_documento_id">
+                                    <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_uno_tipo_documento_id'].touched && !frmRegistro.controls['testigo_uno_tipo_documento_id'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_tipo_documento_id'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Documento de indentificación</ion-label>
+                                <ion-input formControlName="testigo_uno_documento" (input)="validarTestigoUno($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_uno_documento'].touched && !frmRegistro.controls['testigo_uno_documento'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_documento'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_uno_documento'].hasError('maxlength') 
+                            || frmRegistro.controls['testigo_uno_documento'].hasError('minlength') || frmRegistro.controls['testigo_uno_documento'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label id="firma_testigo_uno" stacked>Firma</ion-label>
+                                <ion-input type="file" accept="image/*" (change)="guardarFirmaTestigoUno($event)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-content>
+                <h2>Datos del segundo testigo</h2>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label stacked>Apellidos y nombres completos</ion-label>
+                                <ion-input formControlName="testigo_dos_nombres" type="text"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_dos_nombres'].touched && !frmRegistro.controls['testigo_dos_nombres'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_nombres'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_nombres'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Tipo de documento</ion-label>
+                                <ion-select formControlName="testigo_dos_tipo_documento_id">
+                                    <ion-option *ngFor="let item of tipos_documento" [value]="item.id">{{item.nombre}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_dos_tipo_documento_id'].touched && !frmRegistro.controls['testigo_dos_tipo_documento_id'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_tipo_documento_id'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label stacked>Documento de indentificación</ion-label>
+                                <ion-input formControlName="testigo_dos_documento" (input)="validarTestigoDos($event.target.value)"></ion-input>
+                            </ion-item>
+                            <div *ngIf="frmRegistro.controls['testigo_dos_documento'].touched && !frmRegistro.controls['testigo_dos_documento'].valid">
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_documento'].hasError('required') ">
+                                    El campo es requerido
+                                </small>
+                                <small color="danger" ion-text *ngIf="frmRegistro.controls['testigo_dos_documento'].hasError('maxlength') 
+                              || frmRegistro.controls['testigo_dos_documento'].hasError('minlength') || frmRegistro.controls['testigo_dos_documento'].hasError('pattern')">
+                                    Valores no válidos
+                                </small>
+                            </div>
+                        </ion-col>
+                        <ion-col col-12 col-md-4>
+                            <ion-item>
+                                <ion-label id="firma_testigo_dos" stacked>Firma</ion-label>
+                                <ion-input type="file" accept="image/*" (change)="guardarFirmaTestigoDos($event)"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-content>
+
+                <ion-grid>
+                    <h4 text-center>
+                        ESPACIO PARA NOTAS
+                    </h4>
+                    <ion-row>
+                        <ion-textarea formControlName="notas_marginales"></ion-textarea>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <button ion-button full type="submit" [disabled]="!frmRegistro.valid">Guardar</button>
+    </form>
+</ion-content>

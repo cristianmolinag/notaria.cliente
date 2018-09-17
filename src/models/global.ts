@@ -248,7 +248,46 @@ export class Denunciante {
     firma_denunciante: string;
 }
 
-export class RCDefuncion {
 
+export class Capitulacion {
+    id: number;
+    lugar_escritura: string;
+    num_notaria: number;
+    num_escritura: number;
+    fecha_escritura: Date;
+}
+export class Hijo {
+    id: number;
+    nombres: string;
+    documento: number;
+    indicativo_serial: number;
+    tipo_documento_id: number;
+    tipo_documento: TipoDocumento;
+}
+
+export class HijoMatrimonio {
+    id: number;
+    rc_matrimonio_id: number;
+    hijo_id: number;
+    hijo: Hijo;
+}
+
+export class Providencia {
+    id: number;
+    tipo_providencia: string;
+    num_escritura: number;
+    num_notaria: number;
+    fecha_providencia: Date;
+    firma_providencia: string;
+}
+
+export class ProvidenciaMatrimonio {
+    id: number;
+    providencia_id: number;
+    rc_matrimonio_id: number;
+    providencia: Providencia;
+}
+
+export class RCDefuncion {
     indicativo_serial: number;
 }

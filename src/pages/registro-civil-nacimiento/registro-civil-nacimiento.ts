@@ -160,7 +160,6 @@ export class RegistroCivilNacimientoPage {
 
   guardarRegistro() {
 
-
     this.frmRegistro.patchValue({
       lugar_nacimiento: this.frmRegistro.value.lugar_nacimiento_pais.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_departamento.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_municipio.nombre + ' ' + this.frmRegistro.value.lugar_nacimiento_corregimiento.nombre
     });

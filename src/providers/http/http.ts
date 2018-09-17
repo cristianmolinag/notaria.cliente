@@ -7,7 +7,7 @@ export class HttpProvider {
   httpOptions: any;
 
   constructor(public http: HttpClient) {
-    this.apiUrl = 'http://192.168.0.102:8000/api/'; //cambiar la IP por la nueva
+    this.apiUrl = 'http://192.168.0.14:8000/api/'; //cambiar la IP por la nueva
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
