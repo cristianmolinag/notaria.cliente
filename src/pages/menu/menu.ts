@@ -12,7 +12,6 @@ import { RegistroCivilNacimientoPage } from '../registro-civil-nacimiento/regist
 import { RegistroCivilMatrimonioPage } from '../registro-civil-matrimonio/registro-civil-matrimonio';
 import { RegistroCivilDefuncionPage } from '../registro-civil-defuncion/registro-civil-defuncion';
 import { TramitesPage } from '../tramites/tramites';
-import { IndexRegistroCivilNacimientoPage } from '../index-registro-civil-nacimiento/index-registro-civil-nacimiento';
 
 @Component({
   selector: 'page-menu',
@@ -24,7 +23,7 @@ export class MenuPage {
   titulo: string;
   usuario: any;
   menu: Array<{ titulo: string, componente: any }>;
-  test: any;
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,7 +35,7 @@ export class MenuPage {
     this.getPermisos();
 
     this.usuario = this.user.getUsuario().nombres;
-    this.test = IndexRegistroCivilNacimientoPage;
+
 
   }
 
@@ -91,10 +90,5 @@ export class MenuPage {
     this.storage.remove('usuario');
     this.navCtrl.setRoot(HomePage);
   }
-
-  abrirTest() {
-    this.nav.setRoot(this.test);
-  }
-
 
 }

@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { IndexRegistroCivilMatrimonioPage } from './../index-registro-civil-matrimonio/index-registro-civil-matrimonio';
 import { IndexRegistroCivilNacimientoPage } from './../index-registro-civil-nacimiento/index-registro-civil-nacimiento';
 import { HttpProvider } from './../../providers/http/http';
@@ -31,7 +32,8 @@ export class ConsultasPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private http: HttpProvider) {
+    private http: HttpProvider,
+    private user: UserProvider) {
 
     this.segmento = 'nacimiento';
 
@@ -43,6 +45,7 @@ export class ConsultasPage {
   }
 
   poblarData() {
+    console.log(this.user.getUsuario());
     this.http.get('rc_nacimiento').then((data: any) => {
       this.registrosNacimiento = this.registrosNacimientoInit = data.data;
     });

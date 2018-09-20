@@ -2,20 +2,17 @@
 
   <div padding>
     <ion-segment [(ngModel)]="segmento">
-      <ion-segment-button value="perfiles">
+      <ion-segment-button *ngIf="isFuncionario" value="perfiles">
         Perfiles
       </ion-segment-button>
-      <ion-segment-button value="roles">
+      <ion-segment-button *ngIf="isFuncionario" value="roles">
         Roles
       </ion-segment-button>
-      <ion-segment-button value="funcionarios">
+      <ion-segment-button *ngIf="isFuncionario" value="funcionarios">
         Funcionarios
       </ion-segment-button>
-      <ion-segment-button value="clientes">
-        Clientes
-      </ion-segment-button>
-      <ion-segment-button value="asignar_permisos">
-        Asignar permisos
+      <ion-segment-button value="perfil">
+        Mi Perfil
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -77,94 +74,22 @@
       </ion-card>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'clientes'">
+    <ion-list *ngSwitchCase="'perfil'">
 
-      <ion-item>
-        <button ion-button icon-start outline (click)="guardarCliente()">
-          <ion-icon name="create"></ion-icon>
-          Nuevo cliente
-        </button>
-      </ion-item>
-      <ion-card *ngFor="let item of clientes">
+      <h4 text-center>Perfil de {{ usuario.nombres }}</h4>
+
+      <ion-card>
         <ion-item>
-          <h2>{{ item.nombres }} {{ item.apellidos }}</h2>
+          <h2>{{ usuario.nombres }} {{ usuario.apellidos }}</h2>
         </ion-item>
         <ion-item>
           <p>
-            <strong>Correo:</strong>{{ item.correo }}</p>
+            <strong>Correo:</strong>{{ usuario.correo }}</p>
         </ion-item>
         <ion-item>
-          <button ion-button block (click)="guardarCliente(item)">Editar</button>
+          <button ion-button block (click)="editarPerfil()">Editar</button>
         </ion-item>
       </ion-card>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'asignar_permisos'">
-
-      <h4>Administrar permisos</h4>
-      <form [formGroup]="frmPermiso" (ngSubmit)="admPermiso()">
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label stacked>Rol</ion-label>
-                <ion-select formControlName="rol_id">
-                  <ion-option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</ion-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item>
-                <ion-label stacked>Permiso</ion-label>
-                <ion-select formControlName="permiso_id">
-                  <ion-option *ngFor="let permiso of permisos" [value]="permiso.id">{{ permiso.titulo }}</ion-option>
-                </ion-select>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item no-lines>
-                <button ion-button block color="primary" type="submit">Asignar</button>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item no-lines>
-                <button ion-button block color="danger" type="submit">Eliminar</button>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </form>
-
-      <!-- Validacion de campos para administrar permisos-->
-      <div *ngIf="frmPermiso.controls['rol_id'].touched && !frmPermiso.controls['rol_id'].valid">
-        <small color="danger" ion-text *ngIf="frmPermiso.controls['rol_id'].hasError('required') ">
-          El rol es requerido
-        </small>
-      </div>
-
-      <div *ngIf="frmPermiso.controls['permiso_id'].touched && !frmPermiso.controls['permiso_id'].valid">
-        <small color="danger" ion-text *ngIf="frmPermiso.controls['permiso_id'].hasError('required') ">
-          El permiso es requerido
-        </small>
-      </div>
-
-      <ion-item>
-        <ion-card *ngFor="let permiso of rolesPorPermiso">
-          <ion-item>
-            <h2>
-              <strong>Permiso</strong>
-              {{ permiso.titulo }}
-            </h2>
-          </ion-item>
-          <ion-item *ngFor="let rol of permiso.roles">
-            <p>
-              <strong>Rol: </strong>
-              {{ rol.nombre }}
-            </p>
-          </ion-item>
-        </ion-card>
-      </ion-item>
-
     </ion-list>
 
   </div>

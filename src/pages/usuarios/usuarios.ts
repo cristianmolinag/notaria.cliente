@@ -1,3 +1,4 @@
+import { UserProvider } from './../../providers/user/user';
 import { RegistroFuncionarioPage } from './../registro-funcionario/registro-funcionario';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController, ModalController } from 'ionic-angular';
@@ -5,6 +6,7 @@ import { HttpProvider } from '../../providers/http/http';
 import { Rol, Perfil, Usuario, Permiso, rolesPorPermiso } from '../../models/global';
 import { RegistroClientePage } from '../registro-cliente/registro-cliente';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
+import { RegistroPerfilPage } from '../registro-perfil/registro-perfil';
 
 @Component({
   selector: 'page-usuarios',
@@ -20,24 +22,34 @@ export class UsuariosPage {
   funcionarios: Usuario[];
   clientes: Usuario[];
   rolesPorPermiso: rolesPorPermiso;
+  usuario: Usuario;
 
   rol: Rol;
   perfil: Perfil;
+  isFuncionario: Boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private http: HttpProvider,
+    private user: UserProvider,
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private frmBuilder: FormBuilder) {
+
+    this.isFuncionario = false;
+
+    this.getUsuario();
+
+    this.validarPerfil(this.user.getUsuario());
+
 
     this.frmPermiso = this.frmBuilder.group({
       rol_id: ['', Validators.required],
       permiso_id: ['', Validators.required]
     });
 
-    this.segmento = 'funcionarios';
+    this.segmento = 'perfil';
 
     this.getRoles();
     this.getPerfiles();
@@ -78,21 +90,28 @@ export class UsuariosPage {
     modal.present();
   }
 
-  guardarCliente(item) {
-    let modal = this.modalCtrl.create(RegistroClientePage, { data: item });
+  getUsuario() {
+
+    this.usuario = this.user.getUsuario();
+  }
+
+  editarPerfil() {
+    let modal = this.modalCtrl.create(RegistroPerfilPage, { data: this.usuario });
     modal.onDidDismiss(data => {
-      this.getClientes();
+      this.getUsuario();
     });
     modal.present();
   }
 
-  updateItem($event, rol: Rol, permiso: Permiso) {
+  validarPerfil(usuario: any) {
 
-    if ($event.checked) {
-
-    }
-    else {
-
+    switch (usuario.perfil.nombre) {
+      case "Funcionario":
+        this.isFuncionario = true;
+        break;
+      default:
+        break;
     }
   }
+
 }

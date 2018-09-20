@@ -97,6 +97,9 @@ export class RegistroCivilMatrimonioPage {
   }
 
   inicializar() {
+    this.frmRegistro.controls['fecha_celebracion'].setValue(null);
+    this.frmRegistro.controls['capitulacion_fecha_escritura'].setValue(null);
+    this.frmRegistro.controls['providencia_fecha'].setValue(null);
 
     this.frmRegistro.reset({
       fecha_celebracion: [],
@@ -154,9 +157,12 @@ export class RegistroCivilMatrimonioPage {
 
   guardarRegistro() {
 
-
     this.frmRegistro.patchValue({
-      lugar_celebracion: this.frmRegistro.value.lugar_celebracion_pais.nombre + ' ' + this.frmRegistro.value.lugar_celebracion_departamento.nombre + ' ' + this.frmRegistro.value.lugar_celebracion_municipio.nombre + ' ' + this.frmRegistro.value.lugar_celebracion_corregimiento.nombre
+      lugar_celebracion: this.frmRegistro.value.lugar_celebracion_pais.nombre + ' ' +
+        this.frmRegistro.value.lugar_celebracion_departamento.nombre + ' ' +
+        this.frmRegistro.value.lugar_celebracion_municipio.nombre + ' ' +
+        this.frmRegistro.value.lugar_celebracion_corregimiento.nombre ?
+        this.frmRegistro.value.lugar_celebracion_corregimiento.nombre : ''
     });
 
     console.log(this.frmRegistro.value);

@@ -1,3 +1,4 @@
+import { IndexRegistroCivilDefuncionPage } from './../index-registro-civil-defuncion/index-registro-civil-defuncion';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
@@ -35,7 +36,7 @@ export class RegistroCivilDefuncionPage {
 
     this.frmRegistro = this.frmBuilder.group({
 
-      lugar_defuncion: ['', { value: null, disabled: false }],
+      lugar_defuncion: ['', { disabled: false }],
       fecha_defuncion: ['', Validators.compose([Validators.required])],
       hora_defuncion: ['', Validators.compose([Validators.required])],
       certificado_defuncion: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
@@ -63,20 +64,24 @@ export class RegistroCivilDefuncionPage {
       denunciante_firma: ['', { value: null, disabled: false }, Validators.compose([Validators.required])],
 
       testigo_uno_id: ['', { value: null, disabled: false }],
-      testigo_uno_nombres: ['', Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
-      testigo_uno_tipo_documento_id: ['', { value: null, disabled: false }],
-      testigo_uno_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
-      testigo_uno_firma: ['', { value: null, disabled: false }],
+      testigo_uno_nombres: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}'), Validators.required])],
+      testigo_uno_tipo_documento_id: ['', Validators.compose([Validators.required])],
+      testigo_uno_documento: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
+      testigo_uno_firma: ['', Validators.compose([Validators.required])],
 
       testigo_dos_id: ['', { value: null, disabled: false }],
-      testigo_dos_nombres: ['', Validators.compose([Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}')])],
-      testigo_dos_tipo_documento_id: ['', { value: null, disabled: false }],
-      testigo_dos_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+')])],
-      testigo_dos_firma: ['', { value: null, disabled: false }],
+      testigo_dos_nombres: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]{3,}'), Validators.required])],
+      testigo_dos_tipo_documento_id: ['', Validators.compose([Validators.required])],
+      testigo_dos_documento: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(10), Validators.pattern('\\d+'), Validators.required])],
+      testigo_dos_firma: ['', Validators.compose([Validators.required])],
     });
   }
 
   inicializar() {
+
+    this.frmRegistro.controls['fecha_defuncion'].setValue(null);
+    this.frmRegistro.controls['fecha_sentencia'].setValue(null);
+    this.frmRegistro.controls['hora_defuncion'].setValue(null);
 
     this.frmRegistro.reset({
       lugar_defuncion: [],
@@ -133,7 +138,33 @@ export class RegistroCivilDefuncionPage {
 
 
   guardarRegistro() {
+    this.frmRegistro.patchValue({
+      lugar_defuncion: this.frmRegistro.value.lugar_defuncion_pais.nombre + ' ' +
+        this.frmRegistro.value.lugar_defuncion_departamento.nombre + ' ' +
+        this.frmRegistro.value.lugar_defuncion_municipio.nombre + ' ' +
+        this.frmRegistro.value.lugar_defuncion_corregimiento.nombre
+    });
+
     console.log(this.frmRegistro.value);
+    this.http.post('rc_defuncion', this.frmRegistro.value).then((data: any) => {
+
+      console.log(data);
+      if (data.mensaje) {
+        const toast = this.toastCtrl.create({
+          message: data.mensaje,
+          duration: 3000
+        });
+        toast.present();
+      } else {
+        const toast = this.toastCtrl.create({
+          message: "Registro creado con éxito",
+          duration: 3000
+        });
+        toast.present();
+        this.inicializar();
+        this.navCtrl.push(IndexRegistroCivilDefuncionPage, { data: data.data.indicativo_serial });
+      }
+    });
   }
 
   validarInscrito(ev: any) {

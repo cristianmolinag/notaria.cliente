@@ -1,18 +1,305 @@
-<!--
-  Generated template for the IndexRegistroCivilDefuncionPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>index-registro-civil-defuncion</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
+  <div id="content">
+
+    <div text-center>
+      <img src="../../assets/imgs/logo_rnec-3.png" alt="" style="width:150px;">
+      <p>
+        <strong>Registro civil de defunción</strong>
+      </p>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <p>
+          <strong>Indicativo serial</strong>
+        </p>
+        <p>{{ registro.indicativo_serial }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del inscrito</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Nombres y apellidos completos</strong>
+                </p>
+                <p>{{ registro.inscrito_defuncion.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.inscrito_defuncion.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Documento de identificación</strong>
+                </p>
+                <p>{{ registro.inscrito_defuncion.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Sexo (en letras)</strong>
+                </p>
+                <p>{{ registro.inscrito_defuncion.genero.nombre }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos de la defunción</h2>
+        <ion-grid>
+          <h4 text-center>Lugar de la defunción (Pais - Departamento - Municipio - Corregimiento)</h4>
+          <ion-row>
+            <ion-col col-6 col-md-12>
+              <ion-item>
+                <p>{{ registro.lugar_defuncion }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Fecha de la defunción</strong>
+                </p>
+                <p>{{ registro.fecha_defuncion }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Hora</strong>
+                </p>
+                <p>{{ registro.hora_defuncion }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Número de certificado de defunción</strong>
+                </p>
+                <p>{{ registro.certificado_defuncion }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <h4 text-center>Presunción de muerte</h4>
+          <ion-row>
+            <ion-col col-6>
+              <ion-item>
+                <p>
+                  <strong>Juzgado que profiere la sentencia</strong>
+                </p>
+                <p>{{ registro.juzgado }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <p>
+                  <strong>Fecha de la sentencia</strong>
+                </p>
+                <p>{{ registro.fecha_sentencia }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6>
+              <ion-item>
+                <p>
+                  <strong>Documento presentado</strong>
+                </p>
+                <p>{{ registro.tipo_certificado }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-6>
+              <ion-item>
+                <p>
+                  <strong>Nombre y cargo del funcionario</strong>
+                </p>
+                <p>{{ registro.nombre_funcionario }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del denunciante</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.denunciante.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.denunciante.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Documento de indentificación</strong>
+                </p>
+                <p>{{ registro.denunciante.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Firma</strong>
+                </p>
+              </ion-item>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="registro.denunciante.firma_denunciante" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del primer testigo</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.testigo_uno.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.testigo_uno.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Documento de indentificación</strong>
+                </p>
+                <p>{{ registro.testigo_uno.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Firma</strong>
+                </p>
+              </ion-item>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="registro.testigo_uno.firma_testigo" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+        <h2>Datos del segundo testigo</h2>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <p>
+                  <strong>Apellidos y nombres completos</strong>
+                </p>
+                <p>{{ registro.testigo_dos.nombres }}</p>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Tipo de documento</strong>
+                </p>
+                <p>{{ registro.testigo_dos.tipo_documento.nombre }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Documento de indentificación</strong>
+                </p>
+                <p>{{ registro.testigo_dos.documento }}</p>
+              </ion-item>
+            </ion-col>
+            <ion-col col-12 col-md-4>
+              <ion-item>
+                <p>
+                  <strong>Firma</strong>
+                </p>
+              </ion-item>
+              <ion-item>
+                <ion-avatar item-end>
+                  <img [src]="registro.testigo_dos.firma_testigo" alt="firma" style="width:80px;">
+                </ion-avatar>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-content>
+
+        <ion-grid>
+          <h4 text-center>
+            ESPACIO PARA NOTAS
+          </h4>
+          <ion-row>
+            <p>{{ registro.notas_marginales }}</p>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+  <button ion-button block (click)="guardar()">Guardar PDF</button>
 
 </ion-content>

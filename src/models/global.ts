@@ -290,4 +290,34 @@ export class ProvidenciaMatrimonio {
 
 export class RCDefuncion {
     indicativo_serial: number;
+    inscrito_id: number;
+    lugar_defuncion: string;
+    fecha_defuncion: Date;
+    hora_defuncion: string;
+    certificado_defuncion: string;
+    juzgado: string;
+    fecha_sentencia: Date;
+    tipo_certificado: string;
+    nombre_funcionario: string;
+    denunciante_id: number;
+    testigo_uno_id: number;
+    testigo_dos_id: number;
+    firma_id: number;
+    notas_marginales: string;
+    created_at: Date;
+    denunciante: Denunciante;
+    testigo_uno: Testigo;
+    testigo_dos: Testigo;
+    firma: Firma;
+    inscrito_defuncion: InscritoDefuncion;
+}
+
+export class InscritoDefuncion {
+    id: number;
+    nombres: string;
+    documento: number;
+    tipo_documento_id: number;
+    tipo_documento: TipoDocumento;
+    genero_id: number;
+    genero: Genero;
 }

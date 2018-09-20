@@ -100,6 +100,7 @@ export class RegistroCivilNacimientoPage {
   }
 
   inicializar() {
+    this.frmRegistro.controls['inscrito_fecha_nacimiento'].setValue(null);
 
     this.frmRegistro.reset({
       inscrito_primer_apellido: [],
