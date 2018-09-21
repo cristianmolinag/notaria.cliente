@@ -325,3 +325,12 @@ export class InscritoDefuncion {
     genero_id: number;
     genero: Genero;
 }
+
+export class Cita {
+    id: number;
+    fecha: Date;
+    hora: string;
+    estado: string;
+    cliente_id: number;
+    usuario: Usuario;
+}

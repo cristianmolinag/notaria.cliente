@@ -9,41 +9,29 @@
   <h4 text-center>Historial de citas</h4>
 
 
-  <!-- <ion-card *ngFor="let tramite of tramites">
-
+  <ion-card *ngFor="let cita of citas">
     <ion-card-header>
-      <h4>Tramite # {{ tramite.id }}</h4>
+      <h4>Cita # {{ cita.id }}</h4>
     </ion-card-header>
-
     <ion-card-content>
       <p>
-        <strong>Tipo: </strong>{{ tramite.tipo_tramite.nombre }}</p>
+        <strong>Fecha: </strong>{{ cita.fecha }}</p>
       <p>
-        <strong>Fecha Solicitud: </strong>{{ tramite.created_at }}</p>
+        <strong>Hora: </strong>{{ cita.hora }}</p>
       <p>
-        <strong>Estado: </strong>{{ tramite.estado_tramite.nombre }}</p>
+        <strong>Estado: </strong>{{ cita.estado }}</p>
       <p>
-        <strong>Indicativo serial: </strong>{{ tramite.indicativo_serial }}</p>
+        <strong>Cliente: </strong>{{ cita.cliente.nombres }} {{ cita.cliente.apellidos }}</p>
 
-      <p *ngIf="tramite.estado_tramite.nombre === 'Autorizado' ">
-        <strong>Descarga: </strong>
-        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '1'" [navPush]="indexNacimiento" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
-        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '3'" [navPush]="indexMatrimonio" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
-        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '2'" [navPush]="indexDefuncion" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
+      <p *ngIf="cita.estado === 'Asignada' && usuario.perfil.nombre === 'Funcionario'">
+        <strong>Cerrar: </strong>
+        <a (click)="cerrar(cita.id)">Cerrar</a>
       </p>
-
-      <p *ngIf="tramite.estado_tramite.nombre === 'Pendiente' && usuario.perfil.nombre === 'Funcionario'">
-        <strong>Autorizar: </strong>
-        <a (click)="autorizar(tramite.id)">Autorizar</a>
+      <p *ngIf="cita.estado === 'Asignada' && usuario.perfil.nombre === 'Funcionario'">
+        <strong>Cancelada: </strong>
+        <a (click)="cancelar(cita.id)">Cancelar</a>
       </p>
-      <p *ngIf="tramite.estado_tramite.nombre === 'Pendiente' && usuario.perfil.nombre === 'Funcionario'">
-        <strong>Rechazar: </strong>
-        <a (click)="rechazar(tramite.id)">Rechazar</a>
-      </p>
-
-
-
     </ion-card-content>
+  </ion-card>
 
-  </ion-card> -->
 </ion-content>

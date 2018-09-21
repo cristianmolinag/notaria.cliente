@@ -10,8 +10,73 @@
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content padding>
 
+
+  <form [formGroup]="frmCita" (ngSubmit)="crear()">
+
+    <ion-grid>
+      <ion-row col-12 col-md-10 offset-md-1>
+
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Fecha</ion-label>
+            <ion-datetime displayFormat="MM/DD/YYYY" [min]="minDate" formControlName="fecha"></ion-datetime>
+          </ion-item>
+          <div *ngIf="frmCita.controls['fecha'].touched && !frmCita.controls['fecha'].valid">
+            <small color="danger" ion-text *ngIf="frmCita.controls['fecha'].hasError('required') ">
+              El campo es requerido
+            </small>
+          </div>
+        </ion-col>
+
+        <ion-col col-12 col-md-6>
+          <ion-item>
+            <ion-label stacked>Hora</ion-label>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" hourValues="08,09,10,11,12,13,14,15,16" minuteValues="00,15,30,45"
+              formControlName="hora"></ion-datetime>
+          </ion-item>
+          <div *ngIf="frmCita.controls['hora'].touched && !frmCita.controls['hora'].valid">
+            <small color="danger" ion-text *ngIf="frmCita.controls['hora'].hasError('required') ">
+              El campo es requerido
+            </small>
+          </div>
+        </ion-col>
+
+        <ion-col col-12 text-center>
+          <button ion-button block type="submit" [disabled]="!frmCita.valid">Asignar cita</button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+  </form>
+
+  <!-- Validacion de campos del formulario de registro de funcionarios-->
+  <!-- <div *ngIf="frmPerfil.controls['nombres'].touched && !frmPerfil.controls['nombres'].valid">
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['nombres'].hasError('required') ">
+      El nombre es requerido
+    </small>
+  </div>
+  <div *ngIf="frmPerfil.controls['apellidos'].touched && !frmPerfil.controls['apellidos'].valid">
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['apellidos'].hasError('required') ">
+      Los apellidos son requeridos
+    </small>
+  </div>
+  <div *ngIf="frmPerfil.controls['correo'].touched && !frmPerfil.controls['correo'].valid">
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['correo'].hasError('required')">
+      El correo es requerido
+    </small>
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['correo'].hasError('email')">
+      No es un correo válido
+    </small>
+  </div>
+  <div *ngIf="frmPerfil.controls['contrasena'].touched && !frmPerfil.controls['contrasena'].valid">
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['contrasena'].hasError('required') ">
+      La contraseña es requerida
+    </small>
+    <small color="danger" ion-text *ngIf="frmPerfil.controls['contrasena'].hasError('minLength') ">
+      La contraseña no cumple con el mínimo requerido
+    </small>
+  </div> -->
 </ion-content>
