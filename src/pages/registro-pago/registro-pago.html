@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Registro de pago</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -9,26 +14,43 @@
   <ion-item>
     <p>
       <strong>Tipo de tramite</strong>
-      {{ tipo_tramite.nombre }}
+      {{ this.tipo_tramite.nombre }}
     </p>
   </ion-item>
   <ion-item>
     <p>
       <strong>Precio</strong>
-      {{ tipo_tramite.valor }}
+      {{ this.tipo_tramite.valor }}
     </p>
   </ion-item>
-  <ion-item>
-    <ion-label stacked>Cod Autorización</ion-label>
-    <ion-input type="number" [(ngModel)]="pago.cod_autorizacion" clearInput></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Cod Transacción</ion-label>
-    <ion-input type="number" [(ngModel)]="pago.cod_transaccion" clearInput></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-textarea [(ngModel)]="observacion" placeholder="Digite una observacion"></ion-textarea>
-  </ion-item>
-  <button ion-button block (click)="pagar()">Pagar</button>
+  <form [formGroup]="frmRegistro" (ngSubmit)="guardarPago()">
+    <ion-label stacked>Forma de pago</ion-label>
+    <ion-select formControlName="forma_pago_id">
+      <ion-option *ngFor="let item of formasPago" [value]="item.id">{{ item.nombre }}</ion-option>
+    </ion-select>
+    <div *ngIf="!!frmRegistro.value.forma_pago_id && frmRegistro.value.forma_pago_id !== 1">
+      <ion-item>
+        <ion-label stacked>Cod Autorización</ion-label>
+        <ion-input formControlName="cod_autorizacion" clearInput></ion-input>
+      </ion-item>
+      <div *ngIf="frmRegistro.controls['cod_autorizacion'].touched && !frmRegistro.controls['cod_autorizacion'].valid">
+        <small color="danger" ion-text *ngIf="frmRegistro.controls['cod_autorizacion'].hasError('maxlength') 
+            || frmRegistro.controls['cod_autorizacion'].hasError('minlength') || frmRegistro.controls['cod_autorizacion'].hasError('pattern')">
+          Valores no válidos
+        </small>
+      </div>
+      <ion-item>
+        <ion-label stacked>Cod Transacción</ion-label>
+        <ion-input formControlName="cod_transaccion" clearInput></ion-input>
+      </ion-item>
+      <div *ngIf="frmRegistro.controls['cod_transaccion'].touched && !frmRegistro.controls['cod_transaccion'].valid">
+        <small color="danger" ion-text *ngIf="frmRegistro.controls['cod_transaccion'].hasError('maxlength') 
+            || frmRegistro.controls['cod_transaccion'].hasError('minlength') || frmRegistro.controls['cod_transaccion'].hasError('pattern')">
+          Valores no válidos
+        </small>
+      </div>
+    </div>
+    <button ion-button block type="submit" [disabled]="!frmRegistro.valid">Pagar</button>
+  </form>
 
 </ion-content>

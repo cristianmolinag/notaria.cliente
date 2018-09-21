@@ -7,7 +7,7 @@
     </ion-row>
   </ion-grid>
   <h4 text-center>Historial de trámites</h4>
-  <!-- 
+
 
   <ion-card *ngFor="let tramite of tramites">
 
@@ -17,21 +17,33 @@
 
     <ion-card-content>
       <p>
-        <strong>Tipo: </strong>{{ tramite.tipo }}</p>
+        <strong>Tipo: </strong>{{ tramite.tipo_tramite.nombre }}</p>
       <p>
         <strong>Fecha Solicitud: </strong>{{ tramite.created_at }}</p>
       <p>
-        <strong>Fecha Actualización: </strong>{{ tramite.updated_at }}</p>
+        <strong>Estado: </strong>{{ tramite.estado_tramite.nombre }}</p>
       <p>
-        <strong>Estado: </strong>{{ tramite.estado }}</p>
-      <p>
-        <strong>Motivo: </strong>{{ tramite.observaciones }}</p>
-      <p>
+        <strong>Indicativo serial: </strong>{{ tramite.indicativo_serial }}</p>
+
+      <p *ngIf="tramite.estado_tramite.nombre === 'Autorizado' ">
         <strong>Descarga: </strong>
-        <a [href]="tramite.descarga">{{ tramite.descarga }}</a>
+        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '1'" [navPush]="indexNacimiento" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
+        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '3'" [navPush]="indexMatrimonio" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
+        <a *ngIf="tramite.indicativo_serial.toString().substr(-20,1) === '2'" [navPush]="indexDefuncion" [navParams]="{data: tramite.indicativo_serial}">Decargar</a>
       </p>
+
+      <p *ngIf="tramite.estado_tramite.nombre === 'Pendiente' && usuario.perfil.nombre === 'Funcionario'">
+        <strong>Autorizar: </strong>
+        <a (click)="autorizar(tramite.id)">Autorizar</a>
+      </p>
+      <p *ngIf="tramite.estado_tramite.nombre === 'Pendiente' && usuario.perfil.nombre === 'Funcionario'">
+        <strong>Rechazar: </strong>
+        <a (click)="rechazar(tramite.id)">Rechazar</a>
+      </p>
+
+
 
     </ion-card-content>
 
-  </ion-card> -->
+  </ion-card>
 </ion-content>

@@ -18,6 +18,7 @@ export class ConsultasPage {
   registrosNacimientoInit: RCNacimiento[];
   registroNacimiento: RCNacimiento;
   indexRCNacimiento: any;
+  usuario: any;
 
   registrosMatrimonio: RCMatrimonio[];
   registrosMatrimonioInit: RCMatrimonio[];
@@ -36,16 +37,15 @@ export class ConsultasPage {
     private user: UserProvider) {
 
     this.segmento = 'nacimiento';
-
+    this.usuario = this.user.getUsuario();
     this.indexRCNacimiento = IndexRegistroCivilNacimientoPage;
     this.indexRCMatrimonio = IndexRegistroCivilMatrimonioPage;
     this.indexRCDefuncion = IndexRegistroCivilDefuncionPage;
-    this.poblarData();
+    this.validaUsuario();
 
   }
 
-  poblarData() {
-    console.log(this.user.getUsuario());
+  poblarDataFuncionario() {
     this.http.get('rc_nacimiento').then((data: any) => {
       this.registrosNacimiento = this.registrosNacimientoInit = data.data;
     });
@@ -55,6 +55,21 @@ export class ConsultasPage {
     });
 
     this.http.get('rc_defuncion').then((data: any) => {
+      this.registrosDefuncion = this.registrosDefuncionInit = data.data;
+    });
+  }
+
+  poblarDataCliente() {
+
+    this.http.get('rc_nacimiento/cliente/' + this.usuario.id).then((data: any) => {
+      this.registrosNacimiento = this.registrosNacimientoInit = data.data;
+    });
+
+    this.http.get('rc_matrimonio/cliente/' + this.usuario.id).then((data: any) => {
+      this.registrosMatrimonio = this.registrosMatrimonioInit = data.data;
+    });
+
+    this.http.get('rc_defuncion/cliente/' + this.usuario.id).then((data: any) => {
       this.registrosDefuncion = this.registrosDefuncionInit = data.data;
     });
   }
@@ -107,4 +122,13 @@ export class ConsultasPage {
     }
   }
 
+  validaUsuario() {
+
+    if (this.usuario.perfil.nombre === 'Cliente') {
+      this.poblarDataCliente();
+    }
+    if (this.usuario.perfil.nombre === 'Funcionario') {
+      this.poblarDataFuncionario();
+    }
+  }
 }

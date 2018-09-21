@@ -1,12 +1,7 @@
+import { RegistroCitaPage } from './../registro-cita/registro-cita';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CitasPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { UserProvider } from '../../providers/user/user';
 
 @Component({
   selector: 'page-citas',
@@ -14,7 +9,41 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class CitasPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  usuario: any;
+  isCliente: boolean;
+  isFuncionario: boolean;
+
+  constructor(public navCtrl: NavController,
+    private modalCtrl: ModalController,
+    public navParams: NavParams,
+    private viewCtrl: ViewController,
+    private user: UserProvider) {
+
+
+    this.isCliente = false;
+    this.isFuncionario = false;
+    this.usuario = this.user.getUsuario();
+    this.validaUsuario();
+  }
+
+  registroCita() {
+    const modal = this.modalCtrl.create(RegistroCitaPage);
+    modal.onDidDismiss(data => {
+      // this.http.get('tramite').then((data: any) => this.tramites = data.data);
+      // this.navCtrl.pop();
+    });
+    modal.present();
+  }
+
+  validaUsuario() {
+
+    if (this.usuario.perfil.nombre === 'Cliente') {
+      this.isCliente = true;
+    }
+    if (this.usuario.perfil.nombre === 'Funcionario') {
+      this.isFuncionario = true;
+    }
   }
 
 }

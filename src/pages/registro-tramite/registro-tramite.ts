@@ -12,7 +12,7 @@ import { RegistroPagoPage } from '../registro-pago/registro-pago';
 export class RegistroTramitePage {
 
   tiposTramite: TipoTramite[];
-  tramite: Tramite;
+  tramites: Tramite[];
   nacimiento: RCNacimiento;
   defuncion: RCDefuncion;
   matrimonio: RCMatrimonio;
@@ -88,16 +88,28 @@ export class RegistroTramitePage {
 
   solicitarNacimiento() {
     const modal = this.modalCtrl.create(RegistroPagoPage, { registro: this.nacimiento, busqueda: this.busqueda });
+    modal.onDidDismiss(data => {
+      this.http.get('tramite').then((data: any) => this.tramites = data.data);
+      this.navCtrl.pop();
+    });
     modal.present();
   }
 
   solicitarMatrimonio() {
     const modal = this.modalCtrl.create(RegistroPagoPage, { registro: this.matrimonio, busqueda: this.busqueda });
+    modal.onDidDismiss(data => {
+      this.http.get('tramite').then((data: any) => this.tramites = data.data);
+      this.navCtrl.pop();
+    });
     modal.present();
   }
 
   solicitarDefuncion() {
     const modal = this.modalCtrl.create(RegistroPagoPage, { registro: this.defuncion, busqueda: this.busqueda });
+    modal.onDidDismiss(data => {
+      this.http.get('tramite').then((data: any) => this.tramites = data.data);
+      this.navCtrl.pop();
+    });
     modal.present();
   }
 }

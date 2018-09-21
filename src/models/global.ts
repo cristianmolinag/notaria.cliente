@@ -73,9 +73,13 @@ export class Firma {
 export class Tramite {
     id: number;
     tipo_tramite_id: number;
+    tipo_tramite: TipoTramite;
     cliente_id: number;
     estado_tramite_id: number;
+    estado_tramite: EstadoTramite;
+    indicativo_serial: number;
     funcionario_id: number;
+    created_at: Date;
 }
 
 
