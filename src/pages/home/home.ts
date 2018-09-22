@@ -6,6 +6,7 @@ import { NavController, ToastController } from 'ionic-angular';
 import { MenuPage } from '../menu/menu';
 import { Storage } from '@ionic/storage';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
+import { RCNacimiento, RCDefuncion, RCMatrimonio } from '../../models/global';
 
 
 @Component({
@@ -20,6 +21,9 @@ export class HomePage {
   home: string;
   rootPage: any;
   registroCliente: any;
+  nacimiento: RCNacimiento;
+  defuncion: RCDefuncion;
+  matrimonio: RCMatrimonio;
 
 
   constructor(public navCtrl: NavController,
@@ -29,6 +33,11 @@ export class HomePage {
     private storage: Storage,
     private frmBuilder: FormBuilder) {
 
+    this.nacimiento = new RCNacimiento;
+    this.defuncion = new RCDefuncion;
+    this.matrimonio = new RCMatrimonio;
+
+
     this.frmLogin = this.frmBuilder.group({
       correo: ['', Validators.compose([Validators.required, Validators.email])],
       contrasena: ['', Validators.required],
@@ -36,7 +45,6 @@ export class HomePage {
 
     this.frmConsulta = this.frmBuilder.group({
       documento: ['', Validators.required],
-      codigo: ['', Validators.required],
     })
 
     this.home = 'consulta';
@@ -81,7 +89,45 @@ export class HomePage {
   }
 
   consulta() {
-    console.log(this.frmConsulta.value);
+    // console.log(this.frmConsulta.value.documento);
+
+    this.http.get('tramite/' + this.frmConsulta.value.documento).then((data: any) => {
+      if (!!data.data) {
+        if (!data.mensaje) {
+
+          var tipo_registro = data.data.tipo_registro;
+          console.log(tipo_registro);
+          switch (tipo_registro) {
+            case "rc_nacimiento":
+              this.defuncion.indicativo_serial = null;
+              this.matrimonio.indicativo_serial = null;
+              this.nacimiento = data.data;
+              break;
+            case "rc_matrimonio":
+              this.nacimiento.indicativo_serial = null;
+              this.defuncion.indicativo_serial = null;
+              this.matrimonio = data.data;
+              break;
+            case "rc_defuncion":
+              this.matrimonio.indicativo_serial = null;
+              this.nacimiento.indicativo_serial = null;
+              this.defuncion = data.data;
+              break;
+            default:
+              break;
+          }
+
+        }
+      }
+      else {
+        const toast = this.toastCtrl.create({
+          message: 'No se encontraron registros',
+          duration: 3000
+        });
+        toast.present();
+      }
+    });
+
   }
 
 }
