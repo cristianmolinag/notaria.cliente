@@ -158,11 +158,11 @@ export class RegistroCivilMatrimonioPage {
   guardarRegistro() {
 
     this.frmRegistro.patchValue({
+
       lugar_celebracion: this.frmRegistro.value.lugar_celebracion_pais.nombre + ' ' +
         this.frmRegistro.value.lugar_celebracion_departamento.nombre + ' ' +
         this.frmRegistro.value.lugar_celebracion_municipio.nombre + ' ' +
-        this.frmRegistro.value.lugar_celebracion_corregimiento.nombre ?
-        this.frmRegistro.value.lugar_celebracion_corregimiento.nombre : ''
+        this.frmRegistro.value.lugar_celebracion_corregimiento.nombre
     });
 
     console.log(this.frmRegistro.value);
