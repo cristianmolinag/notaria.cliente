@@ -27,6 +27,7 @@ export class UsuariosPage {
   rol: Rol;
   perfil: Perfil;
   isFuncionario: Boolean;
+  isAdministrador: Boolean;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -108,6 +109,11 @@ export class UsuariosPage {
     switch (usuario.perfil.nombre) {
       case "Funcionario":
         this.isFuncionario = true;
+        this.isAdministrador = false;
+        break;
+      case "Funcionario":
+        this.isFuncionario = false;
+        this.isAdministrador = true;
         break;
       default:
         break;

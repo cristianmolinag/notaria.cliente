@@ -68,7 +68,7 @@
           </p>
           <img [src]="item.firma.firma" alt="firma" style="width:100px;">
         </ion-item>
-        <ion-item>
+        <ion-item *ngIf="isAdministrador">
           <button ion-button block (click)="guardarFuncionario(item)">Editar</button>
         </ion-item>
       </ion-card>
