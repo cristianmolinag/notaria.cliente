@@ -1,3 +1,4 @@
+import { FacturaPage } from './../pages/factura/factura';
 import { RegistroCitaPage } from './../pages/registro-cita/registro-cita';
 import { RegistroPerfilPage } from './../pages/registro-perfil/registro-perfil';
 import { IndexRegistroCivilMatrimonioPage } from './../pages/index-registro-civil-matrimonio/index-registro-civil-matrimonio';
@@ -60,6 +61,7 @@ import { IndexRegistroCivilDefuncionPage } from '../pages/index-registro-civil-d
     IndexRegistroCivilDefuncionPage,
     RegistroPerfilPage,
     RegistroCitaPage,
+    FacturaPage,
   ],
   imports: [
     BrowserModule,
@@ -92,6 +94,8 @@ import { IndexRegistroCivilDefuncionPage } from '../pages/index-registro-civil-d
     IndexRegistroCivilDefuncionPage,
     RegistroPerfilPage,
     RegistroCitaPage,
+    FacturaPage,
+
   ],
   providers: [
     StatusBar,

@@ -1,0 +1,22 @@
+<ion-content padding>
+  <div id="content">
+
+    <h2>Comprobante de pago</h2>
+    <h4>Notaría 61</h4>
+
+    <p>
+      <strong>Cliente: </strong>{{ cliente.nombres }}</p>
+    <p>
+      <strong>Tipo transacción: </strong>{{ registro.tramite_nombre }}</p>
+    <p>
+      <strong>Fecha transacción: </strong>{{ fecha }}</p>
+    <p>
+      <strong>Valor: </strong>{{ registro.tramite_valor }}</p>
+    <p>
+      <strong>Forma de pago :</strong>{{ formaPago.nombre }}</p>
+
+  </div>
+
+  <button ion-button block (click)="guardar()">Guardar comprobante</button>
+
+</ion-content>

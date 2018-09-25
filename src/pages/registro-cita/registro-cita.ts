@@ -13,6 +13,8 @@ export class RegistroCitaPage {
   frmCita: FormGroup;
   usuario: any;
   minDate: string;
+  horas: string[];
+  minutos: string[];
 
 
   constructor(public navCtrl: NavController,
@@ -39,24 +41,37 @@ export class RegistroCitaPage {
     this.viewCtrl.dismiss();
   }
 
+  validarFecha() {
+
+  }
+
   crear() {
 
     this.frmCita.patchValue({
       cliente_id: this.usuario.id,
     });
-
-    console.log(this.frmCita.value);
-    this.http.post('cita', this.frmCita.value).then((data: any) => {
-      if (data.data) {
+    this.http.post('cita/horas/', this.frmCita.value).then((data: any) => {
+      console.log(data.data.length);
+      if (data.data.length > 0) {
         const toast = this.toastCtrl.create({
-          message: "Cita creada con éxito",
+          message: "La fecha y hora seleccionada ya está asignada",
           duration: 3000
         });
         toast.present();
-        this.dismiss();
       }
-    })
-
+      else {
+        this.http.post('cita', this.frmCita.value).then((data: any) => {
+          if (data.data) {
+            const toast = this.toastCtrl.create({
+              message: "Cita creada con éxito",
+              duration: 3000
+            });
+            toast.present();
+            this.dismiss();
+          }
+        })
+      }
+    });
   }
 
 }

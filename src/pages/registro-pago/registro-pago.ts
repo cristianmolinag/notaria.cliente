@@ -1,8 +1,9 @@
+import { FacturaPage } from './../factura/factura';
 import { HttpProvider } from './../../providers/http/http';
 import { UserProvider } from './../../providers/user/user';
 import { Usuario, Busqueda, TipoTramite, Pago, Tramite, FormaPago } from './../../models/global';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController, ModalController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
 
 @Component({
@@ -27,7 +28,8 @@ export class RegistroPagoPage {
     private http: HttpProvider,
     private viewCtrl: ViewController,
     private frmBuilder: FormBuilder,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private modalCtrl: ModalController) {
 
     this.usuario = user.getUsuario();
     this.registro = this.navParams.get('registro');
@@ -58,7 +60,6 @@ export class RegistroPagoPage {
       registro: this.registro,
     });
 
-    console.log(this.frmRegistro.value);
     this.http.post('tramite', this.frmRegistro.value).then((data: any) => {
       if (data.data) {
         const toast = this.toastCtrl.create({
@@ -66,7 +67,11 @@ export class RegistroPagoPage {
           duration: 3000
         });
         toast.present();
-        this.dismiss();
+        const modal = this.modalCtrl.create(FacturaPage, { data: this.frmRegistro.value });
+        modal.onDidDismiss(data => {
+          this.dismiss();
+        });
+        modal.present();
       } else {
         const toast = this.toastCtrl.create({
           message: "Error creando el registro",

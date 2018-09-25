@@ -21,10 +21,6 @@ export class HomePage {
   home: string;
   rootPage: any;
   registroCliente: any;
-  nacimiento: RCNacimiento;
-  defuncion: RCDefuncion;
-  matrimonio: RCMatrimonio;
-
 
   constructor(public navCtrl: NavController,
     private toastCtrl: ToastController,
@@ -32,11 +28,6 @@ export class HomePage {
     private user: UserProvider,
     private storage: Storage,
     private frmBuilder: FormBuilder) {
-
-    this.nacimiento = new RCNacimiento;
-    this.defuncion = new RCDefuncion;
-    this.matrimonio = new RCMatrimonio;
-
 
     this.frmLogin = this.frmBuilder.group({
       correo: ['', Validators.compose([Validators.required, Validators.email])],
@@ -89,34 +80,16 @@ export class HomePage {
   }
 
   consulta() {
-    // console.log(this.frmConsulta.value.documento);
 
     this.http.get('tramite/' + this.frmConsulta.value.documento).then((data: any) => {
       if (!!data.data) {
         if (!data.mensaje) {
 
-          var tipo_registro = data.data.tipo_registro;
-          console.log(tipo_registro);
-          switch (tipo_registro) {
-            case "rc_nacimiento":
-              this.defuncion.indicativo_serial = null;
-              this.matrimonio.indicativo_serial = null;
-              this.nacimiento = data.data;
-              break;
-            case "rc_matrimonio":
-              this.nacimiento.indicativo_serial = null;
-              this.defuncion.indicativo_serial = null;
-              this.matrimonio = data.data;
-              break;
-            case "rc_defuncion":
-              this.matrimonio.indicativo_serial = null;
-              this.nacimiento.indicativo_serial = null;
-              this.defuncion = data.data;
-              break;
-            default:
-              break;
-          }
-
+          const toast = this.toastCtrl.create({
+            message: "El documento si se encuentra registrado en esta notaría",
+            duration: 3000
+          });
+          toast.present();
         }
       }
       else {

@@ -76,62 +76,6 @@
         </small>
       </div>
 
-      <ion-grid text-center *ngIf="nacimiento.indicativo_serial">
-        <ion-row>
-          <ion-col col-12 col-md-10 offset-md-1>
-            <ion-item>
-              <p>
-                <strong>Nombres: </strong>{{ nacimiento.inscrito.nombres }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>Apellidos: </strong>{{ nacimiento.inscrito.primer_apellido }} {{ nacimiento.inscrito.segundo_apellido }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>Fecha nacimiento: </strong>{{ nacimiento.inscrito.fecha_nacimiento }}</p>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-grid text-center *ngIf="matrimonio.indicativo_serial">
-        <ion-row>
-          <ion-col col-12 col-md-10 offset-md-1>
-            <ion-item>
-              <p>
-                <strong>El contrayente: </strong>{{ matrimonio.contrayente_uno.nombres }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>La contrayente: </strong>{{ matrimonio.contrayente_dos.nombres }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>Fecha celebración: </strong>{{ matrimonio.fecha_celebracion }}</p>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-grid text-center *ngIf="defuncion.indicativo_serial">
-        <ion-row>
-          <ion-col col-12 col-md-10 offset-md-1>
-            <ion-item>
-              <p>
-                <strong>Nombres: </strong>{{ defuncion.inscrito_defuncion.nombres }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>Documento: </strong>{{ defuncion.inscrito_defuncion.documento }}</p>
-            </ion-item>
-            <ion-item>
-              <p>
-                <strong>Fecha defunción: </strong>{{ defuncion.fecha_defuncion }}</p>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     </ion-list>
   </div>
 
